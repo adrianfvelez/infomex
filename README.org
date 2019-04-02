@@ -1,0 +1,17 @@
+#+title: infoMex
+#+author: Adrián Vélez
+#+date: [2019-03-19 dom 19:33]
+
+Equipo: Delta-Soft
+
+Integrantes:
+Leal Villegas Oscar Tadeo,
+Monreal Gamboa Francisco Manuel,
+Valderrama Silva Alejandro Tonatiuh,
+Vélez Rivera Adrián Felipe
+
+El proyecto se compila con 'mvn clean install', y se corre con 'mvn tomcat7:run'
+y poniendo en un navegador 'http://localhost:8080/infomex/'.
+
+La base de datos se crea con el nombre 'infomex', y una vez dentro de ella se debe
+ejecutar el archivo 'baseDeDatos.sql'.
