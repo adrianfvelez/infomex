@@ -1,4 +1,4 @@
-package com.modelo;
+package unam.fciencias.infomex.modelo;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

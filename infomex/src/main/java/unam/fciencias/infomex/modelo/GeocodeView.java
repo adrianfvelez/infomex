@@ -1,4 +1,4 @@
-package com.modelo;
+package unam.fciencias.infomex.modelo;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
