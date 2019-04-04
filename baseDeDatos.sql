@@ -21,7 +21,9 @@ COMMENT ON TABLE informador IS 'Tabla que contiene la información relacionada c
 CREATE TABLE tema(
 	id_tema int,
 	nombre_tema varchar(100),
-	CONSTRAINT "PK_tema" PRIMARY KEY (id_tema)
+	correo_inf varchar(50),
+	CONSTRAINT "PK_tema" PRIMARY KEY (id_tema),
+	CONSTRAINT "FK_tema_informador" FOREIGN KEY (correo_inf) REFERENCES informador(correo_inf),
 );
 
 COMMENT ON TABLE tema IS 'Tabla que contiene toda la información de los temas.';
