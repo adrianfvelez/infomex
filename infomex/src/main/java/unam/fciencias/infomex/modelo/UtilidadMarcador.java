@@ -70,4 +70,31 @@ public class UtilidadMarcador {
         }
     }
     
+    
+        public void delete(Marcador marca) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            sessionObj.delete(marca);
+            sessionObj.getTransaction().commit();
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

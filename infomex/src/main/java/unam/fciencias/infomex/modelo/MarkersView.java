@@ -109,11 +109,12 @@ public class MarkersView implements Serializable {
         
         List<Marcador> listaCompleta = u.getTodosMarcadores();
         
-        for(Marcador marca : listaCompleta){
-            LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-            simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+        if(listaCompleta!=null){
+            for(Marcador marca : listaCompleta){
+                LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+            }
         }
-          
         //Shared coordinates
         LatLng coord1 = new LatLng(36.879466, 30.667648);
         LatLng coord2 = new LatLng(36.883707, 30.689216);
@@ -150,8 +151,11 @@ public class MarkersView implements Serializable {
     
     
     
-    public boolean elimina() {
-        return false;
+    public void elimina() {
+        u.delete( (Marcador) marker.getData());
+        
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Marcador eliminado"));
+        
     }
     
     
@@ -164,7 +168,7 @@ public class MarkersView implements Serializable {
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
         
-        user.setId_mar(randomNum);
+        //user.setId_mar(randomNum);
         user.setLatitud(latitud);
         user.setLongitud(longitud);
         user.setNombre_mar(nombre_mar);
@@ -173,7 +177,7 @@ public class MarkersView implements Serializable {
         user.setId_tema(1);
         
         u.save(user);
-        user=null;
+        //user=null;
         return null;
     }
     

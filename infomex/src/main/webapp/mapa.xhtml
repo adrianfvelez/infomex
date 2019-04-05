@@ -77,7 +77,7 @@
                     <br />
                     <h:outputText value= "#{markersView.marker.getData().getDescripcion_mar()}" />
                     <br />
-                    <p:commandButton value="Eliminar" icon="pi pi-search" action="#{markersView.elimina}" type="button"/>
+                    <p:commandButton value="Eliminar" icon="pi pi-search" action="#{markersView.elimina}" update=":messages" oncomplete="window.location.reload()"/>
                     
             </p:outputPanel>
         </p:gmapInfoWindow>

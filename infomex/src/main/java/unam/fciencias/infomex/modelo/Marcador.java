@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 public class Marcador {
     
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Basic(optional=false)
     @Column(name = "id_mar")
     private int id_mar;
 
