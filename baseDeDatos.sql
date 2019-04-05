@@ -29,7 +29,7 @@ CREATE TABLE tema(
 COMMENT ON TABLE tema IS 'Tabla que contiene toda la información de los temas.';
 
 CREATE TABLE marcador(
-	id_mar int,
+	id_mar serial,
 	id_tema int,
 	correo_inf varchar(20),
 	nombre_mar varchar(100),
