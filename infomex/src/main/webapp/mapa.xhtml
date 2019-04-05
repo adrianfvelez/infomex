@@ -98,9 +98,10 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;width: 100%;
  
                     <h:outputText value= "#{markersView.marker.title}" />
                     <br />
-                    <p:commandButton value="Agregar" icon="pi pi-search" onclick="geocode()" type="button" />
-                    <p:commandButton value="Editar" icon="pi pi-search" onclick="geocode()" type="button" />
-                    <p:commandButton value="Eliminar" icon="pi pi-search" onclick="geocode()" type="button" />
+                    <p:commandButton    value="Comentarios"
+                                        ajax="false"
+                                        action="agregar-comentario.xhmtl?faces-redirect=true"/>
+                    
  
             </p:outputPanel>
         </p:gmapInfoWindow>
