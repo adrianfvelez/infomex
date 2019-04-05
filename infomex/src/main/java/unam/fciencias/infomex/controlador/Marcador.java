@@ -8,7 +8,7 @@ package unam.fciencias.infomex.controlador;
 
 /**
  *
- * @author avelez
+ * @author manuel
  */
 public class Marcador {
 
