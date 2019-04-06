@@ -25,6 +25,17 @@ import javax.persistence.Transient;
 public class Comentario{
     
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Basic(optional=false)
+    @Column(name = "id_comentario")
+    private int id_comentario;
+    
+    @Column(name = "id_tema")
+    private int id_tema;
+    
+    @Column(name = "id_mar")
+    private int id_mar;
+    
     @Column(name = "correo_com")
     private String correo_com;
     
@@ -33,6 +44,30 @@ public class Comentario{
     
     @Column(name = "calificacion")
     private String calificacion;
+    
+    public int getId_comentario() {
+        return id_comentario;
+    }
+
+    public void setId_comentario(int id_comentario) {
+        this.id_comentario = id_comentario;
+    }
+    
+    public int getId_mar() {
+        return id_mar;
+    }
+
+    public void setId_mar(int id_mar) {
+        this.id_mar = id_mar;
+    }
+
+    public int getId_tema() {
+        return id_tema;
+    }
+
+    public void setId_tema(int id_tema) {
+        this.id_tema = id_tema;
+}
 
     public String getCorreo_com() {
         return correo_com;

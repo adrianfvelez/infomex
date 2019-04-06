@@ -12,7 +12,7 @@ import org.hibernate.Session;
  */
 public class UtilidadComentario {
     
-    static Comentario userObj;
+    static Comentario comObj;
     static Session sessionObj;
 
     public void save(Comentario comentario) {
@@ -33,5 +33,4 @@ public class UtilidadComentario {
             }
         }
     }
-    
 }
