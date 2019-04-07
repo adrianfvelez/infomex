@@ -43,7 +43,7 @@ public class Comentario{
     private String descripcion;
     
     @Column(name = "calificacion")
-    private String calificacion;
+    private int calificacion;
     
     public int getId_comentario() {
         return id_comentario;
@@ -85,11 +85,11 @@ public class Comentario{
         this.descripcion = descripcion;
     }
 
-    public String getCalificacion() {
+    public int getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(int calififcacion) {
+    public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }    
     

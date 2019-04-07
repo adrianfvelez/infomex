@@ -41,13 +41,14 @@ public class AgregaComentario {
     }
     
     public String addComentario() {
+        comment.setId_mar(1);
+        comment.setId_tema(1);
+        u.save(comment);
+        comment = null;
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
-        u.save(comment);
-        comment = null;
-        
+                                "Comentario agregado", ""));
         return null;
     }
     

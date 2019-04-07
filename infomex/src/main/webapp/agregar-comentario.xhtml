@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>Descripción</td>
-                    <td><p:inputText value="#{agregaComentario.descripcion}"
+                    <td><p:inputText value="#{agregaComentario.comment.descripcion}"
                                      required="true"
                                      id="descripcion"
                                      size="40"/></td>
@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <p:commandButton action="#{agregaComentario.addComment}"
+                        <p:commandButton action="#{agregaComentario.addComentario}"
                                          value="Agregar"/>
                         <p:commandButton
                                         value="Cancelar"
