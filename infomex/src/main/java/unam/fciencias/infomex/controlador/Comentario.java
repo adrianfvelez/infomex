@@ -23,12 +23,16 @@ public class Comentario {
 
     private int calificacion;
     
-    public void setId_comentario(int id_mar) {
-        this.id_mar = id_mar;
+    public void setId_comentario(int id_comentario) {
+        this.id_comentario = id_comentario;
     }
 
     public int getId_comentario() {
-        return id_tema;
+        return id_comentario;
+    }
+    
+    public int getId_mar() {
+        return id_mar;
     }
     
     public void setId_mar(int id_mar) {
