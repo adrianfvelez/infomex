@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Infomex</title>
+    </h:head>
+    <h:body>
+        <h1>Eliminar Tema</h1> <br/>
+        <h:form id="myForm">
+            <table>
+                <tr><td>
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+            </table>
+            <table>
+                <tr>
+                    <td>Elimine sus temas</td>
+                                                   
+                    <p:dataTable var="tema" value="#{dtTemaView.temas}">
+                        
+                            <p:column headerText="Id">
+                                <h:outputText value="#{tema.id_tema}"/>
+                            </p:column>
+                        
+                            <p:column headerText="Temas">
+                                <h:outputText value="#{tema.nombre_tema}"/>
+                            </p:column>
+                        
+                    </p:dataTable>
+                                     
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>

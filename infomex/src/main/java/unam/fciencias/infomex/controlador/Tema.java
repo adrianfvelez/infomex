@@ -20,6 +20,7 @@ public class Tema {
     public void setId_tema(int id_tema) {
         this.id_tema = id_tema;
     }
+    
     private String nombre_tema;
 
     public void setNombre_tema(String nombre_tema) {

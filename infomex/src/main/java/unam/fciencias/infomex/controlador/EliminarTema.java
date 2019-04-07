@@ -13,6 +13,7 @@ package unam.fciencias.infomex.controlador;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -20,9 +21,11 @@ import javax.faces.context.FacesContext;
 import unam.fciencias.infomex.modelo.Tema;
 import unam.fciencias.infomex.modelo.UtilidadTema;
 
-@ManagedBean
+@ManagedBean(name="eliminarTema")
+@ApplicationScoped
 @RequestScoped
-public class AgregarTema {
+
+public class EliminarTema {
     
     private Tema tema = new Tema();
     private UtilidadTema u = new UtilidadTema();
@@ -35,22 +38,21 @@ public class AgregarTema {
         this.tema = tema;
     }
     
-    public AgregarTema() {
+    public EliminarTema() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addTema() {
+    public String borrarTema() {
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
+                                "Felicidades, se ha eliminado correctamente", ""));
         //tema.setId_tema(u.getId());
-        u.save(tema);
+        u.delete(tema);
         tema = null;
         
         return null;
     }
-    
 }
