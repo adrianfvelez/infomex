@@ -70,7 +70,29 @@ public class UtilidadComentario {
         }
     }
     
-    public void delete(Comentario comentario) {
+    public void deleteOnId(int comentario) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            String hql = "delete Comentario c wehre c.id_comentario= :comentario";
+            Query query = sessionObj.createQuery(hql);
+            query.setInteger("comentario", comentario);
+            query.executeUpdate();
+            sessionObj.getTransaction().commit();
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
+    
+    /*public void delete(Comentario comentario) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
@@ -87,5 +109,5 @@ public class UtilidadComentario {
                 sessionObj.close();
             }
         }
-    }
+    }*/
 }

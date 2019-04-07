@@ -10,7 +10,7 @@
             font-weight: bold;
         }
     </style>
-    <h:form>
+    <!---<h:form>
         <p:messages>
             <p:autoUpdate />
         </p:messages>
@@ -22,14 +22,22 @@
                 <f:selectItems value="#{selectOneMenuView.options}" />
             </p:selectOneMenu>
         </h:panelGrid>
-    </h:form>
+    </h:form>-->
     
-    <!---<h:form>
+    <h:body>
+        <h1>Eliminar  Comentario</h1> <br/>
+    </h:body>
+    
+    <h:form>
         <h:panelGrid columns="4" cellpadding="5">
             <h:outputLabel for="name" value="id_Comentario:" style="font-weight:bold" />
-            <p:inputText id="name" value="#{SelectOneMenuView.text}" />
-            <p:commandButton value="Eliminar" update="display" icon="pi pi-check" />
-            <h:outputText id="display" value="#{SelecOneMenuView.text}" />
+            <p:inputText id="name" value="#{eliminaComentario.comment}" />
+            <p:commandButton action="#{eliminaComentario.removeComentario}" value="Eliminar"/>
+            <p:commandButton
+                                value="Cancelar"
+                                ajax="false"
+                                action="mapa.xhmtl?faces-redirect=true"/>
         </h:panelGrid>
-    </h:form>-->
+    </h:form>
+    
 </html>

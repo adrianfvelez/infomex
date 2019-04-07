@@ -19,7 +19,7 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
  */
 @ManagedBean
 public class SelectOneMenuView {
-    private String option;  
+    /*private String option;  
     private List<Comentario> options;
     
     private UtilidadComentario u = new UtilidadComentario();
@@ -43,13 +43,14 @@ public class SelectOneMenuView {
  
     public void setOptions(List<Comentario> options) {
         this.options = options;
-    }
-    /*private String text;
+    }*/
+    
+    private int text;
  
-    public String getText() {
+    public int getIdComment() {
         return text;
     }
-    public void setText(String text) {
+    public void setIdComment(int text) {
         this.text = text;
-    }*/
+    }
 }
