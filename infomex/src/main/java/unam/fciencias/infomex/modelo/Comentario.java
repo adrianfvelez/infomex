@@ -76,6 +76,14 @@ public class Comentario{
     public void setCorreo_com(String correo_com) {
         this.correo_com = correo_com;
     }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public String getCalificacion() {
         return calificacion;
@@ -84,4 +92,5 @@ public class Comentario{
     public void setCalificacion(int calififcacion) {
         this.calificacion = calificacion;
     }    
+    
 }
