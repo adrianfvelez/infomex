@@ -8,7 +8,7 @@
         <title>Infomex</title>
     </h:head>
     <h:body>
-        <h1>Regístrate</h1> <br/>
+        <h1>Registro de informadores</h1> <br/>
         <h:form id="myForm">
             <table>
                 <tr><td>
@@ -18,42 +18,28 @@
             <table>
                 <tr>
                     <td>Correo electrónico</td>
-                    <td><p:inputText value="#{registraComentarista.user.correo_com}"
+                    <td><p:inputText value="#{registrarInformador.user.correo_inf}"
                                      required="true"
-                                     id="correo_com"
+                                     id="correo_inf"
                                      size="40"/></td>
                 </tr>
                 <tr>
                     <td>Usuario</td>
-                    <td><p:inputText value="#{registraComentarista.user.usuario_com}"
+                    <td><p:inputText value="#{registrarInformador.user.usuario_inf}"
                                      required="true"
-                                     id="usuario_com"
-                                     size="40"/></td>
-                </tr>
-                <tr>
-                    <td>Nombre</td>
-                    <td><p:inputText value="#{registraComentarista.user.nombre}"
-                                     required="true"
-                                     id="nombre"
-                                     size="40"/></td>
-                </tr>
-                <tr>
-                    <td>Fecha de nacimiento</td>
-                    <td><p:inputText value="#{registraComentarista.user.fecha_nacimiento}"
-                                     required="true"
-                                     id="fecha_nacimiento"
+                                     id="usuario_inf"
                                      size="40"/></td>
                 </tr>
                 <tr>
                     <td>Contraseña</td>
-                    <td><p:password value="#{registraComentarista.user.contrasenia_com}"
+                    <td><p:password value="#{registrarInformador.user.contrasenia_inf}"
                                     required="true"
                                     feedback="true"
-                                    id="contrasenia_com"/></td>
+                                    id="contrasenia_inf"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <p:commandButton action="#{registraComentarista.addUser}"
+                        <p:commandButton action="#{registrarInformador.addInformador}"
                                          value="Registrar"/>
                         <p:commandButton value="Reset"
                                          update="myForm"
