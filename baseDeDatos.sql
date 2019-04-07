@@ -19,7 +19,7 @@ CREATE TABLE informador(
 COMMENT ON TABLE informador IS 'Tabla que contiene la información relacionada con los informadores y el administrador, teniendo como llave primaria su correo electrónico.';
 
 CREATE TABLE tema(
-	id_tema int,
+	id_tema serial,
 	nombre_tema varchar(100),
 	correo_inf varchar(50),
 	CONSTRAINT "PK_tema" PRIMARY KEY (id_tema),
@@ -44,7 +44,7 @@ CREATE TABLE marcador(
 COMMENT ON TABLE marcador IS 'Tabla con la información de todos los marcadores.';
 
 CREATE TABLE comentario(
-	id_comentario int,
+	id_comentario serial,
 	id_mar int,
 	id_tema int,
 	correo_com varchar(50),
