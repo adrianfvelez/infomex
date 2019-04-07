@@ -24,6 +24,8 @@ import javax.persistence.Transient;
 public class Tema {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional=false)
     @Column(name = "id_tema")
     private int id_tema;
     

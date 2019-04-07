@@ -46,7 +46,7 @@ public class AgregarTema {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Felicidades, el registro se ha realizado correctamente", ""));
-        tema.setId_tema(u.getId());
+        //tema.setId_tema(u.getId());
         u.save(tema);
         tema = null;
         
