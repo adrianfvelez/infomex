@@ -8,6 +8,9 @@ package unam.fciencias.infomex.app;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import unam.fciencias.infomex.modelo.Informador;
 
 /**
  *
@@ -20,6 +23,12 @@ public class HelloBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
 	private String name;
+        
+        public HelloBean(){
+            FacesContext context = FacesContext.getCurrentInstance();
+            Informador i = (Informador)context.getExternalContext().getSessionMap().get("usuario");         
+            name = i.getUsuario_inf();
+        }
 
 	public String getName() {
 		return name;

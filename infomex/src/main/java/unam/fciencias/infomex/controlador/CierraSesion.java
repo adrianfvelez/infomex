@@ -12,42 +12,26 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import unam.fciencias.infomex.modelo.Comentarista;
-import unam.fciencias.infomex.modelo.UtilidadComentarista;
-
 /**
  *
  * @author avelez
  */
 @ManagedBean
 @RequestScoped
-public class RegistraComentarista {
+public class CierraSesion {
     
-    private Comentarista user = new Comentarista();
-    private UtilidadComentarista u = new UtilidadComentarista();
-    
-    public Comentarista getUser() {
-        return user;
-    }
-
-    public void setUser(Comentarista user) {
-        this.user = user;
-    }
-
-    public RegistraComentarista() {
+    public CierraSesion() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addUser() {
-        u.save(user);
-        user = null;
+    public void cierra(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
-        return null;
-    }
-    
+                                "Se ha cerrado la sesión", ""));
+    }    
 }
