@@ -6,14 +6,13 @@
 package unam.fciencias.infomex.controlador;
 
 import java.util.Locale;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import unam.fciencias.infomex.modelo.Comentarista;
-import unam.fciencias.infomex.modelo.UtilidadComentarista;
+import unam.fciencias.infomex.modelo.Informador;
+import unam.fciencias.infomex.modelo.UtilidadInformador;
 
 /**
  *
@@ -21,32 +20,31 @@ import unam.fciencias.infomex.modelo.UtilidadComentarista;
  */
 @ManagedBean
 @RequestScoped
-public class RegistraComentarista {
+public class RegistrarInformador {
+    private Informador user = new Informador();
+    private UtilidadInformador u = new UtilidadInformador();
     
-    private Comentarista user = new Comentarista();
-    private UtilidadComentarista u = new UtilidadComentarista();
-    
-    public Comentarista getUser() {
+    public Informador getUser() {
         return user;
     }
 
-    public void setUser(Comentarista user) {
+    public void setUser(Informador user) {
         this.user = user;
     }
-
-    public RegistraComentarista() {
+    
+    public RegistrarInformador() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addUser() {
+    public String addInformador() {
         u.save(user);
-        user = null;
+        user = new Informador();
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
+                                "Se ha registrado al informador correctamente", ""));
         return null;
     }
     

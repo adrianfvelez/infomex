@@ -5,8 +5,6 @@
  */
 package unam.fciencias.infomex.controlador;
 
-import java.util.Date;
-
 /**
  *
  * @author avelez
