@@ -16,6 +16,8 @@ import unam.fciencias.infomex.modelo.Comentarista;
 import unam.fciencias.infomex.modelo.UtilidadComentarista;
 import unam.fciencias.infomex.modelo.Informador;
 import unam.fciencias.infomex.modelo.UtilidadInformador;
+
+import java.util.concurrent.TimeUnit;
 /**
  *
  * @author avelez
@@ -69,7 +71,7 @@ public class IniciaSesion {
         this.contrasenia_a_buscar = contrasenia_a_buscar;
     }
     
-    public void inicia() {
+    public String inicia() throws InterruptedException {
         Comentarista usuario_com = u_comentarista.buscaPorCorreo(correo_a_buscar);
         if(usuario_com != null){
             if(usuario_com.getContrasenia_com().equals(contrasenia_a_buscar)){
@@ -80,14 +82,16 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como comentarista", ""));
+                TimeUnit.SECONDS.sleep(3);
+                return "welcome";
             }
             else{
                 FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Correo o contraseña incorrectos", ""));
+                return "";
             }
-            return;
         }
         Informador usuario_inf = u_informador.buscaPorCorreo(correo_a_buscar);
         if(usuario_inf != null){
@@ -99,6 +103,8 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como informador", ""));
+                TimeUnit.SECONDS.sleep(3);
+                return "welcome";
             }
             else{
                 FacesContext.getCurrentInstance()
@@ -107,6 +113,7 @@ public class IniciaSesion {
                                 "Correo o contraseña incorrectos", ""));
             }
         }
+        return "";
     }
     
     public void prueba(){
