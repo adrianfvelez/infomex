@@ -16,40 +16,6 @@ public class UtilidadComentario {
     
     static Comentario comObj;
     static Session sessionObj;
-    
-    public List<Comentario> getTodosComentarios(){
-        List<Comentario> obj = null;
-        sessionObj = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-            sessionObj.beginTransaction();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"1"+"\n\n\n\n\n\n\n");
-            String hql = "FROM Comentario";
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"2"+"\n\n\n\n\n\n\n");
-            Query query = sessionObj.createQuery(hql);
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"3"+"\n\n\n\n\n\n\n");
-            obj = (List<Comentario>)query.list();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"4"+"\n\n\n\n\n\n\n");
-            sessionObj.getTransaction().commit();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+obj+"\n\n\n\n\n\n\n");
-            if(obj.isEmpty()){
-                return null;
-            }else{
-                return obj;
-            }
-        }catch(Exception sqlException){
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......ERROOOOOOOOOOOR.......");
-                sessionObj.getTransaction().rollback();
-            }
-            sqlException.printStackTrace();
-        }finally{
-            if (sessionObj != null) {
-                sessionObj.close();
-            }            
-        } 
-        return null;
-    }
 
     public void save(Comentario comentario) {
         try {
@@ -77,6 +43,29 @@ public class UtilidadComentario {
             String hql = "delete Comentario c where c.id_comentario= :comentario";
             Query query = sessionObj.createQuery(hql);
             query.setInteger("comentario", comentario);
+            query.executeUpdate();
+            sessionObj.getTransaction().commit();
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
+    
+    public void setDescripcion(int id, String nuevaDescripcion) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            //buscar la query adecuada
+            String hql = "delete Comentario c where c.id_comentario= :comentario";
+            Query query = sessionObj.createQuery(hql);
+            query.setString("descripcion", nuevaDescripcion);
             query.executeUpdate();
             sessionObj.getTransaction().commit();
         } catch (Exception sqlException) {
