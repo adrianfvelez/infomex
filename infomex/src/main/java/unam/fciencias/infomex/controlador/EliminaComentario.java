@@ -22,15 +22,15 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
 @RequestScoped
 public class EliminaComentario {
     
-    private int comment;
+    private int id;
     private UtilidadComentario u = new UtilidadComentario();
     
     public int getComment() {
-        return comment;
+        return id;
     }
 
-    public void setComment(int comment) {
-        this.comment = comment;
+    public void setComment(int id) {
+        this.id = id;
     }
     
     public EliminaComentario() {
@@ -40,7 +40,7 @@ public class EliminaComentario {
     }
     
     public String removeComentario() {
-        u.deleteOnId(comment);
+        u.deleteOnId(id);
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,

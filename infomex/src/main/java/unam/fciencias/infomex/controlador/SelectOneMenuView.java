@@ -19,6 +19,7 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
  */
 @ManagedBean
 public class SelectOneMenuView {
+    
     /*private String option;  
     private List<Comentario> options;
     

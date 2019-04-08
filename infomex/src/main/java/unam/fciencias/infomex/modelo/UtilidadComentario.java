@@ -74,7 +74,7 @@ public class UtilidadComentario {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
-            String hql = "delete Comentario c wehre c.id_comentario= :comentario";
+            String hql = "delete Comentario c where c.id_comentario= :comentario";
             Query query = sessionObj.createQuery(hql);
             query.setInteger("comentario", comentario);
             query.executeUpdate();
