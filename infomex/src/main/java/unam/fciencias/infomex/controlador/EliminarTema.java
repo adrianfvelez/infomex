@@ -45,13 +45,14 @@ public class EliminarTema {
     }
     
     public String borrarTema() {
+        
+        //tema.setId_tema(u.getId());
+        u.eliminaTema(tema);
+        tema = new Tema();
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Felicidades, se ha eliminado correctamente", ""));
-        //tema.setId_tema(u.getId());
-        u.delete(tema);
-        tema = null;
         
         return null;
     }

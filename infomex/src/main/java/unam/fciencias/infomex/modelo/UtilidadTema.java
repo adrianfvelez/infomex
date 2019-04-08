@@ -18,26 +18,18 @@ public class UtilidadTema {
     static Tema userObj;
     static Session sessionObj;
     
-    public int getId(){
-        List<Tema> obj = null;
+    public void eliminaTema(Tema tema){
+        String nombre = tema.getNombre_tema();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-
+        
         try{
             sessionObj.beginTransaction();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"1"+"\n\n\n\n\n\n\n");
-            String hql = "FROM Tema";
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"2"+"\n\n\n\n\n\n\n");
+            String hql = "delete Tema t where t.nombre_tema = :nombre";
             Query query = sessionObj.createQuery(hql);
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"3"+"\n\n\n\n\n\n\n");
-            obj = (List<Tema>)query.list();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+"4"+"\n\n\n\n\n\n\n");
+            query.setString("nombre", nombre);
+            query.executeUpdate();
             sessionObj.getTransaction().commit();
-            //System.out.println("\n\n\n\n\n\n\n\n\n\n\n"+obj+"\n\n\n\n\n\n\n");
-            if(obj.isEmpty()){
-                return 1;
-            }else{
-                return obj.get(obj.size()-1).getId_tema()+1;
-            }
+            
         }catch(Exception sqlException){
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......ERROOOOOOOOOOOR.......");
@@ -49,7 +41,7 @@ public class UtilidadTema {
                 sessionObj.close();
             }            
         } 
-        return 0;
+        //return 0;
     }
     
         public List<Tema> getTodosTemas(){

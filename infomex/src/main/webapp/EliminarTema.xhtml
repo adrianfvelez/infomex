@@ -17,20 +17,23 @@
             </table>
             <table>
                 <tr>
-                    <td>Elimine sus temas</td>
+                    <td>Escriba el nombre del tema a eliminar: </td>
                                                    
-                    <p:dataTable var="tema" value="#{dtTemaView.temas}">
-                        
-                            <p:column headerText="Id">
-                                <h:outputText value="#{tema.id_tema}"/>
-                            </p:column>
-                        
-                            <p:column headerText="Temas">
-                                <h:outputText value="#{tema.nombre_tema}"/>
-                            </p:column>
-                        
-                    </p:dataTable>
-                                     
+                    <td><p:inputText value="#{eliminarTema.tema.nombre_tema}"
+                                     required="true"
+                                     id="nombre_tema"
+                                     size="40"/>
+                    </td>
+                    <td colspan="2" align="center">
+                        <p:commandButton action="#{eliminarTema.borrarTema}"
+                                         value="Eliminar"/>
+                        <p:commandButton value="Reset"
+                                         update="myForm"
+                                         process="@this">
+                            <p:resetInput target="myForm" />
+                        </p:commandButton>
+                    </td>
+                    
                 </tr>
             </table>
         </h:form>
