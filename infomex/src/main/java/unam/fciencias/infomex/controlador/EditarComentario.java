@@ -18,6 +18,8 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
  *
  * @author valde
  */
+@ManagedBean
+@RequestScoped
 public class EditarComentario {
     
     private int id;
@@ -57,6 +59,7 @@ public class EditarComentario {
     
     public String editComentario() {
         u.setDescripcion(id, nuevaDescripcion);
+        u.setCalificacion(id, nuevaCalificacion);
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
