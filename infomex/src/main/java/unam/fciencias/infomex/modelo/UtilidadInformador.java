@@ -7,21 +7,21 @@ package unam.fciencias.infomex.modelo;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import static unam.fciencias.infomex.modelo.UtilidadInformador.sessionObj;
+
 /**
  *
  * @author avelez
  */
-public class UtilidadComentarista {
+public class UtilidadInformador {
     
-    static Comentarista userObj;
+    static Informador userObj;
     static Session sessionObj;
-
-    public void save(Comentarista comentarista) {
+    
+    public void save(Informador informador) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
-            sessionObj.save(comentarista);
+            sessionObj.save(informador);
             sessionObj.getTransaction().commit();
         } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
@@ -36,16 +36,16 @@ public class UtilidadComentarista {
         }
     }
     
-    public Comentarista buscaPorCorreo(String correo) {
+    public Informador buscaPorCorreo(String correo) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
-            String hql = "FROM Comentarista c WHERE c.correo_com = :correo";
+            String hql = "FROM Informador i WHERE i.correo_inf = :correo";
             Query query = sessionObj.createQuery(hql);
             query.setString("correo",correo);
-            Comentarista comen = (Comentarista)query.uniqueResult();
+            Informador inf = (Informador)query.uniqueResult();
             sessionObj.getTransaction().commit();
-            return comen;
+            return inf;
         } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
@@ -59,4 +59,5 @@ public class UtilidadComentarista {
         }
         return null;
     }
+    
 }

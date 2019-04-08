@@ -5,49 +5,55 @@
  */
 package unam.fciencias.infomex.controlador;
 
+/**
+ *
+ * @author oscar
+ */
+
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import unam.fciencias.infomex.modelo.Comentarista;
-import unam.fciencias.infomex.modelo.UtilidadComentarista;
+import unam.fciencias.infomex.modelo.Tema;
+import unam.fciencias.infomex.modelo.UtilidadTema;
 
-/**
- *
- * @author avelez
- */
-@ManagedBean
+@ManagedBean(name="eliminarTema")
+@ApplicationScoped
 @RequestScoped
-public class RegistraComentarista {
+
+public class EliminarTema {
     
-    private Comentarista user = new Comentarista();
-    private UtilidadComentarista u = new UtilidadComentarista();
+    private Tema tema = new Tema();
+    private UtilidadTema u = new UtilidadTema();
     
-    public Comentarista getUser() {
-        return user;
+    public Tema getTema() {
+        return tema;
     }
 
-    public void setUser(Comentarista user) {
-        this.user = user;
+    public void setTema(Tema tema) {
+        this.tema = tema;
     }
-
-    public RegistraComentarista() {
+    
+    public EliminarTema() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addUser() {
-        u.save(user);
-        user = null;
+    public String borrarTema() {
+        
+        //tema.setId_tema(u.getId());
+        u.eliminaTema(tema);
+        tema = new Tema();
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
+                                "Felicidades, se ha eliminado correctamente", ""));
+        
         return null;
     }
-    
 }

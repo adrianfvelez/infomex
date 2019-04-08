@@ -15,5 +15,7 @@
     <!-- Mapping With Model Class Containing Annotations -->
     <mapping class="unam.fciencias.infomex.modelo.Comentarista" file="" jar="" package="" resource=""/>
     <mapping class="unam.fciencias.infomex.modelo.Marcador" file="" jar="" package="" resource=""/>
+    <mapping class="unam.fciencias.infomex.modelo.Tema" file="" jar="" package="" resource=""/>
+    <mapping class="unam.fciencias.infomex.modelo.Informador" file="" jar="" package="" resource=""/>
   </session-factory>
 </hibernate-configuration>
