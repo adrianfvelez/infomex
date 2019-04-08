@@ -58,4 +58,5 @@ CREATE TABLE comentario(
 COMMENT ON TABLE comentario IS 'Tabla con la información de todos los comentarios.';
 
 INSERT INTO informador VALUES ('admin','admin', 'admin');
+INSERT INTO tema VALUES(default,'Restaurantes','admin');
 
