@@ -5,6 +5,7 @@
  */
 package unam.fciencias.infomex.modelo;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -33,6 +34,30 @@ public class UtilidadInformador {
                 sessionObj.close();
             }
         }
+    }
+    
+    public Informador buscaPorCorreo(String correo) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            String hql = "FROM Informador i WHERE i.correo_inf = :correo";
+            Query query = sessionObj.createQuery(hql);
+            query.setString("correo",correo);
+            Informador inf = (Informador)query.uniqueResult();
+            sessionObj.getTransaction().commit();
+            return inf;
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+        return null;
     }
     
 }

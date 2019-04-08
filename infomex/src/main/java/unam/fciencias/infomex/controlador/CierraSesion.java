@@ -6,13 +6,11 @@
 package unam.fciencias.infomex.controlador;
 
 import java.util.Locale;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
-import unam.fciencias.infomex.modelo.Informador;
-import unam.fciencias.infomex.modelo.UtilidadInformador;
 
 /**
  *
@@ -20,32 +18,20 @@ import unam.fciencias.infomex.modelo.UtilidadInformador;
  */
 @ManagedBean
 @RequestScoped
-public class RegistrarInformador {
-    private Informador user = new Informador();
-    private UtilidadInformador u = new UtilidadInformador();
+public class CierraSesion {
     
-    public Informador getUser() {
-        return user;
-    }
-
-    public void setUser(Informador user) {
-        this.user = user;
-    }
-    
-    public RegistrarInformador() {
+    public CierraSesion() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addInformador() {
-        u.save(user);
-        user = new Informador();
+    public void cierra(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Se ha registrado al informador correctamente", ""));
-        return null;
-    }
-    
+                                "Se ha cerrado la sesión", ""));
+    }    
 }

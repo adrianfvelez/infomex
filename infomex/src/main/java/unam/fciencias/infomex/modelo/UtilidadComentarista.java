@@ -5,7 +5,9 @@
  */
 package unam.fciencias.infomex.modelo;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import static unam.fciencias.infomex.modelo.UtilidadInformador.sessionObj;
 /**
  *
  * @author avelez
@@ -34,4 +36,27 @@ public class UtilidadComentarista {
         }
     }
     
+    public Comentarista buscaPorCorreo(String correo) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            String hql = "FROM Comentarista c WHERE c.correo_com = :correo";
+            Query query = sessionObj.createQuery(hql);
+            query.setString("correo",correo);
+            Comentarista comen = (Comentarista)query.uniqueResult();
+            sessionObj.getTransaction().commit();
+            return comen;
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+        return null;
+    }
 }
