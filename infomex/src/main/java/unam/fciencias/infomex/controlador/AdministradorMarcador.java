@@ -1,6 +1,7 @@
 package unam.fciencias.infomex.controlador;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,11 +13,10 @@ import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-
-import java.util.Random;
-
 import unam.fciencias.infomex.modelo.Marcador;
 import unam.fciencias.infomex.modelo.UtilidadMarcador;
+import unam.fciencias.infomex.modelo.UtilidadTema;
+import unam.fciencias.infomex.modelo.Tema;
 
 @ManagedBean
 @ViewScoped
@@ -24,6 +24,11 @@ public class AdministradorMarcador implements Serializable {
     
     private Marcador user = new Marcador();
     private UtilidadMarcador u = new UtilidadMarcador();
+
+    private List<Tema> options;
+    private List<String> optionsNombre;
+    private String nombreMarcador;
+    private UtilidadTema uu = new UtilidadTema();
     
     private int id_mar;
     
@@ -96,7 +101,13 @@ public class AdministradorMarcador implements Serializable {
     }
     
     
-    
+    public String getNombreTema(int i){
+        UtilidadTema uu = new UtilidadTema();
+        for(Tema u:uu.getTodosTemas()){
+            if(i==u.getId_tema()) return u.getNombre_tema();
+        }
+        return "=(";
+    }
     
     
     private MapModel simpleModel;
@@ -120,6 +131,15 @@ public class AdministradorMarcador implements Serializable {
           
         //Ponemos el marcador en el mapa
         simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico"));
+        
+        options =  uu.getTodosTemas();
+        if(options != null){
+            optionsNombre = new ArrayList<String>();
+            for(Tema i : options){
+                optionsNombre.add(i.getNombre_tema());
+            }            
+        }
+        
     }
   
     public void setSimpleModel(MapModel a){
@@ -140,11 +160,6 @@ public class AdministradorMarcador implements Serializable {
     }
     
     
-    
-    
-    
-    
-    
     public void eliminaMarcador() {
         u.delete( (Marcador) marker.getData());
         
@@ -152,29 +167,62 @@ public class AdministradorMarcador implements Serializable {
         
     }
     
-    
+    public int getIdTema(){
+        for(Tema i : options){
+            if(nombreMarcador.equals(i.getNombre_tema())) return i.getId_tema();
+        }
+        return -1;
+    }
+        
     public String agregaMarcador() {
         Marker marke = new Marker(new LatLng(latitud, longitud), nombre_mar);
         simpleModel.addOverlay(marke);
           
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marcador añadido", "Lat:" + latitud + ", Lng:" + longitud));
-        
-        Random rand = new Random();
-        int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
-        
-        //user.setId_mar(randomNum);
+       
         user.setLatitud(latitud);
         user.setLongitud(longitud);
         user.setNombre_mar(nombre_mar);
         user.setDescripcion_mar(descripcion_mar);
-        user.setCorreo_inf("admin");
-        user.setId_tema(1);
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Informador i = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
+        //user.setCorreo_inf("admin");
+        user.setCorreo_inf(i.getCorreo_inf());
+        user.setId_tema(getIdTema());
         
         u.save(user);
         //user=null;
+        
+        List<Marcador> listaCompleta = u.getTodosMarcadores();
+        if(listaCompleta!=null){
+            for(Marcador marca : listaCompleta){
+                LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+            }
+        }
+        
+        
         return null;
     }
     
     
+
+    public List<String> getOptionsNombre() {
+        return optionsNombre;
+    }
+ 
+    public void setOption(List<String> optionsNombre) {
+        this.optionsNombre = optionsNombre;
+    }
+
+    public String getNombreMarcador() {
+        return nombreMarcador;
+    }
+
+    public void setNombreMarcador(String nombreMarcador) {
+        this.nombreMarcador = nombreMarcador;
+    }
+    
+
     
 }

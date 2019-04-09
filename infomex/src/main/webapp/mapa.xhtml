@@ -73,6 +73,7 @@
  
                 currentMarker = null;
                 PF('dlg').hide();
+                window.location.href = 'mapa.xhtml';
             }
  
             function cancel() {
@@ -101,6 +102,8 @@
                     <br />
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
                     <br />
+                    <h:outputText value= "#{administradorMarcador.getNombreTema(administradorMarcador.marker.getData().getId_tema())}" />
+                    <br />
                     <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
                     
             </p:outputPanel>
@@ -115,6 +118,15 @@
             <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
             <h:outputLabel for="descripcion" value="Descripcion:" />
             <p:inputTextarea id="descripcion" value="#{administradorMarcador.descripcion_mar}" required="true"/>
+
+            <p:outputLabel for="tema" value="Tema:" />
+                <p:selectOneMenu id="tema" value="#{administradorMarcador.nombreMarcador}"  dynamic="true" required="true"   style="width:125px">
+                    <f:selectItem itemLabel="Tema" itemValue="" />
+                    <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
+                </p:selectOneMenu>
+
+
+
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update=":messages" oncomplete="markerAddComplete()"/>
                 <p:commandButton value="Cancel" onclick="return cancel()" />
