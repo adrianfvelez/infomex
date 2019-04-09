@@ -11,6 +11,9 @@
     <h:body>
         <h1>Eliminar  Comentario</h1>
         <h:form>
+            <p:messages>
+                <p:autoUpdate />
+            </p:messages>
             <h:panelGrid columns="4" cellpadding="5">
                 <h:outputLabel for="name" value="id_Comentario:" style="font-weight:bold" />
                 <p:inputText id="name" value="#{eliminaComentario.comment}" />
@@ -18,6 +21,7 @@
                 <p:commandButton
                                     value="Cancelar"
                                     ajax="false"
+                                    immediate="true"
                                     action="mapa.xhmtl?faces-redirect=true"/>
             </h:panelGrid>
         </h:form>

@@ -10,6 +10,9 @@
     <h:body>
         <h1>Editar  Comentario</h1> 
         <h:form id="myForm">
+            <p:messages>
+                <p:autoUpdate />
+            </p:messages>
             <table>
                 <tr>
                     <td>id_Comentario:</td>
@@ -39,6 +42,7 @@
                         <p:commandButton
                                         value="Cancelar"
                                         ajax="false"
+                                        immediate="true"
                                         action="mapa.xhmtl?faces-redirect=true"/>
                     </td>
                 </tr>

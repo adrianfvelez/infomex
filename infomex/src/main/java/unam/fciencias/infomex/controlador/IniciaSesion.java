@@ -83,7 +83,7 @@ public class IniciaSesion {
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como comentarista", ""));
                 TimeUnit.SECONDS.sleep(3);
-                return "welcome";
+                return "";
             }
             else{
                 FacesContext.getCurrentInstance()
@@ -118,10 +118,10 @@ public class IniciaSesion {
     
     public void prueba(){
         FacesContext context = FacesContext.getCurrentInstance();
-        Informador i = (Informador)context.getExternalContext().getSessionMap().get("usuario");         
+        Comentarista i = (Comentarista)context.getExternalContext().getSessionMap().get("usuario");         
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Hola "+i.getUsuario_inf(), ""));
+                                "Hola "+i.getUsuario_com(), ""));   
     }    
 }
