@@ -9,33 +9,42 @@
         <title>Infomex</title>
     </h:head>
     <h:body>
-        <h1>Mapa chido</h1> <br/>
-
+        <h1>
+            <p:commandButton icon="ui-icon-grip-solid-horizontal" oncomplete="PF('sidebar1').show()" />
+        <center>Infomex</center>
+        </h1>
+        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+            <h1 style="font-weight:normal">Menu</h1>
+            <p:commandButton value="Pagina principal" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
+             <p:commandButton value="Iniciar sesion" oncomplete="redirect()"/>
+             <br/>
+             <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
+             <br/>
+             <p:commandButton value="Agregar temas" oncomplete="redirect()"/>
+             <br/>
+             <p:commandButton value="Eliminar temas" oncomplete="redirect()"/>
+             <br/>
+            <p:commandButton value="Cancelar" oncomplete="PF('sidebar1').hide()"/>
+        </p:sidebar>
+        
+        <script> 
+            type="text/javascript"
+                redirect = function(ruta) {
+                    window.location.href = ruta;
+                }
+        </script>
+        
         <style>
 
         #myForm { }
-        
-        #Form {position:absolute;left: 15px; top:110px;max-width: 400px;
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 0px 0px;
-            margin: 0px 0;
-            border: none;
-            border-radius: 0px;
-            cursor: pointer;}
 
     </style>
 
         
             <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyARQ3uDyn98iY6TXgBHzzgy8d9GLZn85Fo"></script>
              
-<script type="text/javascript">
-    function geocode() {
-        PF('geoMap').geocode(document.getElementById('direccion').value);
-    }
- 
-</script>
+
 
             
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
@@ -78,26 +87,19 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;width: 100%;
  
 <p:growl id="messages" showDetail="true" />
 
-<h:form id="Form">
-<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
-        <p:outputLabel for="direccion" value="direccion:" />
-        <p:inputText id="direccion" />
-        <p:commandButton value="Geocode" icon="pi pi-search" onclick="geocode()" type="button" />
-    </h:panelGrid>
-</h:form> 
 
 <h:form id="myForm">
-<p:gmap id="gmap" center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:100%;height:550px"
-    model="#{markersView.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
-    <p:ajax event="geocode" listener="#{geocodeView.onGeocode}" update="@this" />
+<p:gmap id="gmap" center="19.432590, -99.131205" zoom="13" type="HYBRID" style="width:100%;height:550px"
+        model="#{administradorMarcador.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
     
-    <p:ajax event="overlaySelect" listener="#{markersView.onMarkerSelect}" />
+    <p:ajax event="overlaySelect" listener="#{administradorMarcador.onMarkerSelect}" />
     
         <p:gmapInfoWindow id="infoWindow">
             <p:outputPanel style="text-align: center; display: block; margin: auto">
  
-                    <h:outputText value= "#{markersView.marker.title}" />
+                    <h:outputText value= "#{administradorMarcador.marker.title}" style="font-weight:bold"/>
                     <br />
+
                     <h:form>
                         <p:growl id="messages" showDetail="true"/>
 
@@ -110,7 +112,10 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;width: 100%;
                         </p:menuButton>
                     </h:form>
                     
- 
+                    <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
+                    <br />
+                    <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
+                    
             </p:outputPanel>
         </p:gmapInfoWindow>
 </p:gmap>
@@ -119,17 +124,18 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;width: 100%;
 <p:dialog widgetVar="dlg" showEffect="fade">
     <h:form prependId="false">
         <h:panelGrid columns="2">
-            <h:outputLabel for="title" value="Title:" />
-            <p:inputText id="title" value="#{markersView.title}" />
- 
+            <h:outputLabel for="title" value="Nombre:" />
+            <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
+            <h:outputLabel for="descripcion" value="Descripcion:" />
+            <p:inputTextarea id="descripcion" value="#{administradorMarcador.descripcion_mar}" required="true"/>
             <f:facet name="footer">
-                <p:commandButton value="Add" action="#{markersView.addMarker}" update=":messages" oncomplete="markerAddComplete()" />
+                <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update=":messages" oncomplete="markerAddComplete()"/>
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>
  
-        <h:inputHidden id="lat" value="#{markersView.lat}" />
-        <h:inputHidden id="lng" value="#{markersView.lng}" />
+        <h:inputHidden id="lat" value="#{administradorMarcador.latitud}" />
+        <h:inputHidden id="lng" value="#{administradorMarcador.longitud}" />
     </h:form>
 </p:dialog>
 
