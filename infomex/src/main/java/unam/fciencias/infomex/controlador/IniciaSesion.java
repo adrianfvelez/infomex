@@ -71,7 +71,7 @@ public class IniciaSesion {
         this.contrasenia_a_buscar = contrasenia_a_buscar;
     }
     
-    public String inicia() throws InterruptedException {
+    public String inicia() {
         Comentarista usuario_com = u_comentarista.buscaPorCorreo(correo_a_buscar);
         if(usuario_com != null){
             if(usuario_com.getContrasenia_com().equals(contrasenia_a_buscar)){
@@ -82,8 +82,12 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como comentarista", ""));
-                TimeUnit.SECONDS.sleep(3);
-                return "";
+                try{
+                    TimeUnit.SECONDS.sleep(3);
+                }catch(InterruptedException e){
+                    System.out.println("Error");
+                }
+                return "mapa";
             }
             else{
                 FacesContext.getCurrentInstance()
@@ -103,8 +107,12 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como informador", ""));
-                TimeUnit.SECONDS.sleep(3);
-                return "welcome";
+                try{
+                    TimeUnit.SECONDS.sleep(3);
+                }catch(InterruptedException e){
+                    System.out.println("Error");
+                }
+                return "mapa";
             }
             else{
                 FacesContext.getCurrentInstance()
