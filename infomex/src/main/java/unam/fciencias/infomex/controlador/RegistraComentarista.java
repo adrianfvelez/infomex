@@ -53,7 +53,7 @@ public class RegistraComentarista {
         }catch(InterruptedException e){
             System.out.println("Error");
         }
-        return "inicioSesion";
+        return "inicioSesion.xhmtl?faces-redirect=true";
     }
     
 }

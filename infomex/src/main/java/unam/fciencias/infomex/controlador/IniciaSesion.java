@@ -87,7 +87,7 @@ public class IniciaSesion {
                 }catch(InterruptedException e){
                     System.out.println("Error");
                 }
-                return "mapa";
+                return "mapa.xhmtl?faces-redirect=true";
             }
             else{
                 FacesContext.getCurrentInstance()
@@ -112,7 +112,7 @@ public class IniciaSesion {
                 }catch(InterruptedException e){
                     System.out.println("Error");
                 }
-                return "mapa";
+                return "mapa.xhmtl?faces-redirect=true";
             }
             else{
                 FacesContext.getCurrentInstance()
