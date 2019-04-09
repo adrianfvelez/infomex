@@ -42,14 +42,16 @@ public class AgregarTema {
     }
     
     public String addTema() {
-        FacesContext.getCurrentInstance()
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Felicidades, el registro se ha realizado correctamente", ""));
-        //tema.setId_tema(u.getId());
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Informador i = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
+        tema.setCorreo_inf(i.getCorreo_inf());
         u.save(tema);
         tema = null;
-        
+         FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Felicidades, el registro se ha realizado correctamente", "")); 
         return null;
     }
     

@@ -44,6 +44,33 @@ public class UtilidadTema {
         //return 0;
     }
     
+    public Tema buscaTemaPorNombre(Tema tema){
+        String nombre = tema.getNombre_tema();
+        Tema obj = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            sessionObj.beginTransaction();
+            String hql = "from Tema t where t.nombre_tema = :nombre";
+            Query query = sessionObj.createQuery(hql);
+            query.setString("nombre", nombre);
+            obj = (Tema)query.uniqueResult();
+            //sessionObj.getTransaction().commit();
+            
+        }catch(Exception sqlException){
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......ERROOOOOOOOOOOR.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        }finally{
+            if (sessionObj != null) {
+                sessionObj.close();
+            }            
+        } 
+        return obj;
+    }
+    
         public List<Tema> getTodosTemas(){
         List<Tema> obj = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();

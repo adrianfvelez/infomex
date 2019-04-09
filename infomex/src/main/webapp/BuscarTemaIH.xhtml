@@ -23,21 +23,18 @@
                                      id="nombre_tema"
                                      size="40"/>
                     </td>
-                    <p:dataTable var="tema" value="#{dtTemaView.temas}">
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{tema.nombre_tema}" />
-                        </p:column>
-                    </p:dataTable>
-                    
+
                      <td colspan="2" align="center">
-                         <p:commandButton action="#{buscaTema.buscarTema()}"
-                                         value="Buscar"/>
+                        <p:commandButton  value="Buscar" 
+                                          action="#{buscaTema.buscarTema()}"/>
+                       
                         <p:commandButton value="Reset"
                                          update="myForm"
                                          process="@this">
                             <p:resetInput target="myForm" />
                         </p:commandButton>
-                    </td>
+                        
+                    </td>   
                     
                 </tr>
             </table>

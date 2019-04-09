@@ -41,15 +41,24 @@ public class BuscarTema {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String buscarTema() {
+    public Tema buscarTema() {
         
-        u.buscaTemaPorNombre(tema);
-        tema = new Tema();
-        FacesContext.getCurrentInstance()
+        Tema t = u.buscaTemaPorNombre(tema);
+        
+
+        if(t == null){
+            FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "No se ha encontrado el tema", ""));
+        }else{
+            FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Felicidades, se ha encontrado correctamente", ""));
+        }
         
+        tema = new Tema();
         return null;
     }
 }
