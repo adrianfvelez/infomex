@@ -126,10 +126,10 @@ public class IniciaSesion {
     
     public void prueba(){
         FacesContext context = FacesContext.getCurrentInstance();
-        Informador i = (Informador)context.getExternalContext().getSessionMap().get("usuario");         
+        Comentarista i = (Comentarista)context.getExternalContext().getSessionMap().get("usuario");         
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Hola "+i.getUsuario_inf(), ""));
+                                "Hola "+i.getUsuario_com(), ""));   
     }    
 }
