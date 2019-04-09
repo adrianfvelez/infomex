@@ -14,6 +14,7 @@
     <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
     <!-- Mapping With Model Class Containing Annotations -->
     <mapping class="unam.fciencias.infomex.modelo.Comentarista" file="" jar="" package="" resource=""/>
+    <mapping class="unam.fciencias.infomex.modelo.Comentario" file="" jar="" package="" resource=""/>
     <mapping class="unam.fciencias.infomex.modelo.Marcador" file="" jar="" package="" resource=""/>
     <mapping class="unam.fciencias.infomex.modelo.Tema" file="" jar="" package="" resource=""/>
     <mapping class="unam.fciencias.infomex.modelo.Informador" file="" jar="" package="" resource=""/>

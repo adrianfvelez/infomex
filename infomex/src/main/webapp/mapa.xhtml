@@ -99,6 +99,19 @@
  
                     <h:outputText value= "#{administradorMarcador.marker.title}" style="font-weight:bold"/>
                     <br />
+
+                    <h:form>
+                        <p:growl id="messages" showDetail="true"/>
+
+                        <p:menuButton value="Comentarios">
+                            <p:menuitem value="Agregar" ajax="false" url="agregar-comentario.xhtml"/>
+                            <p:menuitem value="Eliminar" ajax="false" url="eliminar-comentario.xhtml"/>
+                            <p:menuitem value="Editar" ajax="false" url="editar-comentario.xhtml"/>
+                            <p:separator />
+                            <p:menuitem value="Homepage" url="" icon="pi pi-home"/>
+                        </p:menuButton>
+                    </h:form>
+                    
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
                     <br />
                     <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
