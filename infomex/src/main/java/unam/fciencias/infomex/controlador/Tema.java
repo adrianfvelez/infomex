@@ -31,5 +31,13 @@ public class Tema {
         return nombre_tema;
     }
     
-    
+    private String correo_inf;
+
+    public String getCorreo_inf() {
+        return correo_inf;
+    }
+
+    public void setCorreo_inf(String correo_inf) {
+        this.correo_inf = correo_inf;
+    }
 }

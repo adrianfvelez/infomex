@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 
 import unam.fciencias.infomex.modelo.UtilidadTema;
 import unam.fciencias.infomex.modelo.Tema;
+
 /**
  *
  * @author oscar
@@ -26,16 +27,18 @@ import unam.fciencias.infomex.modelo.Tema;
 public class TemaView implements Serializable{
     
     private List<Tema> temas;
-    
+
     private Tema elTema;
-    
+
     private UtilidadTema u = new UtilidadTema();
     
     @ManagedProperty("#{buscaTema}")
     private BuscarTema tema;
     
     public void init(){
+
       u.buscaTemaPorNombre(elTema);
+
     }
     
     public void setTema(BuscarTema tema){
