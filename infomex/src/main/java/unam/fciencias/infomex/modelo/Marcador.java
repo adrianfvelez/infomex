@@ -101,5 +101,5 @@ public class Marcador {
 
     public void setLatitud(double latitud) {
         this.latitud = latitud;
-    }   
+    }
 }
