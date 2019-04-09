@@ -17,13 +17,15 @@
             <h1 style="font-weight:normal">Menu</h1>
             <p:commandButton value="Pagina principal" oncomplete="redirect('mapa.xhtml')"/>
              <br/>
-             <p:commandButton value="Iniciar sesion" oncomplete="redirect()"/>
+             <p:commandButton value="Iniciar sesion" oncomplete="redirect('inicioSesion.xhtml')"/>
              <br/>
              <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
              <br/>
-             <p:commandButton value="Agregar temas" oncomplete="redirect()"/>
+             <p:commandButton value="Agregar temas" oncomplete="redirect('AgregarTemaIH.xhtml')"/>
              <br/>
-             <p:commandButton value="Eliminar temas" oncomplete="redirect()"/>
+             <p:commandButton value="Eliminar temas" oncomplete="redirect('EliminarTema.xhtml')"/>
+             <br/>
+             <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')"/>
              <br/>
             <p:commandButton value="Cancelar" oncomplete="PF('sidebar1').hide()"/>
         </p:sidebar>
@@ -73,6 +75,7 @@
  
                 currentMarker = null;
                 PF('dlg').hide();
+                window.location.href = 'mapa.xhtml';
             }
  
             function cancel() {
@@ -114,6 +117,8 @@
                     
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
                     <br />
+                    <h:outputText value= "#{administradorMarcador.getNombreTema(administradorMarcador.marker.getData().getId_tema())}" />
+                    <br />
                     <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
                     
             </p:outputPanel>
@@ -128,6 +133,15 @@
             <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
             <h:outputLabel for="descripcion" value="Descripcion:" />
             <p:inputTextarea id="descripcion" value="#{administradorMarcador.descripcion_mar}" required="true"/>
+
+            <p:outputLabel for="tema" value="Tema:" />
+                <p:selectOneMenu id="tema" value="#{administradorMarcador.nombreMarcador}"  dynamic="true" required="true"   style="width:125px">
+                    <f:selectItem itemLabel="Tema" itemValue="" />
+                    <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
+                </p:selectOneMenu>
+
+
+
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update=":messages" oncomplete="markerAddComplete()"/>
                 <p:commandButton value="Cancel" onclick="return cancel()" />

@@ -6,6 +6,7 @@
 package unam.fciencias.infomex.controlador;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -45,7 +46,12 @@ public class RegistrarInformador {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se ha registrado al informador correctamente", ""));
-        return null;
+        try{
+            TimeUnit.SECONDS.sleep(3);
+        }catch(InterruptedException e){
+            System.out.println("Error");
+        }
+        return "inicioSesion";
     }
     
 }

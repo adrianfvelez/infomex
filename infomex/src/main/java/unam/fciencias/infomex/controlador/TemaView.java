@@ -27,16 +27,18 @@ import unam.fciencias.infomex.modelo.Tema;
 public class TemaView implements Serializable{
     
     private List<Tema> temas;
-    
-    
-    
+
+    private Tema elTema;
+
     private UtilidadTema u = new UtilidadTema();
     
     @ManagedProperty("#{buscaTema}")
     private BuscarTema tema;
     
     public void init(){
-        //u.buscaTemaPorNombre();
+
+      u.buscaTemaPorNombre(elTema);
+
     }
     
     public void setTema(BuscarTema tema){

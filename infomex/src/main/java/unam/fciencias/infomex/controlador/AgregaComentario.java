@@ -41,6 +41,9 @@ public class AgregaComentario {
     }
     
     public String addComentario() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
+        comment.setCorreo_com(i.getCorreo_com());
         comment.setId_mar(1);
         comment.setId_tema(1);
         u.save(comment);
