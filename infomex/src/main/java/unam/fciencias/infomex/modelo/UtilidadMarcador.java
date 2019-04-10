@@ -10,14 +10,18 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 /**
  *
- * @author avelez
+ * @author Manuel
  */
 public class UtilidadMarcador {
     
     static Marcador marcObj;
     static Session sessionObj;
     
-        public List<Marcador> getTodosMarcadores(){
+    /**
+     *Regresa una lista con todos los marcadores
+     * @return Lista con todo los marcadores de la base
+     */
+    public List<Marcador> getTodosMarcadores(){
         List<Marcador> obj = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
 
@@ -51,6 +55,10 @@ public class UtilidadMarcador {
         return null;
 }
     
+    /**
+     *Salva un amrcador en la base
+     * @param marca
+     */
     public void save(Marcador marca) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -70,8 +78,11 @@ public class UtilidadMarcador {
         }
     }
     
-    
-        public void delete(Marcador marca) {
+    /**
+     *Elimina un marcaor de la base
+     * @param marca
+     */
+    public void delete(Marcador marca) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
