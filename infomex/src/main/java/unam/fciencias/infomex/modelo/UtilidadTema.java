@@ -18,6 +18,10 @@ public class UtilidadTema {
     static Tema userObj;
     static Session sessionObj;
     
+    /**
+     * Método que elimina un Tema de la base de Datos.
+     * @param tema 
+     */
     public void eliminaTema(Tema tema){
         String nombre = tema.getNombre_tema();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -44,6 +48,11 @@ public class UtilidadTema {
         //return 0;
     }
     
+    /**
+     * Método que busca un Tema en la base de datos.
+     * @param tema
+     * @return Un objeto de tipo Tema
+     */
     public Tema buscaTemaPorNombre(Tema tema){
         String nombre = tema.getNombre_tema();
         Tema obj = null;
@@ -71,7 +80,11 @@ public class UtilidadTema {
         return obj;
     }
     
-        public List<Tema> getTodosTemas(){
+    /**
+     * Método que regresa una lista llena de todos los temas en las base de datos.
+     * @return Una lista de tipo Tema
+     */
+    public List<Tema> getTodosTemas(){
         List<Tema> obj = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
 
@@ -100,6 +113,10 @@ public class UtilidadTema {
         return null;
     }
     
+    /**
+     * Método que guarda un objeto Tema en la base de datos.
+     * @param tema 
+     */
     public void save(Tema tema) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -119,6 +136,10 @@ public class UtilidadTema {
         }
     }
     
+    /**
+     * Método que borra un objeto de la base de datos.
+     * @param tema 
+     */
     public void delete(Tema tema) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();

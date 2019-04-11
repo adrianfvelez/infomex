@@ -27,20 +27,34 @@ public class AgregarTema {
     private Tema tema = new Tema();
     private UtilidadTema u = new UtilidadTema();
     
+    /**
+     * Método que obtiene un objeto de tipo Tema.
+     * @return Un objeto tipo Tema 
+     */
     public Tema getTema() {
         return tema;
     }
-
+    
+    /**
+     * Método que asigna un objeto de tipo a Tema.
+     * @param tema 
+     */
     public void setTema(Tema tema) {
         this.tema = tema;
     }
     
+    /**
+     * Constructor que inicializa el objeton Tema y establece la locación en México.
+     */
     public AgregarTema() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-    
+    /**
+     * Método que crea la conexión con la base de datos.
+     * @return Una cadena con la URL a donde se va a redirecionar
+     */
     public String addTema() {
         
         FacesContext context = FacesContext.getCurrentInstance();
