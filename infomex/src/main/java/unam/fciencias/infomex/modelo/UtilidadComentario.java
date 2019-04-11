@@ -11,12 +11,26 @@ import org.hibernate.Session;
 /**
  *
  * @author a-valderrama
+ * 
+ * Esta clase es la que da todas las utilidades, conexiones,
+ * del nuestro sistema a la base de datos. Realiza todas las
+ * transaccions de hibernate, así como los querys 
+ * correspondientes para realizar acciones en la base de datos.
+ * 
+ * Esta clase es la utilizada por los métodos del "controlador" 
+ * para realizar todas las acciones descritas en ellas.
  */
 public class UtilidadComentario {
     
     static Comentario comObj;
     static Session sessionObj;
 
+    /**
+     * Método utilizado para agregar un comentario a la base 
+     * de datos. El parámetro recibido ya contiene toda la 
+     * inforación ingresada por el usuario,
+     * @param comentario comentario a agregar por el usuario
+     */
     public void save(Comentario comentario) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -36,6 +50,12 @@ public class UtilidadComentario {
         }
     }
     
+    /**
+     * Método utilizado para un borrar un comentario de la base 
+     * de datos, una vez que conocemos el id de dicho comentario.
+     * 
+     * @param comentario id del comentario a eliminar
+     */
     public void deleteOnId(int comentario) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -58,6 +78,14 @@ public class UtilidadComentario {
         }
     }
     
+    /**
+     * Método que modifica la descripción del comentario. Para esto
+     * es necesario conocoer el id del comentario que se quiere 
+     * modificar.
+     * 
+     * @param id               id del comentario
+     * @param nuevaDescripcion nueva descripción
+     */
     public void setDescripcion(int id, String nuevaDescripcion) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -82,6 +110,14 @@ public class UtilidadComentario {
         }
     }
     
+    /**
+     * Método que modifica la calificación del comentario. Para 
+     * esto es necesario conocoer el id del comentario que 
+     * se quiere modificar.
+     * 
+     * @param id                id del comentario
+     * @param nuevaCalificacion nueva califiación
+     */
     public void setCalificacion(int id, int nuevaCalificacion) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();

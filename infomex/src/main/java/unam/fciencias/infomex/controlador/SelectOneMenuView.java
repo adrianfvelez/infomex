@@ -16,6 +16,9 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
 /**
  *
  * @author a-valderrama
+ * 
+ * Idea de clase para la vista de la gratión de comentarios
+ * para la segunda iteración
  */
 @ManagedBean
 public class SelectOneMenuView {

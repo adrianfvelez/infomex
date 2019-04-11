@@ -18,6 +18,14 @@ import javax.persistence.Transient;
 /**
  *
  * @author a-valderrama
+ * 
+ * Clase que representa a los comnetarios como están 
+ * definidos en la base de datos (.sql).
+ * Así que establecemos sus especificamos su nombre en la base,
+ * bajo que nombre estará (infomex) y su "schema".
+ * 
+ * Como la llama principal (PK) del comentario es su id, 
+ * entonces definimos este atributo como un númer "serial".
  */
 
 @Entity
@@ -45,50 +53,94 @@ public class Comentario{
     @Column(name = "calificacion")
     private int calificacion;
     
+    /**
+     * Getter del id del comentario
+     * @return id_comentario del comentario
+     */
     public int getId_comentario() {
         return id_comentario;
     }
-
+    /**
+     * Setter del id del comentario
+     * @param id_comentario del comentario
+     */
     public void setId_comentario(int id_comentario) {
         this.id_comentario = id_comentario;
     }
     
+    /**
+     * Getter del id del marcador
+     * @return id_mar id del marcador
+     */
     public int getId_mar() {
         return id_mar;
     }
-
+    /**
+     * Setter del id del marcador
+     * @param id_mar id del marcador
+     */
     public void setId_mar(int id_mar) {
         this.id_mar = id_mar;
     }
 
+    /**
+     * Getter del id del tema
+     * @return id_tema id del tema
+     */
     public int getId_tema() {
         return id_tema;
     }
-
+    /**
+     * Setter del id del tema
+     * @param id_tema id del tema
+     */
     public void setId_tema(int id_tema) {
         this.id_tema = id_tema;
-}
+    }
 
+    /**
+     * Getter del correo del comentarista que crea
+     * el comentario
+     * @return correo_com correo del comentarista
+     */
     public String getCorreo_com() {
         return correo_com;
     }
-
+    /**
+     * Setter del correo del comentarista que crea
+     * el comentario
+     * @param correo_com correo del comentarista
+     */
     public void setCorreo_com(String correo_com) {
         this.correo_com = correo_com;
     }
     
+    /**
+     * Getter de la descripción del comentario
+     * @return descripcion descripción del comentario
+     */
     public String getDescripcion() {
         return descripcion;
     }
-
+    /**
+     * Setter de la descripción del comentario
+     * @param descripcion descripción del comentario
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Getter de la califiación del comentario
+     * @return calificacion califiación del comentario
+     */
     public int getCalificacion() {
         return calificacion;
     }
-
+    /**
+     * Setter de la califiación del comentario
+     * @param calificacion califiación del comentario
+     */
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }    
