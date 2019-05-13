@@ -8,23 +8,23 @@
 
 ## Registrar Comentarista:
 
-[ ] Especificar formato de la fecha
-[ ] Si se registra a un mismo usuario, especificar que dicho usuario ya existe
-[ ] No tiene caso tener "Nombre" y "Usuario", dejar solo uno
-[ ] Quitar fecha de nacimiento, no se necesita esa información
-[ ] Cifrar la contraseña
-[ ] Poner dos campos para la  contraseña, confirmación (los dos campos deben coincidir) 
+- [ ] Especificar formato de la fecha
+- [ ] Si se registra a un mismo usuario, especificar que dicho usuario ya existe
+- [ ] No tiene caso tener "Nombre" y "Usuario", dejar solo uno
+- [ ] Quitar fecha de nacimiento, no se necesita esa información
+- [ ] Cifrar la contraseña
+- [ ] Poner dos campos para la  contraseña, confirmación (los dos campos deben coincidir) 
 
 ## Iniciar sesión:
 
-[ ] Si estamos pidiendo un nombre de usuario => iniciar sesión con  eso... O con el correo. A consideración.  
-[ ] Después de iniciar sesión, redirigir a la página del usuario correspondiente
-[ ] Mostrar (en algún lado de la vista) que la sesión está iniciada. Posiblemente mostrando el nombre del usuario
+- [ ] Si estamos pidiendo un nombre de usuario => iniciar sesión con  eso... O con el correo. A consideración.  
+- [ ] Después de iniciar sesión, redirigir a la página del usuario correspondiente
+- [ ] Mostrar (en algún lado de la vista) que la sesión está iniciada. Posiblemente mostrando el nombre del usuario
 
 ## Cerrar sesión:
 
-[ ] Al cerrar sesión redirigir a la página principal
-[ ] Especificar que la sesión se ha cerrado y que se pueda notar en la vista que así es 
+- [ ] Al cerrar sesión redirigir a la página principal
+- [ ] Especificar que la sesión se ha cerrado y que se pueda notar en la vista que así es 
 
 ## Agregar Informador:
 
