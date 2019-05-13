@@ -28,49 +28,49 @@
 
 ## Agregar Informador:
 
-[ ] Corroborar que solo administradores puedan agregar informadores
-[ ] Generar la contraseña automáticamente 
-[ ] Verificar que no se agregue a un informador ya existente
-[ ] Enviar los datos, de registro, al informador pertinente
+- [ ] Corroborar que solo administradores puedan agregar informadores
+- [ ] Generar la contraseña automáticamente 
+- [ ] Verificar que no se agregue a un informador ya existente
+- [ ] Enviar los datos, de registro, al informador pertinente
 
 ## Agregar Tema:
 
-[ ] Obligar a agregar un marcador al terminar de agregar el tema
-[ ] Enviar los mensajes adecuados para los errores y éxitos en el sistema
+- [ ] Obligar a agregar un marcador al terminar de agregar el tema
+- [ ] Enviar los mensajes adecuados para los errores y éxitos en el sistema
 
 ## Eliminar Tema:
 
-[ ] Mostrar la lista de los temas que se pueden eliminar.
+- [ ] Mostrar la lista de los temas que se pueden eliminar.
 
 ## Buscar Tema:
 
-[ ] Filtrar los marcadores que existen dado el tema a buscar. Así como todas las características que dichos marcadores.
+- [ ] Filtrar los marcadores que existen dado el tema a buscar. Así como todas las características que dichos marcadores.
 
 ## Agregar Marcador:
 
-[ ] Al agregar un marcador con los campos vacíos manda error pero aun así agrega el marcador (temporalmente).
-[ ] Validar al usuario al eliminar marcador.
+- [ ] Al agregar un marcador con los campos vacíos manda error pero aun así agrega el marcador (temporalmente).
+- [ ] Validar al usuario al eliminar marcador.
 
 ## Ver Marcador:
 
-[ ] Desplegar los comentarios del marcador.
+- [ ] Desplegar los comentarios del marcador.
 
 ## Eliminar Marcador:
 
-[ ] Permitir eliminar solo los marcadores del usuario en cuestión 
+- [ ] Permitir eliminar solo los marcadores del usuario en cuestión 
 
 ## Agregar Comentario:
 
-[ ] Al terminar de agregar el comentario redireccionar a la pagina principal.
-[ ] Asociar el marcador al tema y marcador correspondientes
-[ ] La calificación no tiene que ser un campo obligatorio. Especificar el rango de la calificación.
+- [ ] Al terminar de agregar el comentario redireccionar a la pagina principal.
+- [ ] Asociar el marcador al tema y marcador correspondientes
+- [ ] La calificación no tiene que ser un campo obligatorio. Especificar el rango de la calificación.
 
 ## Editar Comentario:
 
-[ ] Permitir editar solo los comentarios del usuario que ha iniciado sesión 
-[ ] Mostrar la lista de los comentarios del marcador que son editables por el usuario
+- [ ] Permitir editar solo los comentarios del usuario que ha iniciado sesión 
+- [ ] Mostrar la lista de los comentarios del marcador que son editables por el usuario
 
 ## Eliminar Comentario:
 
-[ ] Permitir eliminar solo los comentarios del usuario que ha iniciado sesión 
-[ ] Mostrar la lista de los comentarios del marcador que son eliminables por el usuario
+- [ ] Permitir eliminar solo los comentarios del usuario que ha iniciado sesión 
+- [ ] Mostrar la lista de los comentarios del marcador que son eliminables por el usuario
