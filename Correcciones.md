@@ -61,8 +61,8 @@
 
 ## Agregar Comentario:
 
-- [ ] Al terminar de agregar el comentario redireccionar a la pagina principal.
-- [ ] Asociar el marcador al tema y marcador correspondientes
+- [X] Al terminar de agregar el comentario redireccionar a la pagina principal.
+- [ ] Asociar el comentario al tema y marcador correspondientes
 - [ ] La calificación no tiene que ser un campo obligatorio. Especificar el rango de la calificación.
 
 ## Editar Comentario:
