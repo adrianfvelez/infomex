@@ -124,4 +124,38 @@ public class UtilidadComentario {
             }
         }
     }*/
+    
+        public List<Comentario> getTodosComentarios(){
+        List<Comentario> obj = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+            sessionObj.beginTransaction();
+            String hql = "FROM Comentario";
+            Query query = sessionObj.createQuery(hql);
+            obj = (List<Comentario>)query.list();
+            sessionObj.getTransaction().commit();
+            if(obj.isEmpty()){
+                return null;
+            }else{
+                return obj;
+            }
+        }catch(Exception sqlException){
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......ERROOOOOOOOOOOR.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        }finally{
+            if (sessionObj != null) {
+                sessionObj.close();
+            }            
+        } 
+        return null;
+    }
+    
+    
+    
+    
+    
 }

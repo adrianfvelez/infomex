@@ -2,6 +2,7 @@ package unam.fciencias.infomex.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,6 +16,8 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 import unam.fciencias.infomex.modelo.Marcador;
 import unam.fciencias.infomex.modelo.UtilidadMarcador;
+import unam.fciencias.infomex.modelo.UtilidadComentario;
+import unam.fciencias.infomex.modelo.Comentario;
 import unam.fciencias.infomex.modelo.UtilidadTema;
 import unam.fciencias.infomex.modelo.Tema;
 
@@ -27,7 +30,10 @@ public class AdministradorMarcador implements Serializable {
 
     private List<Tema> options;
     private List<String> optionsNombre;
+    private List<Comentario> todosMarcadores;
     private String nombreMarcador;
+    private String temaSeleccionado;
+    private Comentario selectedCom;
     private UtilidadTema uu = new UtilidadTema();
     
     private int id_mar;
@@ -109,6 +115,25 @@ public class AdministradorMarcador implements Serializable {
         return "=(";
     }
     
+        public List<Comentario> getListaComentarios(int i){
+        Comentario nohay = new Comentario();
+        nohay.setCalificacion(2);
+        nohay.setCorreo_com("=(");
+        UtilidadComentario uu = new UtilidadComentario();
+        List<Comentario> a=new ArrayList<Comentario>();
+        if(uu.getTodosComentarios()!=null){
+            for(Comentario u:uu.getTodosComentarios()){
+                if(i==u.getId_mar()){
+                    a.add(u);
+                }
+            }
+            
+            return a;    
+        }else{
+            a.add(nohay);
+            return a;
+        }
+    }
     
     private MapModel simpleModel;
     
@@ -223,6 +248,28 @@ public class AdministradorMarcador implements Serializable {
         this.nombreMarcador = nombreMarcador;
     }
     
+    public String getTemaSeleccionado() {
+        return temaSeleccionado;
+    }
 
+    public void setTemaSeleccionado(String temaSeleccionado) {
+        this.temaSeleccionado = temaSeleccionado;
+    }
+
+    public List<Comentario> getTodosMarcadores() {
+        return todosMarcadores;
+    }
+
+    public void setTodosMarcadores(List<Comentario> todosMarcadores) {
+        this.todosMarcadores = todosMarcadores;
+    }
+    
+    public Comentario getSelectedCom() {
+        return selectedCom;
+    }
+
+    public void setSelectedCom(Comentario selectedCom) {
+        this.selectedCom = selectedCom;
+    }
     
 }
