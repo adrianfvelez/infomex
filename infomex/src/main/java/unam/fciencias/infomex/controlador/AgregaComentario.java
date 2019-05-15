@@ -52,7 +52,8 @@ public class AgregaComentario {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario agregado", ""));
-        return null;
+        String newAction = "mapa.xhmtl?faces-redirect=true"; 
+        return newAction;
     }
     
 }

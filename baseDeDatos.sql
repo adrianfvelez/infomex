@@ -49,13 +49,24 @@ CREATE TABLE comentario(
 	id_tema int,
 	correo_com varchar(50),
 	descripcion varchar(600),
-	calificacion int,
 	CONSTRAINT "PK_comentario" PRIMARY KEY (id_comentario),
 	CONSTRAINT "FK_comentario_marcador" FOREIGN KEY (id_mar) REFERENCES marcador(id_mar) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT "FK_comentario_comentarista" FOREIGN KEY (correo_com) REFERENCES comentarista(correo_com) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 COMMENT ON TABLE comentario IS 'Tabla con la información de todos los comentarios.';
+
+CREATE TABLE calificacion(
+	id_califiacion serial,
+	id_comentario int,
+	correo_com varchar(50),
+	calificacion int,
+	CONSTRAINT "PK_calificacion" PRIMARY KEY (id_califiacion),
+	CONSTRAINT "FK_calificacion_comentario" FOREIGN KEY (id_comentario) REFERENCES comentario(id_comentario) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT "FK_calificacion_comentarista" FOREIGN KEY (correo_com) REFERENCES comentarista(correo_com) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+COMMENT ON TABLE calificacion IS 'Tabla con las calificaciones de los comentarios.';
 
 INSERT INTO informador VALUES ('admin','admin', 'admin');
 INSERT INTO tema VALUES(default,'Restaurantes','admin');

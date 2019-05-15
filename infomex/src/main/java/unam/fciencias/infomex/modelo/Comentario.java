@@ -42,9 +42,6 @@ public class Comentario{
     @Column(name = "descripcion")
     private String descripcion;
     
-    @Column(name = "calificacion")
-    private int calificacion;
-    
     public int getId_comentario() {
         return id_comentario;
     }
@@ -84,13 +81,4 @@ public class Comentario{
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public int getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(int calificacion) {
-        this.calificacion = calificacion;
-    }    
-    
 }

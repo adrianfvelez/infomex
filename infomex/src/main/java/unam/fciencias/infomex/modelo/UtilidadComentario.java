@@ -6,6 +6,7 @@
 package unam.fciencias.infomex.modelo;
 
 import java.util.List;
+import javax.faces.context.FacesContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
 /**
@@ -106,22 +107,36 @@ public class UtilidadComentario {
         }
     }
     
-    /*public void delete(Comentario comentario) {
-        try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
+    public List<Comentario> getComentarios(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
+        
+        List<Comentario> obj = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+
+        try{
             sessionObj.beginTransaction();
-            sessionObj.delete(comentario);
+            String hql = "FROM Comentario where id=:id";
+            Query query = sessionObj.createQuery(hql);
+            query.setString("id", i.getCorreo_com());
+            obj = (List<Comentario>)query.list();
             sessionObj.getTransaction().commit();
-        } catch (Exception sqlException) {
+            if(obj.isEmpty()){
+                return null;
+            }else{
+                return obj;
+            }
+        }catch(Exception sqlException){
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......ERROOOOOOOOOOOR.......");
                 sessionObj.getTransaction().rollback();
             }
             sqlException.printStackTrace();
-        } finally {
+        }finally{
             if (sessionObj != null) {
                 sessionObj.close();
-            }
-        }
-    }*/
+            }            
+        } 
+        return null;
+    }
 }

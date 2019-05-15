@@ -20,8 +20,6 @@ public class Comentario {
     private String correo_com;
 
     private String descripcion;
-
-    private int calificacion;
     
     public void setId_comentario(int id_comentario) {
         this.id_comentario = id_comentario;
@@ -61,13 +59,5 @@ public class Comentario {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(int calificacion) {
-        this.calificacion = calificacion;
     }
 }
