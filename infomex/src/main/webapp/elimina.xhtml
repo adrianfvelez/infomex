@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:b="http://bootsfaces.net/ui">
      
     <h:head>
-<title>Cars</title>
+<title>Comentarios</title>
 <style type="text/css">
     .ui-widget {
         font-size: 90%;
@@ -27,8 +27,8 @@ and open the template in the editor.
         <h:outputText value="#{comment.getId_comentario}" />
     </p:column>
  
-    <p:column headerText="Calificacion">
-        <h:outputText value="calificacion" />
+    <p:column headerText="Descripción">
+        <h:outputText value="#{comment.getDescripcion}" />
     </p:column>
     
     <p:column headerText="Eliminar">
