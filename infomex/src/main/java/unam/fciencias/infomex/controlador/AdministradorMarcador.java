@@ -155,7 +155,7 @@ public class AdministradorMarcador implements Serializable {
         LatLng coord1 = new LatLng(19.432590, -99.131205);
           
         //Ponemos el marcador en el mapa
-        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico"));
+        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico",null,"https://maps.google.com/mapfiles/ms/micons/pink-dot.png"));
         
         options =  uu.getTodosTemas();
         if(options != null){

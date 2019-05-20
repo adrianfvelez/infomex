@@ -186,46 +186,27 @@
                     <br />
 
                     <h:form id="comentarios">
-                        <p:dataList value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" var="com" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
-                            <f:facet name="header">
-                                Paginator
-                            </f:facet>
-                            <p:commandLink update=":comentarios:marcDetail" onclick="PF('marcDialog').show()" title="View Detail" styleClass="ui-icon pi pi-search" style="float:left;margin-right:10px;margin-top:3px; color:#333333">
-                                <f:setPropertyActionListener value="#{com}" target="#{administradorMarcador.selectedCom}" />
-                                <h:outputText value="#{com.correo_com}, #{com.calificacion}" />
-                            </p:commandLink>
-                            <h:outputText value="#{com.correo_com}, #{com.calificacion}" style="display:inline-block"/>
+                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Custom" var="com" style="width:250px; height: 150px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
+                                <f:facet name="header">
+                                    Basic
+                                </f:facet>
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{com.id_mar}" />
 
-                        </p:dataList>
-                        <p:dialog header="Car Info" widgetVar="marcDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
-                            <p:outputPanel id="marcDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty administradorMarcador.selectedCom}" columnClasses="label,value">
+                                <h:outputText value="Usuario" />
+                                <h:outputText value="#{com.correo_com}" />
 
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{administradorMarcador.selectedCom.id_mar}" />
+                                <h:outputText value="Calificacion:" />
+                                <p:rating value="#{com.calificacion}" readonly="true" />
 
-                                    <h:outputText value="Usuario" />
-                                    <h:outputText value="#{administradorMarcador.selectedCom.correo_com}" />
-
-                                    <h:outputText value="Calificacion:" />
-                                    <h:outputText value="#{administradorMarcador.selectedCom.calificacion}" />
-
-                                    <h:outputText value="Descripcion:" />
-                                    <h:outputText value="#{administradorMarcador.selectedCom.descripcion}"/>
-
-                                </p:panelGrid>
-                            </p:outputPanel>
-                        </p:dialog>   
+                                <h:outputText value="Descripcion:" />
+                                <h:outputText value="#{com.descripcion}"/>
+                            </h:panelGrid>
+                        </p:carousel>
 
                     </h:form>
 
-  <!--                  <p:dataList value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" var="com" type="ordered">
-                    <p:dataList value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" var="com" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
-                        <f:facet name="header">
-                        Basic
-                        </f:facet>
-                    #{com.correo_com}, #{com.calificacion}
-                </p:dataList> -->
                     <br />
                     <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
 
