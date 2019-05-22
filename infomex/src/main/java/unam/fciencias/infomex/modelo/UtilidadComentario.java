@@ -116,9 +116,39 @@ public class UtilidadComentario {
 
         try{
             sessionObj.beginTransaction();
-            String hql = "FROM Comentario where id=:id";
+            String hql = "FROM Comentario";
             Query query = sessionObj.createQuery(hql);
-            query.setString("id", i.getCorreo_com());
+            //query.setString("id", i.getCorreo_com());
+            obj = (List<Comentario>)query.list();
+            sessionObj.getTransaction().commit();
+            if(obj.isEmpty()){
+                return null;
+            }else{
+                return obj;
+            }
+        }catch(Exception sqlException){
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......ERROOOOOOOOOOOR.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        }finally{
+            if (sessionObj != null) {
+                sessionObj.close();
+            }            
+        } 
+        return null;
+    }
+    
+    
+    public List<Comentario> getTodosComentarios(){
+        List<Comentario> obj = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+            sessionObj.beginTransaction();
+            String hql = "FROM Comentario";
+            Query query = sessionObj.createQuery(hql);
             obj = (List<Comentario>)query.list();
             sessionObj.getTransaction().commit();
             if(obj.isEmpty()){

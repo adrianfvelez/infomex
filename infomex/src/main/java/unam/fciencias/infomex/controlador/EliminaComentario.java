@@ -5,6 +5,7 @@
  */
 package unam.fciencias.infomex.controlador;
 
+import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -46,5 +47,10 @@ public class EliminaComentario {
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario eliminado", ""));
         return null;
+    }
+    
+    public List<Comentario> getComentarios() {
+        List<Comentario> comments = u.getTodosComentarios();
+        return comments;
     }
 }

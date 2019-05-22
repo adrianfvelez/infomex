@@ -19,23 +19,25 @@ and open the template in the editor.
 </style>
     </h:head>
      
-    <h:body>
+<h:body>
 <i id="customheader" class="pi pi-home" style="display:none"></i>
- 
-<p:dataTable var="comment" value="#{despliega.comments}">
-    <p:column headerText="Comentario">
-        <h:outputText value="#{comment.getId_comentario}" />
-    </p:column>
- 
-    <p:column headerText="Descripción">
-        <h:outputText value="#{comment.getDescripcion}" />
-    </p:column>
-    
-    <p:column headerText="Eliminar">
-        <p:commandButton value="eliminar" />
-    </p:column>
-    
-</p:dataTable>
-    </h:body>
+
+<h:form id="comentario">
+    <p:dataTable value="#{eliminaComentario.getComentarios}">
+        <p:column headerText="Comentario">
+            <h:outputText value="#{com.id_comentario}" />
+        </p:column>
+
+        <p:column headerText="Descripción">
+            <h:outputText value="#{com.descripcion}" />
+        </p:column>
+
+        <p:column headerText="Eliminar">
+            <p:commandButton value="Eliminar" />
+        </p:column>
+
+    </p:dataTable>
+</h:form>
+</h:body>
      
 </html>
