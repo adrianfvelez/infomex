@@ -41,7 +41,12 @@
                 window.location.href = ruta;
             }
         </script>
-
+<script>
+function myFunction() {
+  alert('The image could not be loaded.');
+}
+</script>
+        
         <style>
 
             input[type=text], select {
@@ -123,7 +128,7 @@
 
                 currentMarker = null;
                 PF('dlg').hide();
-                window.location.href = 'mapa.xhtml';
+                
             }
 
             function cancel() {
@@ -149,9 +154,9 @@
                             <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
                         </p:selectOneMenu>
 
-                        <f:facet name="foot">
-                            <p:commandButton value="Add" action="#{administradorMarcador.agregaMarr}" update=":messages" oncomplete="markerAddComplee()"/>
-                        </f:facet>
+
+                        <p:commandButton value="Buscar" action="#{administradorMarcador.actualizaMapa()}" update="gmap"/>
+
                     </h:panelGrid>
                 </h:form>
             </div>
@@ -186,10 +191,10 @@
                     <br />
 
                     <h:form id="comentarios">
-                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Custom" var="com" style="width:250px; height: 150px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
+                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:315px; height: 150px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
                             <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
                                 <f:facet name="header">
-                                    Basic
+                                    <h:outputText value="Usuario: #{com.correo_com}" />
                                 </f:facet>
                                 <h:outputText value="Id:" />
                                 <h:outputText value="#{com.id_mar}" />
@@ -232,7 +237,7 @@
 
 
                     <f:facet name="footer">
-                        <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update=":messages" oncomplete="markerAddComplete()"/>
+                        <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update="gmap" oncomplete="markerAddComplete()"/>
                         <p:commandButton value="Cancel" onclick="return cancel()" />
                     </f:facet>
                 </h:panelGrid>

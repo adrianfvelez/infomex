@@ -2,7 +2,6 @@ package unam.fciencias.infomex.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,10 +23,11 @@ import unam.fciencias.infomex.modelo.Tema;
 @ManagedBean
 @ViewScoped
 public class AdministradorMarcador implements Serializable {
-    
+
     private Marcador user = new Marcador();
     private UtilidadMarcador u = new UtilidadMarcador();
 
+    private ArrayList<String> listaColores = new ArrayList<String>();
     private List<Tema> options;
     private List<String> optionsNombre;
     private List<Comentario> todosMarcadores;
@@ -36,8 +36,10 @@ public class AdministradorMarcador implements Serializable {
     private Comentario selectedCom;
     private UtilidadTema uu = new UtilidadTema();
     
-    private int id_mar;
+    private boolean color=false;
     
+    private int id_mar;
+
     private int id_tema;
 
     private String correo_inf;
@@ -105,137 +107,197 @@ public class AdministradorMarcador implements Serializable {
     public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
-    
-    
-    public String getNombreTema(int i){
+
+    public String getNombreTema(int i) {
         UtilidadTema uu = new UtilidadTema();
-        for(Tema u:uu.getTodosTemas()){
-            if(i==u.getId_tema()) return u.getNombre_tema();
+        for (Tema u : uu.getTodosTemas()) {
+            if (i == u.getId_tema()) {
+                return u.getNombre_tema();
+            }
         }
         return "=(";
     }
-    
-        public List<Comentario> getListaComentarios(int i){
-        Comentario nohay = new Comentario();
-        nohay.setCalificacion(2);
-        nohay.setCorreo_com("=(");
+
+    public List<Comentario> getListaComentarios(int i) {
+        //Comentario nohay = new Comentario();
+        //nohay.setCalificacion(2);
+        //nohay.setCorreo_com("=(");
         UtilidadComentario uu = new UtilidadComentario();
-        List<Comentario> a=new ArrayList<Comentario>();
-        if(uu.getTodosComentarios()!=null){
-            for(Comentario u:uu.getTodosComentarios()){
-                if(i==u.getId_mar()){
+        List<Comentario> a = new ArrayList<Comentario>();
+        if (uu.getTodosComentarios() != null) {
+            for (Comentario u : uu.getTodosComentarios()) {
+                if (i == u.getId_mar()) {
                     a.add(u);
                 }
             }
-            
-            return a;    
-        }else{
-            a.add(nohay);
+
+            return a;
+        } else {
+        //    a.add(nohay);
             return a;
         }
     }
-    
+
     private MapModel simpleModel;
-    
+
     private Marker marker;
-  
+    
+    
+
     @PostConstruct
     public void init() {
+        if(!color){
+        for(int i = 0; i < 100; i++){
+            String code = ""+(int)(Math.random()*256);
+            code = code+code+code;
+            int  b = Integer.parseInt(code);
+            listaColores.add("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + Integer.toHexString( 0x1000000 | b).substring(1));
+        }
+        color=true;
+        }
         simpleModel = new DefaultMapModel();
-        
+
         List<Marcador> listaCompleta = u.getTodosMarcadores();
-        
-        if(listaCompleta!=null){
-            for(Marcador marca : listaCompleta){
+
+        if (listaCompleta != null) {
+            for (Marcador marca : listaCompleta) {
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
             }
         }
         //Coordenadas del marcador inicial
         LatLng coord1 = new LatLng(19.432590, -99.131205);
-          
+
         //Ponemos el marcador en el mapa
-        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico",null,"https://maps.google.com/mapfiles/ms/micons/pink-dot.png"));
+        //simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico", null, "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|92afd5"));
+
+        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico", null, listaColores.get(99)));
         
-        options =  uu.getTodosTemas();
-        if(options != null){
+        options = uu.getTodosTemas();
+        if (options != null) {
             optionsNombre = new ArrayList<String>();
-            for(Tema i : options){
+            for (Tema i : options) {
                 optionsNombre.add(i.getNombre_tema());
-            }            
+            }
         }
-        
+
     }
-  
-    public void setSimpleModel(MapModel a){
+
+    public String actualizaMapa() {
+        Integer a = -1;
+        for (Tema i : options) {
+            if (temaSeleccionado.equals(i.getNombre_tema())) {
+                a = i.getId_tema();
+            }
+        }
+
+        simpleModel = new DefaultMapModel();
+
+        List<Marcador> listaCompleta = u.getTodosMarcadores();
+
+        if (listaCompleta != null) {
+            for (Marcador marca : listaCompleta) {
+                if (marca.getId_tema() == a || a == -1) {
+                    LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
+                    simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca));
+                }
+            }
+        }
+        //Coordenadas del marcador inicial
+        LatLng coord1 = new LatLng(19.432590, -99.131205);
+
+        //Ponemos el marcador en el mapa
+        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico", null, "https://maps.google.com/mapfiles/ms/micons/pink-dot.png"));
+        return null;
+    }
+
+    public void setSimpleModel(MapModel a) {
         simpleModel = a;
     }
-    
-    
+
     public MapModel getSimpleModel() {
         return simpleModel;
     }
-    
+
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
     }
-      
+
     public Marker getMarker() {
         return marker;
     }
-    
-    
+
     public void eliminaMarcador() {
-        u.delete( (Marcador) marker.getData());
+        List<Marcador> listaCompleta = u.getTodosMarcadores();
+        ArrayList nuevo = new ArrayList();
+        Marcador aaa = ((Marcador) marker.getData());
+        for (Marcador i : listaCompleta) {
+            if (aaa.getId_tema() == i.getId_tema()) {
+                nuevo.add(i.getId_tema());
+            }
+        }
         
+        
+        if (nuevo.size()== 1) {
+            Tema oo=null;
+            for (Tema i : options) {
+            if (nuevo.get(0).equals(i.getId_tema())) {
+              oo = i;
+            }
+            }
+            UtilidadTema d = new UtilidadTema();
+            d.eliminaTema((Tema) oo );
+        }
+
+        u.delete((Marcador) marker.getData());
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Marcador eliminado"));
-        
+
     }
-    
-    public int getIdTema(){
-        for(Tema i : options){
-            if(nombreMarcador.equals(i.getNombre_tema())) return i.getId_tema();
+
+    public int getIdTema() {
+        for (Tema i : options) {
+            if (nombreMarcador.equals(i.getNombre_tema())) {
+                return i.getId_tema();
+            }
         }
         return -1;
     }
-        
+
     public String agregaMarcador() {
         Marker marke = new Marker(new LatLng(latitud, longitud), nombre_mar);
         simpleModel.addOverlay(marke);
-          
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marcador añadido", "Lat:" + latitud + ", Lng:" + longitud));
-       
+
         user.setLatitud(latitud);
         user.setLongitud(longitud);
         user.setNombre_mar(nombre_mar);
         user.setDescripcion_mar(descripcion_mar);
         FacesContext context = FacesContext.getCurrentInstance();
-        unam.fciencias.infomex.modelo.Informador i = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
+        unam.fciencias.infomex.modelo.Informador i = (unam.fciencias.infomex.modelo.Informador) context.getExternalContext().getSessionMap().get("usuario");
         //user.setCorreo_inf("admin");
         user.setCorreo_inf(i.getCorreo_inf());
         user.setId_tema(getIdTema());
-        
+
         u.save(user);
         //user=null;
-        
+
         List<Marcador> listaCompleta = u.getTodosMarcadores();
-        if(listaCompleta!=null){
-            for(Marcador marca : listaCompleta){
+        if (listaCompleta != null) {
+            for (Marcador marca : listaCompleta) {
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca));
             }
         }
-        
-        
+
         return null;
     }
-    
-    
 
     public List<String> getOptionsNombre() {
         return optionsNombre;
     }
- 
+
     public void setOption(List<String> optionsNombre) {
         this.optionsNombre = optionsNombre;
     }
@@ -247,7 +309,7 @@ public class AdministradorMarcador implements Serializable {
     public void setNombreMarcador(String nombreMarcador) {
         this.nombreMarcador = nombreMarcador;
     }
-    
+
     public String getTemaSeleccionado() {
         return temaSeleccionado;
     }
@@ -263,7 +325,7 @@ public class AdministradorMarcador implements Serializable {
     public void setTodosMarcadores(List<Comentario> todosMarcadores) {
         this.todosMarcadores = todosMarcadores;
     }
-    
+
     public Comentario getSelectedCom() {
         return selectedCom;
     }
@@ -271,5 +333,5 @@ public class AdministradorMarcador implements Serializable {
     public void setSelectedCom(Comentario selectedCom) {
         this.selectedCom = selectedCom;
     }
-    
+
 }
