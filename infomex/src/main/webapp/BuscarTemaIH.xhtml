@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Infomex</title>
     </h:head>
@@ -32,12 +33,19 @@
                                          update="myForm"
                                          process="@this">
                             <p:resetInput target="myForm" />
-                        </p:commandButton>
-                        
-                    </td>   
+                        </p:commandButton>                        
+                    </td>
+                    
+
                     
                 </tr>
             </table>
+            <h:dataTable var="dato" value="#{buscaTema.te}"  border="2" cellspacing="1" cellpadding="1">
+                <p:column>
+                    <h:outputText value="#{dato.nombre_tema}" />
+                </p:column>
+ 
+            </h:dataTable>
         </h:form>
     </h:body>
 </html>
