@@ -23,9 +23,18 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
 @RequestScoped
 public class AgregaComentario {
     
+    private int id;
     private Comentario comment = new Comentario();
     private UtilidadComentario u = new UtilidadComentario();
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+  
     public Comentario getComment() {
         return comment;
     }
@@ -44,7 +53,7 @@ public class AgregaComentario {
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
         comment.setCorreo_com(i.getCorreo_com());
-        comment.setId_mar(1);
+        comment.setId_mar(id);
         comment.setId_tema(1);
         u.save(comment);
         comment = null;

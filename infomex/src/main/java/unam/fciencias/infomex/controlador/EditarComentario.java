@@ -59,7 +59,6 @@ public class EditarComentario {
     
     public String editComentario() {
         u.setDescripcion(id, nuevaDescripcion);
-        u.setCalificacion(id, nuevaCalificacion);
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,

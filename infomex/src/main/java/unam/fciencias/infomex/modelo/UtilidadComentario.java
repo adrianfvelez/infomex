@@ -62,7 +62,6 @@ public class UtilidadComentario {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
-            //buscar la query adecuada
             String hql = "update Comentario c set c.descripcion= :nuevaDescripcion where c.id_comentario= :id";
             Query query = sessionObj.createQuery(hql);
             query.setParameter("nuevaDescripcion", nuevaDescripcion);
@@ -82,7 +81,7 @@ public class UtilidadComentario {
         }
     }
     
-    public void setCalificacion(int id, int nuevaCalificacion) {
+    /*public void setCalificacion(int id, int nuevaCalificacion) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             sessionObj.beginTransaction();
@@ -104,7 +103,7 @@ public class UtilidadComentario {
                 sessionObj.close();
             }
         }
-    }
+    }*/
     
     /*public void delete(Comentario comentario) {
         try {

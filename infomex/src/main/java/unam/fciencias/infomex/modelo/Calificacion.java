@@ -32,4 +32,40 @@ public class Calificacion {
     
     @Column(name = "correo_com")
     private String correo_com;
+    
+    @Column(name = "calificacion")
+    private String calificion;
+    
+    public int getId_calificacion() {
+        return id_calificacion;
+    }
+
+    public void setId_calificacion(int id_calificacion) {
+        this.id_calificacion = id_calificacion;
+    }
+
+    public int getId_comentario() {
+        return id_comentario;
+    }
+
+    public void setId_comentario(int id_comentario) {
+        this.id_comentario = id_comentario;
+    }
+
+    public String getCorreo_com() {
+        return correo_com;
+    }
+
+    public void setCorreo_com(String correo_com) {
+        this.correo_com = correo_com;
+    }
+
+    public String getCalificion() {
+        return calificion;
+    }
+
+    public void setCalificion(String calificion) {
+        this.calificion = calificion;
+    }
+    
 }
