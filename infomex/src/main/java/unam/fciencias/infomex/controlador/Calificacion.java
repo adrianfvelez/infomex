@@ -3,39 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unam.fciencias.infomex.modelo;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package unam.fciencias.infomex.controlador;
 
 /**
  *
  * @author valde
  */
-@Entity
-@Table(catalog = "infomex", schema = "public", name = "calificacion")
 public class Calificacion {
     
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Basic(optional=false)
-    @Column(name = "id_califiacion")
     private int id_calificacion;
-    
-    @Column(name = "id_comentario")
     private int id_comentario;
-    
-    @Column(name = "correo_com")
     private String correo_com;
-    
-    @Column(name = "calificacion")
     private String calificion;
-    
     private double example = 3.5;
 
     public double getExample() {
@@ -77,5 +56,4 @@ public class Calificacion {
     public void setCalificion(String calificion) {
         this.calificion = calificion;
     }
-    
 }

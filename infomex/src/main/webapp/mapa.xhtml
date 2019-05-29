@@ -120,6 +120,10 @@ function myFunction() {
                     PF('dlg').show();
                 }
             }
+            
+            function commentsOnClick(event){
+                PF('dlg').show();
+            }
 
             function markerAddComplete() {
                 var title = document.getElementById('title');
@@ -177,11 +181,9 @@ function myFunction() {
                         <p:growl id="messages" showDetail="true"/>
 
                         <p:menuButton value="Comentarios">
-                            <p:menuitem value="Agregar" ajax="false" url="agregar-comentario.xhtml"/>
-                            <p:menuitem value="Eliminar" ajax="false" url="eliminar-comentario.xhtml"/>
-                            <p:menuitem value="Editar" ajax="false" url="editar-comentario.xhtml"/>
-                            <p:separator />
-                            <p:menuitem value="Homepage" url="" icon="pi pi-home"/>
+                            <p:menuitem value="Agregar" onclick="PF('agrega-com').show()"/>
+                            <p:menuitem value="Eliminar"/>
+                            <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
                         </p:menuButton>
                     </h:form>
 
@@ -204,6 +206,9 @@ function myFunction() {
 
                                 <h:outputText value="Descripcion:" />
                                 <h:outputText value="#{com.descripcion}"/>
+                                
+                                <h:outputText value="Calificación:" />
+                                <p:rating value="#{calificacion.example}" readonly="true"/>
                             </h:panelGrid>
                         </p:carousel>
 
@@ -218,7 +223,7 @@ function myFunction() {
 
 
         <p:dialog widgetVar="dlg" showEffect="fade" >
-            <h:form prependId="false">
+            <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel for="title" value="Nombre:" />
                     <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
@@ -243,8 +248,70 @@ function myFunction() {
                 <h:inputHidden id="lng" value="#{administradorMarcador.longitud}" />
             </h:form>
         </p:dialog>
+        
+        <p:dialog widgetVar="agrega-com" showEffect="fade" >
+            <h:form id="agregaForm">
+                <h:outputText value= "#{administradorMarcador.marker.getData().getId_mar()}" />
+                <table>
+                    <tr><td>
+                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                        </td></tr>
+                </table>
+                <table> 
+                    <tr>
+                        <td>Descripción:</td>
+                        <td><p:inputText value="#{agregaComentario.comment.descripcion}"
+                                         required="true"
+                                         id="descripcion"
+                                         size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{agregaComentario.addComentario(administradorMarcador.marker.getData().getId_mar())}"
+                                             value="Agregar"/>
+                            <p:commandButton
+                                            value="Cancelar"
+                                            onclick="return cancel()"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
 
-
-
+        <p:dialog widgetVar="edita-com" showEffect="fade">
+            <h:form id="editaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <table>
+                    <tr>
+                        <td>id_Comentario:</td>
+                        <td><p:inputText value="#{editarComentario.id}"
+                                         required="true"
+                                         id="id"
+                                         size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>Nuevo Comentario:</td>
+                        <td><p:inputText value="#{editarComentario.nuevaDescripcion}"
+                                         required="true"
+                                         id="nuevaDescripcion"
+                                         size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{editarComentario.editComentario}"
+                                             value="Editar"/>
+                            <p:commandButton
+                                            value="Cancelar"
+                                            ajax="false"
+                                            immediate="true"
+                                            action="mapa.xhmtl?faces-redirect=true"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
+        
     </h:body>
 </html>
