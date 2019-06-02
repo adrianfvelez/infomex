@@ -2,8 +2,6 @@
 	correo_com varchar(50) NOT NULL,
 	usuario_com varchar(20) UNIQUE NOT NULL,
 	contrasenia_com varchar(30) NOT NULL,
-	nombre varchar(65) NOT NULL,
-	fecha_nacimiento char(8),
 	CONSTRAINT "PK_comentarista" PRIMARY KEY (correo_com)
 );
 
