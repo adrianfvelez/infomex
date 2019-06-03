@@ -104,10 +104,10 @@ public class AgregarTema {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public int getIdTema(){
+    public int getIdTema(Tema a){
         options =  uu.getTodosTemas();
         for(Tema i : options){
-            if(tema.getNombre_tema().equals(i.getNombre_tema())) return i.getId_tema();
+            if(a.getNombre_tema().equals(i.getNombre_tema())) return i.getId_tema();
         }
         return -1;
     }
@@ -117,9 +117,18 @@ public class AgregarTema {
         FacesContext context1 = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Informador i1 = (unam.fciencias.infomex.modelo.Informador)context1.getExternalContext().getSessionMap().get("usuario");
         tema.setCorreo_inf(i1.getCorreo_inf());
+        tema.setNombre_tema((tema.getNombre_tema().toUpperCase()));
+        if(u1.buscaTemaPorNombre(tema) != null){
+             FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Ya existe el tema, por favor ingrese otro", ""));
+             return "";
+        }
+        
         u1.save(tema);
         
-        user.setId_tema(tema.getId_tema());
+        user.setId_tema(getIdTema(tema));
         tema = null;
          FacesContext.getCurrentInstance()
                 .addMessage(null,
@@ -140,7 +149,7 @@ public class AgregarTema {
         unam.fciencias.infomex.modelo.Informador i = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
         //user.setCorreo_inf("admin");
         user.setCorreo_inf(i.getCorreo_inf());
-        user.setId_tema(getIdTema());
+        //user.setId_tema(getIdTema());
         
         u.save(user);
         //user=null;
