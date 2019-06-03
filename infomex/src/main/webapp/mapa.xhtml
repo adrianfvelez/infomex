@@ -124,6 +124,10 @@ function myFunction() {
                     PF('dlg').show();
                 }
             }
+            
+            function commentsOnClick(event){
+                PF('dlg').show();
+            }
 
             function markerAddComplete() {
                 var title = document.getElementById('title');
@@ -141,7 +145,10 @@ function myFunction() {
                 currentMarker = null;
 
                 return false;
+                
             }
+            
+            function 
         </script>
 
 
@@ -169,27 +176,29 @@ function myFunction() {
         <p:gmap id="gmap" center="19.432590, -99.131205" zoom="13" type="HYBRID" style="position:absolute;left: 10px; top:137px; bottom:0px;height:540px ;width:850px;"
                 model="#{administradorMarcador.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
 
-            <p:ajax event="overlaySelect" listener="#{administradorMarcador.onMarkerSelect}" />
+            <p:ajax event="overlaySelect" listener="#{administradorMarcador.onMarkerSelect}"/>
 
             <p:gmapInfoWindow id="infoWindow">
                 <p:outputPanel style="text-align: center; display: block; margin: auto">
 
                     <h:outputText value= "#{administradorMarcador.marker.title}" style="font-weight:bold"/>
                     <br />
-
+                    
                     <h:form>
                         <p:growl id="messages" showDetail="true"/>
-
+                        
                         <p:menuButton value="Comentarios">
-                            <p:menuitem value="Agregar" ajax="false" url="agregar-comentario.xhtml"/>
-                            <p:menuitem value="Eliminar" ajax="false" url="eliminar-comentario.xhtml"/>
-                            <p:menuitem value="Editar" ajax="false" url="editar-comentario.xhtml"/>
-                            <p:separator />
-                            <p:menuitem value="Homepage" url="" icon="pi pi-home"/>
+                            <p:menuitem value="Agregar" action="#{getId.showResult}" onclick="PF('agrega-com').show()">
+                                <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
+                            </p:menuitem>
+                            <p:menuitem value="Eliminar"/>
+                            <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
                         </p:menuButton>
                     </h:form>
 
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
+                    <br />
+                    <h:outputText value= "#{administradorMarcador.marker.getData().getId_mar()}" />
                     <br />
                     <h:outputText value= "#{administradorMarcador.getNombreTema(administradorMarcador.marker.getData().getId_tema())}" />
                     <br />
@@ -206,11 +215,11 @@ function myFunction() {
                                 <h:outputText value="Usuario" />
                                 <h:outputText value="#{com.correo_com}" />
 
-                                <h:outputText value="Calificacion:" />
-                                <p:rating value="#{com.calificacion}" readonly="true" />
-
                                 <h:outputText value="Descripcion:" />
                                 <h:outputText value="#{com.descripcion}"/>
+                                
+                                <h:outputText value="Calificación:" />
+                                <p:rating value="#{calificacion.example}" readonly="true"/>
                             </h:panelGrid>
                         </p:carousel>
 
@@ -222,8 +231,8 @@ function myFunction() {
                 </p:outputPanel>
             </p:gmapInfoWindow>
         </p:gmap>
-
-
+        
+        
         <p:dialog widgetVar="dlg" showEffect="fade" >
             <h:form prependId="false">
                 <h:panelGrid columns="2">
@@ -238,8 +247,6 @@ function myFunction() {
                         <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
                     </p:selectOneMenu>
 
-
-
                     <f:facet name="footer">
                         <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update="gmap" oncomplete="markerAddComplete()"/>
                         <p:commandButton value="Cancel" onclick="return cancel()" />
@@ -250,8 +257,56 @@ function myFunction() {
                 <h:inputHidden id="lng" value="#{administradorMarcador.longitud}" />
             </h:form>
         </p:dialog>
+        
+        <p:dialog widgetVar="agrega-com" showEffect="fade" >
+            <h:form>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="title" value="Descripción:" />
+                    <p:inputTextarea id="title" value="#{agregaComentario.comment.descripcion}" required="true"/>
 
+                    <f:facet name="footer">
+                        <p:commandButton value="Agregar" action="#{agregaComentario.addComentario(getId.data)}" update="gmap"/>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
 
-
+        <p:dialog widgetVar="edita-com" showEffect="fade">
+            <h:form id="editaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <table>
+                    <tr>
+                        <td>id_Comentario:</td>
+                        <td><p:inputText value="#{editarComentario.id}"
+                                         required="true"
+                                         id="id"
+                                         size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>Nuevo Comentario:</td>
+                        <td><p:inputText value="#{editarComentario.nuevaDescripcion}"
+                                         required="true"
+                                         id="nuevaDescripcion"
+                                         size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{editarComentario.editComentario}"
+                                             value="Editar"/>
+                            <p:commandButton
+                                            value="Cancelar"
+                                            ajax="false"
+                                            immediate="true"
+                                            action="mapa.xhmtl?faces-redirect=true"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
+        
     </h:body>
 </html>

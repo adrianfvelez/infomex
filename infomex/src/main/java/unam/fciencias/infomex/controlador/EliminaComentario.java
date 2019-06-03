@@ -25,11 +25,11 @@ public class EliminaComentario {
     private int id;
     private UtilidadComentario u = new UtilidadComentario();
     
-    public int getComment() {
+    public int getId() {
         return id;
     }
 
-    public void setComment(int id) {
+    public void setId(int id) {
         this.id = id;
     }
     
