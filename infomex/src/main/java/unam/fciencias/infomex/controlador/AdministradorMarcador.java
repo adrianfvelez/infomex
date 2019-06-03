@@ -146,15 +146,14 @@ public class AdministradorMarcador implements Serializable {
 
     @PostConstruct
     public void init() {
-        if(!color){
+      
         for(int i = 0; i < 100; i++){
             String code = ""+(int)(Math.random()*256);
             code = code+code+code;
             int  b = Integer.parseInt(code);
             listaColores.add("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + Integer.toHexString( 0x1000000 | b).substring(1));
         }
-        color=true;
-        }
+       
         simpleModel = new DefaultMapModel();
 
         List<Marcador> listaCompleta = u.getTodosMarcadores();
@@ -199,7 +198,7 @@ public class AdministradorMarcador implements Serializable {
             for (Marcador marca : listaCompleta) {
                 if (marca.getId_tema() == a || a == -1) {
                     LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                    simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca));
+                    simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
                 }
             }
         }
@@ -228,6 +227,9 @@ public class AdministradorMarcador implements Serializable {
     }
 
     public void eliminaMarcador() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Informador ii = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
+        if(ii.getCorreo_inf().equals( ((Marcador) marker.getData()).getCorreo_inf() )){
         List<Marcador> listaCompleta = u.getTodosMarcadores();
         ArrayList nuevo = new ArrayList();
         Marcador aaa = ((Marcador) marker.getData());
@@ -252,7 +254,7 @@ public class AdministradorMarcador implements Serializable {
         u.delete((Marcador) marker.getData());
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Marcador eliminado"));
-
+        }else{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El marcador seleccionado no es el tuyo"));}
     }
 
     public int getIdTema() {
@@ -287,7 +289,7 @@ public class AdministradorMarcador implements Serializable {
         if (listaCompleta != null) {
             for (Marcador marca : listaCompleta) {
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
             }
         }
 
