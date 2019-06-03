@@ -124,10 +124,6 @@ function myFunction() {
                     PF('dlg').show();
                 }
             }
-            
-            function commentsOnClick(event){
-                PF('dlg').show();
-            }
 
             function markerAddComplete() {
                 var title = document.getElementById('title');
@@ -147,8 +143,6 @@ function myFunction() {
                 return false;
                 
             }
-            
-            function 
         </script>
 
 
@@ -188,8 +182,9 @@ function myFunction() {
                         <p:growl id="messages" showDetail="true"/>
                         
                         <p:menuButton value="Comentarios">
-                            <p:menuitem value="Agregar" action="#{getId.showResult}" onclick="PF('agrega-com').show()">
+                            <p:menuitem id="id_com" value="Agregar" action="#{getId.showResult}">
                                 <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
+                                <f:ajax execute = "id_com" render ="agrega" />
                             </p:menuitem>
                             <p:menuitem value="Eliminar"/>
                             <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
@@ -258,7 +253,7 @@ function myFunction() {
             </h:form>
         </p:dialog>
         
-        <p:dialog widgetVar="agrega-com" showEffect="fade" >
+        <p:dialog id="agrega" widgetVar="agrega-com" showEffect="fade" >
             <h:form>
                 
                 <h:panelGrid columns="2">
