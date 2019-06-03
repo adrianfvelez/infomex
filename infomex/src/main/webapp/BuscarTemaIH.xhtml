@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Infomex</title>
     </h:head>
@@ -32,12 +33,39 @@
                                          update="myForm"
                                          process="@this">
                             <p:resetInput target="myForm" />
-                        </p:commandButton>
-                        
-                    </td>   
-                    
+                        </p:commandButton>                        
+                    </td>                                        
                 </tr>
             </table>
+            
         </h:form>
+        
+        <h:form>
+            <p:growl id="msgs" showDetail="true" />
+            <h:panelGrid columns="2" cellpadding="5">
+                
+                <p:outputLabel value="Multiple:" for="themes" />
+                <p:autoComplete id="themes" multiple="true" value="#{buscaTema.buscarTema()}"
+                                var="theme" itemLabel="#{buscaTema.obtenerTema()}" itemValue="#{buscaTema}" forceSelection="true">
+                    
+                    <p:column>
+                        <h:outputText value="#{buscaTema.obtenerTema()}" />
+                    </p:column>
+                    
+                </p:autoComplete>
+            </h:panelGrid>
+            
+            <p:dialog header="Values" resizable="false" showEffect="fade" widgetVar="dlg">
+                <p:panelGrid id="output" columns="2" columnClasses="label, value">
+                    <h:outputText value="Multiple:" />
+                        <p:dataList value="#{buscaTema.obtenerTema()}">
+                            <h:outputText value="#{dato.nombre_tema}" />
+                        </p:dataList>
+                </p:panelGrid>
+            </p:dialog>
+            <p:commandButton value="Pagina principal" 
+                             immediate="true"
+                             action="mapa.xhtml?faces-redirect=true"/>
+        </h:form>    
     </h:body>
 </html>

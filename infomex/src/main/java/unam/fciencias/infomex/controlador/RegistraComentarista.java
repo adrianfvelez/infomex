@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 
 import unam.fciencias.infomex.modelo.Comentarista;
 import unam.fciencias.infomex.modelo.UtilidadComentarista;
+import unam.fciencias.infomex.modelo.UtilidadInformador;
 
 /**
  *
@@ -26,6 +27,16 @@ public class RegistraComentarista {
     
     private Comentarista user = new Comentarista();
     private UtilidadComentarista u = new UtilidadComentarista();
+    private String conf_password = "";
+    private UtilidadInformador uti_inf = new UtilidadInformador();
+
+    public String getConf_password() {
+        return conf_password;
+    }
+
+    public void setConf_password(String conf_password) {
+        this.conf_password = conf_password;
+    }
     
     public Comentarista getUser() {
         return user;
@@ -42,6 +53,22 @@ public class RegistraComentarista {
     }
     
     public String addUser(){
+        if(!conf_password.equals(user.getContrasenia_com())){
+            FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Las contraseñas no coinciden", ""));
+            return "";
+        }
+        user.setContrasenia_com(cifraPassword(conf_password));
+        if(u.buscaPorCorreo(user.getCorreo_com()) != null
+                || uti_inf.buscaPorCorreo(user.getCorreo_com()) != null){
+            FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Ya hay una cuenta asociada a ese correo, ingrese otro por favor", ""));
+            return "";
+        }
         u.save(user);
         user = null;
         FacesContext.getCurrentInstance()
@@ -56,4 +83,7 @@ public class RegistraComentarista {
         return "inicioSesion.xhmtl?faces-redirect=true";
     }
     
+    private String cifraPassword(String ps){
+        return new StringBuffer(ps).reverse().toString();
+    }
 }

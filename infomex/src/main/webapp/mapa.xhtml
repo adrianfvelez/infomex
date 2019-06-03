@@ -17,21 +17,25 @@
         <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
             <h1 style="font-weight:normal">Menu</h1>
             <p:commandButton value="Pagina principal" oncomplete="redirect('mapa.xhtml')"/>
-            <br/>
-            <p:commandButton value="Iniciar sesion" oncomplete="redirect('inicioSesion.xhtml')"/>
-            <br/>
-            <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
-            <br/>
-            <p:commandButton value="Registrar Informador" oncomplete="redirect('registroInformador.xhtml')"/>
-            <br/>
-            <p:commandButton value="Agregar temas" oncomplete="redirect('AgregarTemaIH.xhtml')"/>
-            <br/>
-            <p:commandButton value="Eliminar temas" oncomplete="redirect('EliminarTema.xhtml')"/>
-            <br/>
-            <p:commandButton value="Buscar Tema" oncomplete="redirect('BuscarTemaIH.xhtml')"/>
-            <br/>
-            <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')"/>
-            <br/>
+             <br/>
+             <p:commandButton value="Iniciar sesion" oncomplete="redirect('inicioSesion.xhtml')"/>
+             <br/>
+             <p:commandButton value="Editar Cuenta" oncomplete="redirect('EditarCuenta.xhtml')"/>
+             <br/>
+             <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
+             <br/>
+             <p:commandButton value="Registrar Informador" oncomplete="redirect('registroInformador.xhtml')"/>
+             <br/>
+             <p:commandButton value="Agregar temas" oncomplete="redirect('AgregarTemaIH.xhtml')"/>
+             <br/>
+             <p:commandButton value="Eliminar temas" oncomplete="redirect('EliminarTema.xhtml')"/>
+             <br/>
+             <p:commandButton value="Buscar Tema" oncomplete="redirect('BuscarTemaIH.xhtml')"/>
+             <br/>
+             <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
+             <p:commandButton value="Eliminar mi cuenta" action="#{eliminarCuenta.eliminaCuenta}" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
             <p:commandButton value="Cancelar" oncomplete="PF('sidebar1').hide()"/>
         </p:sidebar>
 

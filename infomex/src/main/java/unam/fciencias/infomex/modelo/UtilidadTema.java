@@ -5,6 +5,7 @@
  */
 package unam.fciencias.infomex.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
     import org.hibernate.Session;
@@ -136,5 +137,13 @@ public class UtilidadTema {
                 sessionObj.close();
             }
         }
+    }
+    
+    public ArrayList<Tema> MostrarTemas(String tema){
+        String hql = "from Tema t where t.nombre_tema = :nombre";
+        Query query = sessionObj.createQuery(hql);
+        //query.setParameter("tema", tema);
+        ArrayList<Tema> temas = (ArrayList<Tema>) query.list();
+        return temas;
     }
 }
