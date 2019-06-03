@@ -5,6 +5,8 @@
  */
 package unam.fciencias.infomex.controlador;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
@@ -26,6 +28,7 @@ public class BuscarTema {
     
     private Tema tema = new Tema();
     private UtilidadTema u = new UtilidadTema();
+    private ArrayList<Tema> te;
 
     public Tema getTema() {
         return tema;
@@ -60,5 +63,22 @@ public class BuscarTema {
         
         tema = new Tema();
         return null;
+    }
+    
+    public String mostrarTemas(String tema){
+        te = u.MostrarTemas(tema);
+        return "resultado?faces-redirect=true";
+    }
+    
+    public List<Tema> obtenerTema(){
+        return u.getTodosTemas();
+    }
+
+    public ArrayList<Tema> getTe() {
+        return te;
+    }
+
+    public void setTe(ArrayList<Tema> te) {
+        this.te = te;
     }
 }

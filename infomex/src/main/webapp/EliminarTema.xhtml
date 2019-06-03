@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Infomex</title>
     </h:head>
@@ -36,6 +37,18 @@
                     
                 </tr>
             </table>
+            <br/>
+            <h:dataTable var="dato" value="#{buscaTema.obtenerTema()}" border="5" cellspacing="2" cellpadding="2">
+                <p:column>
+                    <f:facet name = "header">Temas Disponibles</f:facet> 
+                    <h:outputText value="#{dato.nombre_tema}" />
+                </p:column>
+ 
+            </h:dataTable>
+            <br/>
+            <p:commandButton value="Pagina principal" 
+                             immediate="true"
+                             action="mapa.xhtml?faces-redirect=true"/>
         </h:form>
     </h:body>
 </html>
