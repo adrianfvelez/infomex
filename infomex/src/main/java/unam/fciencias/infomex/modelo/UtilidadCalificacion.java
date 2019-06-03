@@ -15,7 +15,7 @@ import static unam.fciencias.infomex.modelo.UtilidadComentario.sessionObj;
  * @author valde
  */
 public class UtilidadCalificacion {
-    static Comentario comObj;
+    
     static Session sessionObj;
     
     public void save(Calificacion calificacion) {

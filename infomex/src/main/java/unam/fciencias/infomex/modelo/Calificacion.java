@@ -34,17 +34,7 @@ public class Calificacion {
     private String correo_com;
     
     @Column(name = "calificacion")
-    private String calificion;
-    
-    private double example = 3.5;
-
-    public double getExample() {
-        return example;
-    }
-
-    public void setExample(double example) {
-        this.example = example;
-    }
+    private int calificacion;
     
     public int getId_calificacion() {
         return id_calificacion;
@@ -70,12 +60,12 @@ public class Calificacion {
         this.correo_com = correo_com;
     }
 
-    public String getCalificion() {
-        return calificion;
+    public int getCalificacion() {
+        return calificacion;
     }
 
-    public void setCalificion(String calificion) {
-        this.calificion = calificion;
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
     
 }

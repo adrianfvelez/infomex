@@ -3,6 +3,7 @@ package unam.fciencias.infomex.controlador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -220,13 +221,13 @@ public class AdministradorMarcador implements Serializable {
     }
 
     public void onMarkerSelect(OverlaySelectEvent event) {
-        marker = (Marker) event.getOverlay();
+        marker = (Marker) event.getOverlay();        
     }
 
     public Marker getMarker() {
         return marker;
     }
-
+    
     public void eliminaMarcador() {
         List<Marcador> listaCompleta = u.getTodosMarcadores();
         ArrayList nuevo = new ArrayList();

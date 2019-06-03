@@ -81,50 +81,7 @@ public class UtilidadComentario {
         }
     }
     
-    /*public void setCalificacion(int id, int nuevaCalificacion) {
-        try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-            sessionObj.beginTransaction();
-            //buscar la query adecuada
-            String hql = "update Comentario c set c.calificacion= :nuevaCalificacion where c.id_comentario= :id";
-            Query query = sessionObj.createQuery(hql);
-            query.setParameter("nuevaCalificacion", nuevaCalificacion);
-            query.setInteger("id", id);
-            query.executeUpdate();
-            sessionObj.getTransaction().commit();
-        } catch (Exception sqlException) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-            }
-            sqlException.printStackTrace();
-        } finally {
-            if (sessionObj != null) {
-                sessionObj.close();
-            }
-        }
-    }*/
-    
-    /*public void delete(Comentario comentario) {
-        try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-            sessionObj.beginTransaction();
-            sessionObj.delete(comentario);
-            sessionObj.getTransaction().commit();
-        } catch (Exception sqlException) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-            }
-            sqlException.printStackTrace();
-        } finally {
-            if (sessionObj != null) {
-                sessionObj.close();
-            }
-        }
-    }*/
-    
-        public List<Comentario> getTodosComentarios(){
+    public List<Comentario> getTodosComentarios(){
         List<Comentario> obj = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
 
