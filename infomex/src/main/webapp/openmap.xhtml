@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>MIMAPA</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </h:head>
+    <h:body>
+        <h1>Mapa chido</h1> <br/>
+        
+            <style>
+            input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
+        .mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-left: 67%;
+            width:30%
+        }
+        #map { position:absolute;left: 10px; top:100px; bottom:0px;height:550px ;width:850px; }
+        .geocoder {
+            position:absolute;left: 15px; top:110px;
+        }
+    </style>
+
+<h4>
+    <div class="container">
+        <form action="" id="signupForm">
+            <label for="lat">lat</label>
+            <input type="text" id="lat" name="lat" placeholder="Your lat.."></input>
+
+            <label for="lng">lng</label>
+            <input type="text" id="lng" name="lng" placeholder="Your lng.."></input>
+
+            <input type="submit" value="Submit"></input>
+        </form>
+    </div>
+</h4>
+
+<h5>
+    <div class="geocoder">
+        <div id="geocoder" ></div>
+    </div>
+</h5>
+<h6>
+    <div id="map"></div>
+</h6>
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+    </style>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+
+
+    <script>
+        var l = ['a'];
+        var saved_markers = [[78.216721,29.644800],[78.316721,29.744800]];
+        var user_location = [77.216721,28.644800];
+        mapboxgl.accessToken = 'pk.eyJ1IjoibW1vbnJlYWwxNyIsImEiOiJjanR3NDloaXowZ2tiM3pvNnJ6MDhjdDk2In0.hP3-gE0NwU8NE6Cs13--xQ';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: user_location,
+            zoom: 10
+        });
+        //  geocoder here
+        var geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+        });
+
+        var marker ;
+
+        // After the map style has loaded on the page, add a source layer and default
+        // styling for a single point.
+        map.on('load', function() {
+            addMarker(user_location,'load');
+            add_markers(saved_markers);
+
+            // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+            // makes a selection and add a symbol that matches the result.
+            geocoder.on('result', function(ev) {
+                alert("aaaaa");
+                console.log(ev.result.center);
+
+
+
+
+
+            });
+        });
+        map.on('click', function (e) {
+            marker.remove();
+            addMarker(e.lngLat,'click');
+            //console.log(e.lngLat.lat);
+            document.getElementById("lat").value = e.lngLat.lat;
+            document.getElementById("lng").value = e.lngLat.lng;
+
+        });
+
+        function addMarker(ltlng,event) {
+
+            if(event === 'click'){
+                user_location = ltlng;
+            }
+            marker = new mapboxgl.Marker({draggable: true,color:"#d02922"})
+                .setLngLat(user_location)
+                .addTo(map)
+                .on('dragend', onDragEnd);
+        }
+
+        function add_markers(coordinates) {
+
+            var geojson = (saved_markers == coordinates ? saved_markers : '');
+
+            console.log(geojson);
+            // add markers to map
+            geojson.forEach(function (marker) {
+
+
+
+// Add a layer showing the places.
+map.addLayer({
+"id": "places",
+"type": "symbol",
+"source": {
+"type": "geojson",
+"data": {
+"type": "FeatureCollection",
+"features": [{
+"type": "Feature",
+"properties": {
+"description": "<strong>Make it Mount Pleasant</strong><p>Make it Mount Pleasant is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+"icon": "car"
+},
+"geometry": {
+"type": "Point",
+"coordinates": marker
+}
+}]
+}},
+"layout": {
+"icon-image": "{icon}-15",
+"icon-allow-overlap": true
+}});
+
+// Create a popup, but don't add it to the map yet.
+var popup = new mapboxgl.Popup({
+closeButton: false,
+closeOnClick: false
+});
+ 
+map.on('mouseenter', 'places', function(e) {
+// Change the cursor style as a UI indicator.
+map.getCanvas().style.cursor = 'pointer';
+ 
+var coordinates = marker;
+var description = e.features[0].properties.description;
+ 
+// Populate the popup and set its coordinates
+// based on the feature found.
+popup.setLngLat(coordinates)
+.setHTML(description)
+.addTo(map);
+});
+ 
+map.on('mouseleave', 'places', function() {
+map.getCanvas().style.cursor = '';
+popup.remove();
+});
+
+                console.log(marker);
+                // make a marker for each feature and add to the map
+                new mapboxgl.Marker()
+                    .setLngLat(marker)
+                    .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                        .setHTML('<h3>' + l + '</h3><p>' + 'marker.properties.description' + '</p>'))
+                    .addTo(map);
+            });
+
+        }
+
+        function onDragEnd() {
+            var lngLat = marker.getLngLat();
+            document.getElementById("lat").value = lngLat.lat;
+            document.getElementById("lng").value = lngLat.lng;
+            console.log('lng: ' + lngLat.lng + '<br />lat: ' + lngLat.lat);
+        }
+
+        $('#signupForm').submit(function(event){
+            event.preventDefault();
+            var lat = $('#lat').val();
+            var lng = $('#lng').val();
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                success: function(data){
+                    alert(data);
+                    location.reload();
+                }
+            });
+        });
+
+
+
+        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+    </script>
+
+        <h:form>
+          
+
+      </h:form>
+    </h:body>
+</html>
