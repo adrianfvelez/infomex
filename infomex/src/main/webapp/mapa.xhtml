@@ -184,7 +184,7 @@ function myFunction() {
                         <p:growl id="messages" showDetail="true"/>
                         
                         <p:menuButton value="Comentarios">
-                            <p:menuitem id="agrega" value="Agregar" action="#{getId.showResult}" oncomplete="PF('agrega-com').show()">
+                            <p:menuitem value="Agregar" action="#{getId.showResult}" onclick="PF('agrega-com').show()">
                                 <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
                             </p:menuitem>
                             <p:menuitem value="Eliminar"/>
@@ -242,8 +242,6 @@ function myFunction() {
                         <f:selectItem itemLabel="Tema" itemValue="" />
                         <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
                     </p:selectOneMenu>
-
-
 
                     <f:facet name="footer">
                         <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update="gmap" oncomplete="markerAddComplete()"/>
