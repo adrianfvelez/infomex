@@ -7,7 +7,6 @@ package unam.fciencias.infomex.modelo;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
 /**
  *
  * @author avelez
@@ -60,4 +59,22 @@ public class UtilidadInformador {
         return null;
     }
     
+    public void delete(Informador i) {
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            sessionObj.delete(i);
+            sessionObj.getTransaction().commit();
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
 }

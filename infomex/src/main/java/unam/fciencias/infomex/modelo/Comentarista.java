@@ -5,14 +5,10 @@
  */
 package unam.fciencias.infomex.modelo;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -33,12 +29,6 @@ public class Comentarista {
     @Column(name = "contrasenia_com")
     private String contrasenia_com;
     
-    @Column(name = "nombre")
-    private String nombre;
-    
-    @Column(name = "fecha_nacimiento")
-    private String fecha_nacimiento;
-
     public String getCorreo_com() {
         return correo_com;
     }
@@ -62,20 +52,5 @@ public class Comentarista {
     public void setContrasenia_com(String contrasenia_com) {
         this.contrasenia_com = contrasenia_com;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(String fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }    
+    
 }

@@ -74,7 +74,8 @@ public class IniciaSesion {
     public String inicia() {
         Comentarista usuario_com = u_comentarista.buscaPorCorreo(correo_a_buscar);
         if(usuario_com != null){
-            if(usuario_com.getContrasenia_com().equals(contrasenia_a_buscar)){
+            String pass_cifrada = cifraPassword(contrasenia_a_buscar);
+            if(usuario_com.getContrasenia_com().equals(pass_cifrada)){
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("tipo_usuario", "comentarista");
                 context.getExternalContext().getSessionMap().put("usuario", usuario_com);
@@ -99,7 +100,8 @@ public class IniciaSesion {
         }
         Informador usuario_inf = u_informador.buscaPorCorreo(correo_a_buscar);
         if(usuario_inf != null){
-            if(usuario_inf.getContrasenia_inf().equals(contrasenia_a_buscar)){
+            String pass_cifrada = cifraPassword(contrasenia_a_buscar);
+            if(usuario_inf.getContrasenia_inf().equals(pass_cifrada)){
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("tipo_usuario", "informador");
                 context.getExternalContext().getSessionMap().put("usuario", usuario_inf);
@@ -131,5 +133,9 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Hola "+i.getUsuario_com(), ""));   
-    }    
+    }
+
+    private String cifraPassword(String ps){
+        return new StringBuffer(ps).reverse().toString();
+    }
 }
