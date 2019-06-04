@@ -115,8 +115,9 @@
             <h:outputLabel for="descripcion" value="Descripcion:" />
             <p:inputTextarea id="descripcion" value="#{agregarTema.descripcion_mar}" required="true"/>
 
-            Tema
+            Tema: 
             <p:inputText value="#{agregarTema.tema.nombre_tema}"
+                         style="text-transform:uppercase;"
                                      required="true"
                                      id="nombre_tema"
                                      size="40"/>

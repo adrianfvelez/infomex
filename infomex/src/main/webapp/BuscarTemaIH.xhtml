@@ -20,6 +20,7 @@
                 <tr>
                     <td>Escriba el nombre del tema a buscar: </td>
                     <td><p:inputText value="#{buscaTema.tema.nombre_tema}"
+                                     style="text-transform:uppercase;"
                                      required="true"
                                      id="nombre_tema"
                                      size="40"/>
@@ -44,25 +45,33 @@
             <p:growl id="msgs" showDetail="true" />
             <h:panelGrid columns="2" cellpadding="5">
                 
-                <p:outputLabel value="Multiple:" for="themes" />
-                <p:autoComplete id="themes" multiple="true" value="#{buscaTema.buscarTema()}"
-                                var="theme" itemLabel="#{buscaTema.obtenerTema()}" itemValue="#{buscaTema}" forceSelection="true">
+                <p:outputLabel value="Multiple_0:" />
+                               
+                <p:autoComplete id="themes" 
+                                multiple="true"
+                                value="#{buscaTema.obtenerTema()}"
+                                completeMethod="#{buscaTema.obtenerTema()}"
+                                var="theme" 
+                                itemLabel="#{buscaTema.tema.nombre_tema}" 
+                                itemValue="#{theme}" 
+                                forceSelection="true">
                     
                     <p:column>
-                        <h:outputText value="#{buscaTema.obtenerTema()}" />
+                        <h:outputText value="#{buscaTema.tema.nombre_tema}" />
                     </p:column>
                     
                 </p:autoComplete>
             </h:panelGrid>
             
             <p:dialog header="Values" resizable="false" showEffect="fade" widgetVar="dlg">
-                <p:panelGrid id="output" columns="2" columnClasses="label, value">
+                <p:panelGrid id="output">
                     <h:outputText value="Multiple:" />
-                        <p:dataList value="#{buscaTema.obtenerTema()}">
-                            <h:outputText value="#{dato.nombre_tema}" />
-                        </p:dataList>
+                    <p:dataList value="#{buscaTema.obtenerTema()}" var="t">
+                            <h:outputText value="#{t}" />
+                    </p:dataList>
                 </p:panelGrid>
             </p:dialog>
+            
             <p:commandButton value="Pagina principal" 
                              immediate="true"
                              action="mapa.xhtml?faces-redirect=true"/>
