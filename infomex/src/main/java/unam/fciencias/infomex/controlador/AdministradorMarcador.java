@@ -220,7 +220,15 @@ public class AdministradorMarcador implements Serializable {
     }
 
     public void onMarkerSelect(OverlaySelectEvent event) {
-        marker = (Marker) event.getOverlay();        
+        marker = (Marker) event.getOverlay();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("id_marcador",marker);
+    }
+    
+    public int nose(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        Marker o = (Marker) context.getExternalContext().getSessionMap().get("id_marcador");
+        return ((Marcador) o.getData()).getId_mar();
     }
 
     public Marker getMarker() {
