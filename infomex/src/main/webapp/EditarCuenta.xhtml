@@ -13,7 +13,51 @@
     <h:body>
         <h1>Editar Cuenta:</h1> 
         <br/>
+        <b>Llene todos lo campos.</b>
+        <p></p>
         <h:form>
+            <table>
+                
+                <tr>
+                 <td>Nuevo nombre de Usuario:</td>
+                 
+                    <td><p:inputText  value= "#{editarCuenta.comentarista.nombre}"
+                                      required="true"
+                                      id="nombre_comentarista"
+                                      size="40"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>Contraseña actual:</td>
+                    <td><p:inputText  value= "#{editarCuenta.actual_contrasenia}"
+                                      required="true"
+                                      id="Contrasenia_actual"
+                                      size="40"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>Nueva contraseña:</td>
+                    <td><p:inputText  value= "#{editarCuenta.comentarista.contrasenia_com}"
+                                      required="true"
+                                      id="Nueva_contrasenia"
+                                      size="40"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>Confirmar nueva contraseña:</td>
+                    <td><p:inputText  value= "#{editarCuenta.conf_password}"
+                                      required="true"
+                                      id="Confirma_contrasenia"
+                                      size="40"/>
+                    </td>
+                </tr>
+                     
+            </table>
+            <p:commandButton value="Confirmar" 
+                             action="#{editarCuenta.editarDatos()}"/>
             <p:commandButton value="Pagina principal" 
                              immediate="true"
                              action="mapa.xhtml?faces-redirect=true"/>
