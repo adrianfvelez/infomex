@@ -17,11 +17,16 @@
         <p></p>
         <h:form>
             <table>
+                <tr><td>
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+            </table>
+            <table>
                 
                 <tr>
                  <td>Nuevo nombre de Usuario:</td>
                  
-                    <td><p:inputText  value= "#{editarCuenta.comentarista.nombre}"
+                 <td><p:inputText  value= "#{editarCuenta.comentarista.usuario_com}"
                                       required="true"
                                       id="nombre_comentarista"
                                       size="40"/>

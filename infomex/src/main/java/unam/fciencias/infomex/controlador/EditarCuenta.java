@@ -62,14 +62,14 @@ public class EditarCuenta {
     public String editarDatos(){
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i1 = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
-           if(!comentarista.getContrasenia_com().equals(i1.getContrasenia_com())){
+        String pass_cifrada = cifraPassword(i1.getContrasenia_com());
+        if(!actual_contrasenia.equals(pass_cifrada)){ 
             FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "La contraseña actual no es correcta", ""));
              return "";
-        }
-               
+        }   
         if(!conf_password.equals(comentarista.getContrasenia_com())){
             FacesContext.getCurrentInstance()
                 .addMessage(null,
@@ -77,8 +77,9 @@ public class EditarCuenta {
                                 "Las contraseñas no conciden", ""));
              return "";
         }
+        comentarista.setCorreo_com(i1.getCorreo_com());
         u.update(comentarista);
-        return "";
+        return "mapa.xhmtl?faces-redirect=true";
     }
     
     private String cifraPassword(String ps){
