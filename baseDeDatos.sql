@@ -8,7 +8,7 @@
 COMMENT ON TABLE comentarista IS 'Tabla que contiene la información relacionada con los comentaristas teniendo como llave primaria su correo electrónico.';
 
 CREATE TABLE informador(
-	correo_inf varchar(50) NOT NULL,
+	correo_inf varchar(100) NOT NULL,
 	usuario_inf varchar(20) UNIQUE NOT NULL,
 	contrasenia_inf varchar(30) NOT NULL,
 	CONSTRAINT "PK_informador" PRIMARY KEY (correo_inf)
@@ -19,7 +19,7 @@ COMMENT ON TABLE informador IS 'Tabla que contiene la información relacionada c
 CREATE TABLE tema(
 	id_tema serial,
 	nombre_tema varchar(100),
-	correo_inf varchar(50),
+	correo_inf varchar(100),
 	CONSTRAINT "PK_tema" PRIMARY KEY (id_tema),
 	CONSTRAINT "FK_tema_informador" FOREIGN KEY (correo_inf) REFERENCES informador(correo_inf)
 );
@@ -29,7 +29,7 @@ COMMENT ON TABLE tema IS 'Tabla que contiene toda la información de los temas.'
 CREATE TABLE marcador(
 	id_mar serial,
 	id_tema int,
-	correo_inf varchar(20),
+	correo_inf varchar(100),
 	nombre_mar varchar(100),
 	descripcion_mar varchar(200) NOT NULL,
 	longitud double precision NOT NULL,
