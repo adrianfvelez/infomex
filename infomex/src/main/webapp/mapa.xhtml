@@ -182,9 +182,8 @@ function myFunction() {
                         <p:growl id="messages" showDetail="true"/>
                         
                         <p:menuButton value="Comentarios">
-                            <p:menuitem id="id_com" value="Agregar" action="#{getId.showResult}">
+                            <p:menuitem id="id_agrega" value="Agregar" onclick="PF('agrega-com').show()" action="#{getId.showResult}">
                                 <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
-                                <f:ajax execute = "id_com" render ="agrega" />
                             </p:menuitem>
                             <p:menuitem value="Eliminar"/>
                             <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
