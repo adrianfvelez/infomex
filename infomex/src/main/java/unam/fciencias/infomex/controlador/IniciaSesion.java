@@ -123,6 +123,10 @@ public class IniciaSesion {
                                 "Correo o contraseña incorrectos", ""));
             }
         }
+        FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "No hay cuentas asociadas a ese correo", ""));
         return "";
     }
     

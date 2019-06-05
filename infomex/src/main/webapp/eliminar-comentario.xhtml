@@ -6,41 +6,44 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
-    </h:head>
-    <h:body>
-        <h1>Eliminar  Comentario</h1>
-        <h:form>
-            <p:messages>
-                <p:autoUpdate />
-            </p:messages>
-            <h:panelGrid columns="4" cellpadding="5">
-                <h:outputLabel for="name" value="id_Comentario:" style="font-weight:bold" />
-                <p:inputText id="name" value="#{eliminaComentario.comment}" />
-                <p:commandButton action="#{eliminaComentario.removeComentario}" value="Eliminar"/>
-                <p:commandButton
-                                    value="Cancelar"
-                                    ajax="false"
-                                    immediate="true"
-                                    action="mapa.xhmtl?faces-redirect=true"/>
-            </h:panelGrid>
-        </h:form>
-    </h:body>
-        <!---
-        <h:form>
-            <p:messages>
-                <p:autoUpdate />
-            </p:messages>
-
-            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                <p:outputLabel for="lazy" value="Comentarios:" />
-                <p:selectOneMenu id="lazy" value="{selectOneMenuView.option}" dynamic="true" style="width:125px">
-                    <f:selectItem itemLabel="Escoge uno" itemValue="" />
-                    <f:selectItems value="{selectOneMenuView.options}" />
-                </p:selectOneMenu>
-            </h:panelGrid>
-        </h:form>
         
-        -->
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
+    </h:head>
+    <h:body class="text-center">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+                <div class="col-sm">Usuario</div>
+            </div>
+            <h:form class="form-signing text-center">
+                <h1 class="h3 mb-3 font-weight-normal">Eliminar  Comentario</h1> <br/>
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <center><h:panelGrid columns="4" cellpadding="5">
+                    <h:outputLabel for="name" value="id_Comentario:" style="font-weight:bold" />
+                    <p:inputText id="name" value="#{eliminaComentario.comment}" class="form-control" />
+                    <p:commandButton action="#{eliminaComentario.removeComentario}" value="Eliminar"
+                                     class="btn btn-lg btn-primary btn-block"/>
+                    <p:commandButton
+                                        value="Cancelar"
+                                        ajax="false"
+                                        immediate="true"
+                                        action="mapa.xhmtl?faces-redirect=true"
+                                        class="btn"/>
+                    </h:panelGrid></center>
+            </h:form>
+        </div>
+    </h:body>
     
 </html>

@@ -6,10 +6,27 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
     </h:head>
-    <h:body>
-        <h1>Agregar Tema</h1> <br/>
+    <h:body class="text-center">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+                <div class="col-sm">Usuario</div>
+            </div>
+        </div>
+        <h1 class="h3 mb-3 font-weight-normal">Agregar Tema</h1> <br/>
         <h:form id="myForm">
             <table>
                 <tr><td>
@@ -17,7 +34,7 @@
                     </td></tr>
             </table>
             <table>
-               Haz click en mapa donde quieras agregar un nuevo Tema.
+               Haz click en el mapa donde quieras agregar un marcador de un nuevo tema.
                     
             </table>
             

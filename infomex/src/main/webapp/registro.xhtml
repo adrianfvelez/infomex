@@ -6,61 +6,85 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
     </h:head>
-    <h:body>
-        <h1>Regístrate</h1> <br/>
-        <h:form id="myForm">
-            <table>
-                <tr><td>
-                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                    </td></tr>
-            </table>
-            <table>
-                <tr>
-                    <td>Correo electrónico</td>
-                    <td><p:inputText value="#{registraComentarista.user.correo_com}"
-                                     required="true"
-                                     id="correo_com"
-                                     size="40" validatorMessage="El correo no es válido">
-                            <f:validateRegex pattern="[\w\.-_]*[a-zA-Z0-9_]@ciencias\.unam\.mx"/>
-                        </p:inputText>
-                        <p:message for="correo_com" id="emailMsg"/>
+    <h:body class="text-center">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+            </div>
+            <h:form id="myForm" class="form-signing text-center">
+                <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1> <br/>
+                <center><table>
+                    <tr><td>
+                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                        </td></tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Correo electrónico:</td>
+                        <td><p:inputText value="#{registraComentarista.user.correo_com}"
+                                         required="true"
+                                         id="correo_com"
+                                         size="40" validatorMessage="El correo no es válido"
+                                         class="form-control">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                <p:keyFilter regEx="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                                <!--<f:validateRegex pattern="[\w\.-_]*[a-zA-Z0-9_]@ciencias\.unam\.mx"/>-->
+                            </p:inputText>
+                            <p:message for="correo_com" id="emailMsg"/>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>Usuario:</td>
+                        <td><p:inputText value="#{registraComentarista.user.usuario_com}"
+                                         required="true"
+                                         id="usuario_com"
+                                         size="40"
+                                         class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Contraseña:</td>
+                        <td><p:password value="#{registraComentarista.user.contrasenia_com}"
+                                        required="true"
+                                        feedback="true"
+                                        id="contrasenia_com"
+                                        class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Confirmar contraseña:</td>
+                        <td><p:password value="#{registraComentarista.conf_password}"
+                                        required="true"
+                                        feedback="true"
+                                        id="confirm_contrasenia"
+                                        class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{registraComentarista.addUser}"
+                                             value="Registrar"
+                                              class="btn btn-lg btn-primary btn-block"/>
+                            <p:commandButton value="Reset"
+                                             update="myForm"
+                                             process="@this"
+                                             class="btn">
+                                <p:resetInput target="myForm" />
+                            </p:commandButton>
                         </td>
-                </tr>
-                <tr>
-                    <td>Usuario</td>
-                    <td><p:inputText value="#{registraComentarista.user.usuario_com}"
-                                     required="true"
-                                     id="usuario_com"
-                                     size="40"/></td>
-                </tr>
-                <tr>
-                    <td>Contraseña</td>
-                    <td><p:password value="#{registraComentarista.user.contrasenia_com}"
-                                    required="true"
-                                    feedback="true"
-                                    id="contrasenia_com"/></td>
-                </tr>
-                <tr>
-                    <td>Confirmar contraseña</td>
-                    <td><p:password value="#{registraComentarista.conf_password}"
-                                    required="true"
-                                    feedback="true"
-                                    id="confirm_contrasenia"/></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <p:commandButton action="#{registraComentarista.addUser}"
-                                         value="Registrar"/>
-                        <p:commandButton value="Reset"
-                                         update="myForm"
-                                         process="@this">
-                            <p:resetInput target="myForm" />
-                        </p:commandButton>
-                    </td>
-                </tr>
-            </table>
-        </h:form>
+                    </tr>
+                </table></center>
+            </h:form>
+        </div>
     </h:body>
 </html>

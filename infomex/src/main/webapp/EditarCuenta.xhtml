@@ -7,65 +7,91 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
           
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
     </h:head>
     
-    <h:body>
-        <h1>Editar Cuenta:</h1> 
-        <br/>
-        <b>Llene todos lo campos.</b>
-        <p></p>
-        <h:form>
-            <table>
-                <tr><td>
-                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                    </td></tr>
-            </table>
-            <table>
-                
-                <tr>
-                 <td>Nuevo nombre de Usuario:</td>
-                 
-                 <td><p:inputText  value= "#{editarCuenta.comentarista.usuario_com}"
-                                      required="true"
-                                      id="nombre_comentarista"
-                                      size="40"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>Contraseña actual:</td>
-                    <td><p:inputText  value= "#{editarCuenta.actual_contrasenia}"
-                                      required="true"
-                                      id="Contrasenia_actual"
-                                      size="40"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>Nueva contraseña:</td>
-                    <td><p:inputText  value= "#{editarCuenta.comentarista.contrasenia_com}"
-                                      required="true"
-                                      id="Nueva_contrasenia"
-                                      size="40"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>Confirmar nueva contraseña:</td>
-                    <td><p:inputText  value= "#{editarCuenta.conf_password}"
-                                      required="true"
-                                      id="Confirma_contrasenia"
-                                      size="40"/>
-                    </td>
-                </tr>
-                     
-            </table>
-            <p:commandButton value="Confirmar" 
-                             action="#{editarCuenta.editarDatos()}"/>
-            <p:commandButton value="Pagina principal" 
-                             immediate="true"
-                             action="mapa.xhtml?faces-redirect=true"/>
-        </h:form>        
+    <h:body class="text-center">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+                <div class="col-sm">Usuario</div>
+            </div>
+            
+            <h:form class="form-signing text-center">
+                <h1 class="h3 mb-3 font-weight-normal">Editar Cuenta</h1> <br/>
+                <b>Llene todos lo campos.</b>
+                <p></p>
+                <center><table>
+                    <tr><td>
+                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                        </td></tr>
+                </table>
+                <table>
+
+                    <tr>
+                     <td>Nuevo nombre de Usuario:</td>
+
+                     <td><p:inputText  value= "#{editarCuenta.comentarista.usuario_com}"
+                                          required="true"
+                                          id="nombre_comentarista"
+                                          size="40"
+                                          class="form-control"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Contraseña actual:</td>
+                        <td><p:inputText  value= "#{editarCuenta.actual_contrasenia}"
+                                          required="true"
+                                          id="Contrasenia_actual"
+                                          size="40"
+                                          class="form-control"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Nueva contraseña:</td>
+                        <td><p:inputText  value= "#{editarCuenta.comentarista.contrasenia_com}"
+                                          required="true"
+                                          id="Nueva_contrasenia"
+                                          size="40"
+                                          class="form-control"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Confirmar nueva contraseña:</td>
+                        <td><p:inputText  value= "#{editarCuenta.conf_password}"
+                                          required="true"
+                                          id="Confirma_contrasenia"
+                                          size="40"
+                                          class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                             <p:commandButton value="Confirmar" 
+                                 action="#{editarCuenta.editarDatos()}"
+                                  class="btn btn-lg btn-primary btn-block"/>
+                             <p:commandButton value="Pagina principal" 
+                                 immediate="true"
+                                 action="mapa.xhtml?faces-redirect=true"
+                                 class="btn"/>
+                        </td>
+                    </tr>
+                </table></center>
+            </h:form> 
+        </div>
     </h:body>
 </html>
