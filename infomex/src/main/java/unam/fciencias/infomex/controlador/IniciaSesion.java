@@ -18,12 +18,13 @@ import unam.fciencias.infomex.modelo.Informador;
 import unam.fciencias.infomex.modelo.UtilidadInformador;
 
 import java.util.concurrent.TimeUnit;
+import javax.faces.bean.SessionScoped;
 /**
  *
  * @author avelez
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class IniciaSesion {
     
     //private Comentarista comentarista = new Comentarista();
@@ -85,6 +86,7 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como comentarista", ""));
+                System.out.println("COMENTARISTA");
                 tipo_usuario = "Comentarista";
                 nombre_usuario = usuario_com.getUsuario_com();
                 try{
@@ -107,8 +109,6 @@ public class IniciaSesion {
             String pass_cifrada = cifraPassword(contrasenia_a_buscar);
             if(usuario_inf.getContrasenia_inf().equals(pass_cifrada)){
                 FacesContext context = FacesContext.getCurrentInstance();
-                
-                
                 FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
