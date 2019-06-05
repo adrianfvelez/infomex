@@ -5,43 +5,62 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
     </h:head>
-    <h:body>
-        <h1>Inicia sesión</h1> <br/>
-        <h:form id="myForm">
-            <table>
-                <tr><td>
-                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                    </td></tr>
-            </table>
-            <table>
-                <tr>
-                    <td>Correo electrónico</td>
-                    <td><p:inputText value="#{iniciaSesion.correo_a_buscar}"
-                                     required="true"
-                                     id="correo"
-                                     size="40"/></td>
-                </tr>
-                <tr>
-                    <td>Contraseña</td>
-                    <td><p:password value="#{iniciaSesion.contrasenia_a_buscar}"
-                                    required="true"
-                                    feedback="true"
-                                    id="contrasenia"/></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <p:commandButton action="#{iniciaSesion.inicia}"
-                                         value="Iniciar"/>
-                        <p:commandButton value="Reset"
-                                         update="myForm"
-                                         process="@this">
-                            <p:resetInput target="myForm" />
-                        </p:commandButton>
-                    </td>
-                </tr>
-            </table>
-        </h:form>
+    <h:body class="text-center" style="background-image: url(/infomex/resources/css/fondo.jpg); font-weight: bold">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+            </div>
+            
+            <h:form id="myForm" class="form-signing text-center">
+                <h1 class="h2 mb-3 font-weight-normal">Inicia sesión</h1> <br/>
+                <center><table>
+                    <tr><td>
+                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                        </td></tr>
+                </table>
+                <table class="text-center">
+                    <tr>
+                        <td>Correo electrónico:</td>
+                        <td><p:inputText value="#{iniciaSesion.correo_a_buscar}"
+                                         required="true"
+                                         id="correo"
+                                         size="40"
+                                         class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td>Contraseña:</td>
+                        <td><p:password value="#{iniciaSesion.contrasenia_a_buscar}"
+                                        required="true"
+                                        feedback="true"
+                                        id="contrasenia"
+                                        class="form-control"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{iniciaSesion.inicia}"
+                                             value="Iniciar" class="btn btn-lg btn-primary btn-block"/>
+                            <p:commandButton value="Reset"
+                                             update="myForm"
+                                             process="@this" class="btn">
+                                <p:resetInput target="myForm" />
+                            </p:commandButton>
+                        </td>
+                    </tr>
+                    </table></center>
+            </h:form>
+        </div>
     </h:body>
 </html>
