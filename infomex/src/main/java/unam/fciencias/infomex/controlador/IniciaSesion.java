@@ -32,6 +32,8 @@ public class IniciaSesion {
     private UtilidadInformador u_informador = new UtilidadInformador();
     private String correo_a_buscar = new String();
     private String contrasenia_a_buscar = new String();
+    private String tipo_usuario;
+    private String nombre_usuario;
     
     public IniciaSesion() {
         FacesContext.getCurrentInstance()
@@ -83,6 +85,8 @@ public class IniciaSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como comentarista", ""));
+                tipo_usuario = "Comentarista";
+                nombre_usuario = usuario_com.getUsuario_com();
                 try{
                     TimeUnit.SECONDS.sleep(3);
                 }catch(InterruptedException e){
@@ -103,12 +107,24 @@ public class IniciaSesion {
             String pass_cifrada = cifraPassword(contrasenia_a_buscar);
             if(usuario_inf.getContrasenia_inf().equals(pass_cifrada)){
                 FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().getSessionMap().put("tipo_usuario", "informador");
-                context.getExternalContext().getSessionMap().put("usuario", usuario_inf);
+                
+                
                 FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se inició sesión correctamente como informador", ""));
+                if(usuario_inf.getCorreo_inf().equals("admin@admin.com")){
+                    System.out.println("ADMINISTRADOR");
+                    tipo_usuario = "Administrador";
+                    context.getExternalContext().getSessionMap().put("tipo_usuario", "administrador");
+                }
+                else{
+                    System.out.println("INFORMADOR");
+                    tipo_usuario = "Informador";
+                    context.getExternalContext().getSessionMap().put("tipo_usuario", "informador");
+                }
+                context.getExternalContext().getSessionMap().put("usuario", usuario_inf);
+                nombre_usuario = usuario_inf.getUsuario_inf();
                 try{
                     TimeUnit.SECONDS.sleep(3);
                 }catch(InterruptedException e){
@@ -142,4 +158,22 @@ public class IniciaSesion {
     private String cifraPassword(String ps){
         return new StringBuffer(ps).reverse().toString();
     }
+
+    public String getTipo_usuario() {
+        return tipo_usuario;
+    }
+
+    public void setTipo_usuario(String tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
+    }
+
+    public String getNombre_usuario() {
+        return nombre_usuario;
+    }
+
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
+    }
+    
+    
 }
