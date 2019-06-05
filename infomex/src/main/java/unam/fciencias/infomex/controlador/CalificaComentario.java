@@ -64,7 +64,7 @@ public class CalificaComentario {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario Calificado", ""));
-        return "mapa.xhmtl?faces-redirect=true";
+        return "mapaComentarista.xhmtl?faces-redirect=true";
     }
     
     public void onrate(RateEvent rateEvent) {

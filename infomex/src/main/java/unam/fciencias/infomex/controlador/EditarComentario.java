@@ -56,7 +56,7 @@ public class EditarComentario {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario editado", ""));
-        return "mapa.xhmtl?faces-redirect=true";
+        return "mapaComentarista.xhmtl?faces-redirect=true";
     }
     
     public void saveIdComentario(int idComment){

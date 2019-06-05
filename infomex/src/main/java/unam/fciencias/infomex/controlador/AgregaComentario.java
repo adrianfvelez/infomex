@@ -57,7 +57,7 @@ public class AgregaComentario implements Serializable {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario agregado", ""));
-        return "mapa.xhmtl?faces-redirect=true";
+        return "mapaComentarista.xhmtl?faces-redirect=true";
     }
     
 }
