@@ -185,27 +185,23 @@ function myFunction() {
                             <p:menuitem id="id_agrega" value="Agregar" onclick="PF('agrega-com').show()" action="#{getId.showResult}">
                                 <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
                             </p:menuitem>
-                            <p:menuitem value="Eliminar"/>
+                            <p:menuitem value="Eliminar" onclick="PF('elimina-com').show()"/>
                             <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
+                            <p:menuitem value="Calificar" onclick="PF('califica-com').show()"/>
                         </p:menuButton>
                     </h:form>
 
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
                     <br />
-                    <h:outputText value= "#{administradorMarcador.marker.getData().getId_mar()}" />
-                    <br />
+                    <!---<h:outputText value= "#{administradorMarcador.marker.getData().getId_mar()}" />
+                    <br />-->
                     <h:outputText value= "#{administradorMarcador.getNombreTema(administradorMarcador.marker.getData().getId_tema())}" />
                     <br />
 
                     <h:form id="comentarios">
-                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:315px; height: 150px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
-                                <f:facet name="header">
-                                    <h:outputText value="Usuario: #{com.correo_com}" />
-                                </f:facet>
-                                <h:outputText value="Id:" />
-                                <h:outputText value="#{com.id_mar}" />
-
+                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:415px; height: 210px" itemStyle="height:350px; height: 180px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
+                            <h:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value">
+                                
                                 <h:outputText value="Usuario" />
                                 <h:outputText value="#{com.correo_com}" />
 
@@ -214,6 +210,9 @@ function myFunction() {
                                 
                                 <h:outputText value="Calificación:" />
                                 <p:rating value="#{calificacion.example}" readonly="true"/>
+                                
+                                <p:commandButton value="Editar" onclick="PF('edita-com').show()"/>
+                                
                             </h:panelGrid>
                         </p:carousel>
 
@@ -252,7 +251,7 @@ function myFunction() {
             </h:form>
         </p:dialog>
         
-        <p:dialog id="agrega" widgetVar="agrega-com" showEffect="fade" >
+        <p:dialog id="agrega" widgetVar="agrega-com" showEffect="fade" closable="false" resizable="false">
             <h:form>
                 
                 <h:panelGrid columns="2">
@@ -260,45 +259,104 @@ function myFunction() {
                     <p:inputTextarea id="title" value="#{agregaComentario.comment.descripcion}" required="true"/>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" action="#{agregaComentario.addComentario(administradorMarcador.nose())}" update="gmap"/>
+                        <p:commandButton value="Agregar" action="#{agregaComentario.addComentario(administradorMarcador.nose(), administradorMarcador.noseTema())}" update="gmap"/>
                         <p:commandButton value="Cancel" onclick="return cancel()" />
                     </f:facet>
                 </h:panelGrid>
             </h:form>
         </p:dialog>
+        
+        <p:dialog widgetVar="elimina-com" showEffect="fade" closable="false" resizable="true">
+            <h:form id="eliminaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Eliminar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" update="eliminaForm"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
 
-        <p:dialog widgetVar="edita-com" showEffect="fade">
+        <p:dialog widgetVar="edita-com" showEffect="fade" closable="false" resizable="false">
             <h:form id="editaForm">
                 <p:messages>
                     <p:autoUpdate />
                 </p:messages>
-                <table>
-                    <tr>
-                        <td>id_Comentario:</td>
-                        <td><p:inputText value="#{editarComentario.id}"
-                                         required="true"
-                                         id="id"
-                                         size="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>Nuevo Comentario:</td>
-                        <td><p:inputText value="#{editarComentario.nuevaDescripcion}"
-                                         required="true"
-                                         id="nuevaDescripcion"
-                                         size="40"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <p:commandButton action="#{editarComentario.editComentario}"
-                                             value="Editar"/>
-                            <p:commandButton
-                                            value="Cancelar"
-                                            ajax="false"
-                                            immediate="true"
-                                            action="mapa.xhmtl?faces-redirect=true"/>
-                        </td>
-                    </tr>
-                </table>
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Editar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" onclick="PF('edita-com').hide()" oncomplete="PF('editar').show()"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="editar" showEffect="fade" closable="false" resizable="false">
+            <h:form id="editaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Editar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" onclick="PF('edita-com').hide()" oncomplete="PF('editar').show()"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="califica-com" showEffect="fade" closable="false" resizable="false">
+            <h:form id="calificaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <!---<p:column>
+                        <f:facet name = "header">Nueva Calificación</f:facet>
+                        <p:rating value="#{calificaComentario.nuevaCalificacion}"/>
+                    </p:column>-->
+                    <p:column>
+                        <f:facet name = "header">Nueva Calificación</f:facet>
+                        <h:inputText value="#{calificaComentario.nuevaCalificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Calificar" action="#{calificaComentario.calificar(comment.id_comentario)}" />
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
             </h:form>
         </p:dialog>
         

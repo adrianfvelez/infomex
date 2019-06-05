@@ -23,7 +23,7 @@ import unam.fciencias.infomex.modelo.UtilidadCalificacion;
 @RequestScoped
 public class CalificaComentario {
     
-    private int nuevaCalificacion = 4;
+    private int nuevaCalificacion;
     private Calificacion calificacion = new Calificacion();
     private UtilidadCalificacion u = new UtilidadCalificacion();
 
@@ -49,25 +49,26 @@ public class CalificaComentario {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String setCalificacion() {
+    public String calificar(int comentario) {
+        System.out.println(".---------------------Calificacion: "+nuevaCalificacion+"--------------------------");
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
         calificacion.setCorreo_com(i.getCorreo_com());
         calificacion.setCalificacion(nuevaCalificacion);
+        calificacion.setId_comentario(comentario);
         u.save(calificacion);
         calificacion = null;
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario Calificado", ""));
-        return null;
+        return "mapa.xhmtl?faces-redirect=true";
     }
     
     public void onrate(RateEvent rateEvent) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Calificado", "Nueva Calificacion" + ((Integer) rateEvent.getRating()).intValue());
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Seleccionado", "Nueva Calificacion: " + ((Integer) rateEvent.getRating()).intValue());
         nuevaCalificacion = ((Integer) rateEvent.getRating()).intValue(); 
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public void oncancel() {

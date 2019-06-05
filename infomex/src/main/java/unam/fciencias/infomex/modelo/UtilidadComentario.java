@@ -81,6 +81,7 @@ public class UtilidadComentario {
         }
     }
     
+    //Regresa todos los comentarios de la base de datos
     public List<Comentario> getTodosComentarios(){
         List<Comentario> obj = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -109,7 +110,6 @@ public class UtilidadComentario {
         } 
         return null;
     }
-    
     
     
     

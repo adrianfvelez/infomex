@@ -44,14 +44,13 @@ public class AgregaComentario implements Serializable {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String addComentario(String idMar) {
-        System.out.println("-------------------------ID: "+idMar+"---------------------------");
+    public String addComentario(String idMar, int idTema) {
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
         comment.setCorreo_com(i.getCorreo_com());
         int idMark = Integer.parseInt(idMar);
         comment.setId_mar(idMark);
-        comment.setId_tema(1);
+        comment.setId_tema(idTema);
         u.save(comment);
         comment = null;
         FacesContext.getCurrentInstance()
