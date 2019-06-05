@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class GetId implements Serializable{
     
-   public String data = "0";
+   public String data = "";
 
    public String getData() {
       return data;
@@ -32,7 +32,7 @@ public class GetId implements Serializable{
    public void showResult() {
       FacesContext fc = FacesContext.getCurrentInstance();
       Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-      data =  params.get("id"); 
+      data =  params.get("idComentario"); 
    }
     
 }

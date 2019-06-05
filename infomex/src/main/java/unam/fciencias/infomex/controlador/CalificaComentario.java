@@ -49,13 +49,15 @@ public class CalificaComentario {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String calificar(int comentario) {
-        System.out.println(".---------------------Calificacion: "+nuevaCalificacion+"--------------------------");
+    public String calificar() {
+        
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
+        EditarComentario e = new EditarComentario();
+        int idComentario = e.getIdComentario();
         calificacion.setCorreo_com(i.getCorreo_com());
         calificacion.setCalificacion(nuevaCalificacion);
-        calificacion.setId_comentario(comentario);
+        calificacion.setId_comentario(idComentario);
         u.save(calificacion);
         calificacion = null;
         FacesContext.getCurrentInstance()
