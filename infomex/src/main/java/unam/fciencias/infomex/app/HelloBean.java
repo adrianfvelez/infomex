@@ -9,8 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import unam.fciencias.infomex.modelo.Informador;
 
 /**
  *
@@ -22,18 +22,29 @@ import unam.fciencias.infomex.modelo.Informador;
 public class HelloBean implements Serializable{
     private static final long serialVersionUID = 1L;
 
-	private String name;
-        
-        public HelloBean(){
-            FacesContext context = FacesContext.getCurrentInstance();
-            Informador i = (Informador)context.getExternalContext().getSessionMap().get("usuario");         
-            name = i.getUsuario_inf();
-        }
+    @ManagedProperty(value="#{name}")
+    private String name;
+    
+    @ManagedProperty(value="#{tipo}")
+    private String tipo;
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+    public HelloBean(){
+        name = "PRUEBA";
+        tipo = "COMEN";
+    }
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+        
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 }
