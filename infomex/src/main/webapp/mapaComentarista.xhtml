@@ -6,38 +6,52 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="resources/css/style.css" rel="stylesheet"/>
+
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
     </h:head>
     <h:body>
-        <h1>
-            <p:commandButton icon="ui-icon-grip-solid-horizontal" oncomplete="PF('sidebar1').show()" />
-            <center>Infomex</center>
-        </h1>
+         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-main">
+                        <span class="sr-only">Toogle</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="mapaComentarista.xhtml"><img src="img/logo_transparent.png" height="80px" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-main">
+                    <ul class="nav navbar-nav navbar-right">
 
-        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
-            <h1 style="font-weight:normal">Menu</h1>
-            <p:commandButton value="Pagina principal" oncomplete="redirect('mapa.xhtml')"/>
-             <br/>
-             <p:commandButton value="Iniciar sesion" oncomplete="redirect('inicioSesion.xhtml')"/>
-             <br/>
-             <p:commandButton value="Editar Cuenta" oncomplete="redirect('EditarCuenta.xhtml')"/>
-             <br/>
-             <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
-             <br/>
-             <p:commandButton value="Registrar Informador" oncomplete="redirect('registroInformador.xhtml')"/>
-             <br/>
-             <p:commandButton value="Agregar temas" oncomplete="redirect('AgregarTemaIH.xhtml')"/>
-             <br/>
-             <p:commandButton value="Eliminar temas" oncomplete="redirect('EliminarTema.xhtml')"/>
-             <br/>
-             <p:commandButton value="Buscar Tema" oncomplete="redirect('BuscarTemaIH.xhtml')"/>
-             <br/>
-             <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')"/>
-             <br/>
-             <p:commandButton value="Eliminar mi cuenta" action="#{eliminarCuenta.eliminaCuenta}" oncomplete="redirect('mapa.xhtml')"/>
-             <br/>
-            <p:commandButton value="Cancelar" oncomplete="PF('sidebar1').hide()"/>
-        </p:sidebar>
+                        <li><a href="EditarCuenta.xhtml">Editar cuenta</a></li>
+                        
+
+
+                        <br/>
+                        <table>
+                            <tr>
+
+                                <td>
+                                    <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapaVisitante.xhtml')" style="width:180px; height:30px"/>
+
+                                    <a style="margin-left: 20px ;color: white" class="col-sm">#{iniciaSesion.tipo_usuario}: #{iniciaSesion.nombre_usuario}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
 
         <script>
             type = "text/javascript"
@@ -149,7 +163,7 @@ function myFunction() {
         <p:growl id="messages" showDetail="true" />
 
         <h4>
-            <div class="container">
+            <div class="container" style="position:absolute;left: 10px; top:137px;">
                 <h:form id="seleccion_temas">
                     <h:panelGrid columns="2">
 
