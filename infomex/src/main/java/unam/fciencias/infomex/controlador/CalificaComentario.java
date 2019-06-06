@@ -24,6 +24,7 @@ import unam.fciencias.infomex.modelo.UtilidadCalificacion;
 public class CalificaComentario {
     
     private int nuevaCalificacion;
+    private int example = 3;
     private Calificacion calificacion = new Calificacion();
     private UtilidadCalificacion u = new UtilidadCalificacion();
 

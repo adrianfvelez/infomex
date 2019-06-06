@@ -41,17 +41,14 @@ public class EliminaComentario {
     public List<Comentario> obtenerComentario(){
         FacesContext context = FacesContext.getCurrentInstance();
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
-        //context.getExternalContext().getSessionMap().put("arregloCom",marker);
-        
-        List<Comentario> a = new ArrayList<Comentario>();
-        List<Comentario> b =  u.getTodosComentarios();
-        /* Para pasar el idMar usar el metodo de administrador marcador nose()
-        for(Comentario c : b){
-            if(c.getCorreo_com().equals(i.getCorreo_com()) && c.getId_mar()==idMar){
-                a.add(c);
+        List<Comentario> comentarios = new ArrayList<Comentario>();
+        /* Para pasar el idMar usar el metodo de administrador marcador nose() */
+        for(Comentario c : u.getTodosComentarios()){
+            if(c.getCorreo_com().equals(i.getCorreo_com())){
+                comentarios.add(c);
             }
-        }*/
-        return b;
+        }
+        return comentarios;
         
     }
 }
