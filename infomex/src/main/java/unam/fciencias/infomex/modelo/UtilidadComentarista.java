@@ -15,6 +15,25 @@ public class UtilidadComentarista {
     
     static Comentarista userObj;
     static Session sessionObj;
+    
+    public void update(Comentarista comentarista){
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            sessionObj.update(comentarista);
+            sessionObj.getTransaction().commit();
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
 
     public void save(Comentarista comentarista) {
         try {

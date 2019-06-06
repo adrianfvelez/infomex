@@ -28,7 +28,7 @@ public class BuscarTema {
     
     private Tema tema = new Tema();
     private UtilidadTema u = new UtilidadTema();
-    private ArrayList<Tema> te;
+    private List<Tema> te = obtenerTema();
 
     public Tema getTema() {
         return tema;
@@ -74,11 +74,13 @@ public class BuscarTema {
         return u.getTodosTemas();
     }
 
-    public ArrayList<Tema> getTe() {
+    public List<Tema> getTe() {
         return te;
     }
-
-    public void setTe(ArrayList<Tema> te) {
+    
+    
+    
+    public void setTe(List<Tema> te) {
         this.te = te;
     }
 }

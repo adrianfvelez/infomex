@@ -6,49 +6,73 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta charset="utf-8"></meta>
         <title>Infomex</title>
+        
+        <meta name="description" content=""></meta>
+        <meta name="viewport" content="width=devide-width, initial-scale=1"></meta>
+        
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/bootstrap-theme.min.css"/>
     </h:head>
-    <h:body>
-        <h1>Eliminar Tema</h1> <br/>
-        <h:form id="myForm">
-            <table>
-                <tr><td>
-                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                    </td></tr>
-            </table>
-            <table>
-                <tr>
-                    <td>Escriba el nombre del tema a eliminar: </td>
-                                                   
-                    <td><p:inputText value="#{eliminarTema.tema.nombre_tema}"
-                                     required="true"
-                                     id="nombre_tema"
-                                     size="40"/>
-                    </td>
-                    <td colspan="2" align="center">
-                        <p:commandButton action="#{eliminarTema.borrarTema}"
-                                         value="Eliminar"/>
-                        <p:commandButton value="Reset"
-                                         update="myForm"
-                                         process="@this">
-                            <p:resetInput target="myForm" />
-                        </p:commandButton>
-                    </td>
-                    
-                </tr>
-            </table>
-            <br/>
-            <h:dataTable var="dato" value="#{buscaTema.obtenerTema()}" border="5" cellspacing="2" cellpadding="2">
-                <p:column>
-                    <f:facet name = "header">Temas Disponibles</f:facet> 
-                    <h:outputText value="#{dato.nombre_tema}" />
-                </p:column>
- 
-            </h:dataTable>
-            <br/>
-            <p:commandButton value="Pagina principal" 
-                             immediate="true"
-                             action="mapa.xhtml?faces-redirect=true"/>
-        </h:form>
+    <h:body class="text-center" style="background-image: url(/infomex/resources/css/fondo.jpg); font-weight: bold">
+        <div class="container">
+            <div class="page-header">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <h1>Infomex</h1>
+                </div>
+                <div class="col-sm">#{iniciaSesion.tipo_usuario}: #{iniciaSesion.nombre_usuario}</div>
+            </div>
+            <h:form id="myForm" class="form-signing text-center">
+                <h1 class="h2 mb-3 font-weight-normal">Eliminar Tema</h1> <br/>
+                <center><table>
+                    <tr><td>
+                            <p:messages id="messages" autoUpdate="true" closable="true" />
+                        </td></tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Escriba el nombre del tema a eliminar:</td>
+
+                        <td><p:inputText value="#{eliminarTema.tema.nombre_tema}"
+                                         style="text-transform:uppercase;"
+                                         required="true"
+                                         id="nombre_tema"
+                                         size="40"
+                                         class="form-control"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <p:commandButton action="#{eliminarTema.borrarTema}"
+                                             value="Eliminar"
+                                             class="btn btn-lg btn-primary btn-block"/>
+                            <p:commandButton value="Reset"
+                                             update="myForm"
+                                             process="@this"
+                                             class="btn">
+                                <p:resetInput target="myForm" />
+                            </p:commandButton>
+                        </td>
+
+                    </tr>
+                </table>
+                <br/>
+                <h:dataTable var="dato" value="#{buscaTema.obtenerTema()}" class="table table-striped">
+                    <p:column>
+                        <f:facet name = "header">Temas Disponibles</f:facet> 
+                        <h:outputText value="#{dato.nombre_tema}" />
+                    </p:column>
+
+                </h:dataTable>
+                <br/>
+                <p:commandButton value="Pagina principal" 
+                                 immediate="true"
+                                 action="mapa.xhtml?faces-redirect=true"
+                                 class="btn"/></center>
+            </h:form>
+        </div>
     </h:body>
 </html>
