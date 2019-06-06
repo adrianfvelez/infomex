@@ -66,9 +66,7 @@ CREATE TABLE calificacion(
 
 COMMENT ON TABLE calificacion IS 'Tabla con las calificaciones de los comentarios.';
 
-INSERT INTO informador VALUES ('admin@admin.com','admin', 'admin');
-INSERT INTO tema VALUES(default,'Restaurantes','admin');
-INSERT INTO marcador VALUES (default,'1', 'admin', 'mar', 'marcador', '5', '8');
+INSERT INTO informador VALUES ('admin@admin.com','admin', 'nimda');
 
 
 
