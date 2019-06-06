@@ -94,7 +94,7 @@ public class IniciaSesion {
                 }catch(InterruptedException e){
                     System.out.println("Error");
                 }
-                return "mapa.xhmtl?faces-redirect=true";
+                return "mapaComentarista.xhmtl?faces-redirect=true";
             }
             else{
                 FacesContext.getCurrentInstance()
