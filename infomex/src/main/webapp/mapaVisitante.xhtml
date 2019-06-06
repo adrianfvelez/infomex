@@ -28,33 +28,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="mapa.xhtml"><img src="img/logo_transparent.png" height="80px" />
+                    <a class="navbar-brand" href="mapaVisitante.xhtml"><img src="img/logo_transparent.png" height="80px" />
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-main">
                     <ul class="nav navbar-nav navbar-right">
 
                         <li><a href="inicioSesion.xhtml">Iniciar sesion</a></li>
-                        <li><a href="EditarCuenta.xhtml">Editar Cuenta</a></li>
-                        <li><a href="registro.xhtml">Registro</a></li>
-                        <li><a href="registroInformador.xhtml">Registrar Informador</a></li>
-                        <li><a href="AgregarTemaIH.xhtml">Agregar temas</a></li>
-                        <li><a href="EliminarTema.xhtml">Eliminar temas</a></li>
+                        
+                        <li><a href="registro.xhtml">Registrarse</a></li>
+                        
 
 
-                        <br/>
-                        <table>
-                            <tr>
-
-                                <td>
-                                    <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')" style="width:180px; height:30px"/>
-
-                                    <p:commandButton value="Eliminar mi cuenta" action="#{eliminarCuenta.eliminaCuenta}" oncomplete="redirect('mapa.xhtml')" style="width:230px; height:30px"/>
-
-                                    <a style="margin-left: 20px ;color: white" class="col-sm">#{iniciaSesion.tipo_usuario}: #{iniciaSesion.nombre_usuario}</a>
-                                </td>
-                            </tr>
-                        </table>
+                        
+                       
                     </ul>
                 </div>
             </div>
@@ -200,17 +187,7 @@
                     <h:outputText value= "#{administradorMarcador.marker.title}" style="font-weight:bold"/>
                     <br />
 
-                    <h:form>
-                        <p:growl id="messages" showDetail="true"/>
-
-                        <p:menuButton value="Comentarios">
-                            <p:menuitem value="Agregar" ajax="false" url="agregar-comentario.xhtml"/>
-                            <p:menuitem value="Eliminar" ajax="false" url="eliminar-comentario.xhtml"/>
-                            <p:menuitem value="Editar" ajax="false" url="editar-comentario.xhtml"/>
-                            <p:separator />
-                            <p:menuitem value="Homepage" url="" icon="pi pi-home"/>
-                        </p:menuButton>
-                    </h:form>
+                   
 
                     <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
                     <br />
@@ -218,7 +195,7 @@
                     <br />
 
                     <h:form id="comentarios">
-                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:315px; height: 150px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
+                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:415px; height: 210px" itemStyle="height:250px; height: 100px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
                             <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
                                 <f:facet name="header">
                                     <h:outputText value="Usuario: #{com.correo_com}" />
@@ -247,32 +224,7 @@
         </p:gmap>
 
 
-        <p:dialog widgetVar="dlg" showEffect="fade" closable="false" >
-            <h:form prependId="false">
-                <h:panelGrid columns="2">
-                    <h:outputLabel for="title" value="Nombre:" />
-                    <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
-                    <h:outputLabel for="descripcion" value="Descripcion:" />
-                    <p:inputTextarea id="descripcion" value="#{administradorMarcador.descripcion_mar}" required="true"/>
-
-                    <p:outputLabel for="tema" value="Tema:" />
-                    <p:selectOneMenu id="tema" value="#{administradorMarcador.nombreMarcador}"  dynamic="true" required="true"   style="width:125px">
-                        <f:selectItem itemLabel="Tema" itemValue="" />
-                        <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
-                    </p:selectOneMenu>
-
-
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Agregar" action="#{administradorMarcador.agregaMarcador}" oncomplete="markerAddComplete()"/>
-                        <p:commandButton value="Cancelar" onclick="return cancel()" />
-                    </f:facet>
-                </h:panelGrid>
-
-                <h:inputHidden id="lat" value="#{administradorMarcador.latitud}" />
-                <h:inputHidden id="lng" value="#{administradorMarcador.longitud}" />
-            </h:form>
-        </p:dialog>
+       
 
 
 

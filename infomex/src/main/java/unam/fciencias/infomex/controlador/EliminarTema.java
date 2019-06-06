@@ -45,6 +45,24 @@ public class EliminarTema {
     }
     
     public String borrarTema() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String tipo = (String) context.getExternalContext().getSessionMap().get("tipo_usuario");
+        unam.fciencias.infomex.modelo.Informador informador = (unam.fciencias.infomex.modelo.Informador) context.getExternalContext().getSessionMap().get("usuario");
+        Tema theme = u.buscaTemaPorNombre(tema);
+        if(theme == null){
+            context.addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "El tema no existe.", ""));
+            return null;
+        }
+        if(tipo.equals("informador")){
+            if(!informador.getCorreo_inf().equals(theme.getCorreo_inf())){
+                context.addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Ese tema no te pertence.", ""));
+                return null;
+            }
+        }
         
         //tema.setId_tema(u.getId());
         u.eliminaTema(tema);

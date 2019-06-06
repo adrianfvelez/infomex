@@ -69,13 +69,13 @@ public class RegistrarInformador {
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Se ha registrado al informador correctamente", ""));
+                                "Se ha registrado al informador correctamente, se le ha enviado un correo con la contraseña", ""));
         try{
             TimeUnit.SECONDS.sleep(3);
         }catch(InterruptedException e){
             System.out.println("Error");
         }
-        return "inicioSesion.xhmtl?faces-redirect=true";
+        return "";
     }
     
     private String cifraPassword(String ps){

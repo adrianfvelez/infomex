@@ -1,6 +1,6 @@
 ﻿CREATE TABLE comentarista(
 	correo_com varchar(100) NOT NULL,
-	usuario_com varchar(20) UNIQUE NOT NULL,
+	usuario_com varchar(200) UNIQUE NOT NULL,
 	contrasenia_com varchar(30) NOT NULL,
 	CONSTRAINT "PK_comentarista" PRIMARY KEY (correo_com)
 );
@@ -9,7 +9,7 @@ COMMENT ON TABLE comentarista IS 'Tabla que contiene la información relacionada
 
 CREATE TABLE informador(
 	correo_inf varchar(100) NOT NULL,
-	usuario_inf varchar(20) UNIQUE NOT NULL,
+	usuario_inf varchar(200) UNIQUE NOT NULL,
 	contrasenia_inf varchar(30) NOT NULL,
 	CONSTRAINT "PK_informador" PRIMARY KEY (correo_inf)
 );

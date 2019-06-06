@@ -37,6 +37,6 @@ public class EliminarCuenta {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se ha eliminado tu cuenta :)", ""));
-        return "mapa.xhmtl?faces-redirect=true";
+        return "mapaVisitante.xhmtl?faces-redirect=true";
     }    
 }
