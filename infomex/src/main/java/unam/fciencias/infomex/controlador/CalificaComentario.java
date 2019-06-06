@@ -5,6 +5,8 @@
  */
 package unam.fciencias.infomex.controlador;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,9 +26,18 @@ import unam.fciencias.infomex.modelo.UtilidadCalificacion;
 public class CalificaComentario {
     
     private int nuevaCalificacion;
+    private int niModo = 3;
     private Calificacion calificacion = new Calificacion();
     private UtilidadCalificacion u = new UtilidadCalificacion();
 
+    public int getNiModo() {
+        return niModo;
+    }
+
+    public void setNiModo(int niModo) {
+        this.niModo = niModo;
+    }
+    
     public Calificacion getCalificacion() {
         return calificacion;
     }
@@ -55,6 +66,7 @@ public class CalificaComentario {
         unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
         EditarComentario e = new EditarComentario();
         int idComentario = e.getIdComentario();
+        calificacionTotal(idComentario);
         calificacion.setCorreo_com(i.getCorreo_com());
         calificacion.setCalificacion(nuevaCalificacion);
         calificacion.setId_comentario(idComentario);
@@ -65,6 +77,26 @@ public class CalificaComentario {
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario Calificado", ""));
         return "mapaComentarista.xhmtl?faces-redirect=true";
+    }
+    
+    public void calificacionTotal(int id){
+        int idComentario = id;
+        System.out.println("------------------idComentarioGeneral:"+idComentario+"-------------------");
+        int promedio = 0;
+        for(Calificacion c: u.getCalificaciones()){
+            if(c.getId_comentario() == idComentario)
+              promedio = c.getCalificacion();
+        }
+        
+        System.out.println("----------------------------------Promedio: "+promedio+"---------------------------");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("promedio",promedio);
+    }
+    
+    public int getPromedio(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        int promedio = (int) context.getExternalContext().getSessionMap().get("promedio");
+        return promedio;
     }
     
     public void onrate(RateEvent rateEvent) {

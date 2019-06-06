@@ -228,16 +228,10 @@ public class AdministradorMarcador implements Serializable {
         return ((Marcador) o.getData()).getId_mar();
     }
 
-    public int noseTema() {
+  public int noseTema() {
         FacesContext context = FacesContext.getCurrentInstance();
         Marker o = (Marker) context.getExternalContext().getSessionMap().get("id_marcador");
         return ((Marcador) o.getData()).getId_tema();
-    }
-
-    public String usuarioLogeado() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista) context.getExternalContext().getSessionMap().get("usuario");
-        return i.getCorreo_com();
     }
 
     public Marker getMarker() {
