@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Infomex</title>
+    </h:head>
+    <h:body>
+        <h1>
+            <p:commandButton icon="ui-icon-grip-solid-horizontal" oncomplete="PF('sidebar1').show()" />
+            <center>Infomex</center>
+        </h1>
+
+        <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+            <h1 style="font-weight:normal">Menu</h1>
+            <p:commandButton value="Pagina principal" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
+             <p:commandButton value="Iniciar sesion" oncomplete="redirect('inicioSesion.xhtml')"/>
+             <br/>
+             <p:commandButton value="Editar Cuenta" oncomplete="redirect('EditarCuenta.xhtml')"/>
+             <br/>
+             <p:commandButton value="Registro" oncomplete="redirect('registro.xhtml')"/>
+             <br/>
+             <p:commandButton value="Registrar Informador" oncomplete="redirect('registroInformador.xhtml')"/>
+             <br/>
+             <p:commandButton value="Agregar temas" oncomplete="redirect('AgregarTemaIH.xhtml')"/>
+             <br/>
+             <p:commandButton value="Eliminar temas" oncomplete="redirect('EliminarTema.xhtml')"/>
+             <br/>
+             <p:commandButton value="Buscar Tema" oncomplete="redirect('BuscarTemaIH.xhtml')"/>
+             <br/>
+             <p:commandButton value="Cerrar sesión" action="#{cierraSesion.cierra}" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
+             <p:commandButton value="Eliminar mi cuenta" action="#{eliminarCuenta.eliminaCuenta}" oncomplete="redirect('mapa.xhtml')"/>
+             <br/>
+            <p:commandButton value="Cancelar" oncomplete="PF('sidebar1').hide()"/>
+        </p:sidebar>
+
+        <script>
+            type = "text/javascript"
+            redirect = function (ruta) {
+                window.location.href = ruta;
+            }
+        </script>
+<script>
+function myFunction() {
+  alert('The image could not be loaded.');
+}
+</script>
+        
+        <style>
+
+            input[type=text], select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+
+            input[type=submit] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+
+            .container {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+                margin-left: 67%;
+                width:30%
+            }
+
+            .ui-datalist {
+                width:300px;
+                margin-bottom: 20px;
+            }
+
+            .ui-datalist-item {
+                padding:3px;
+            }
+
+            .paginated .ui-datalist-data {
+                padding-left: 20px;
+            }
+        </style>
+
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyARQ3uDyn98iY6TXgBHzzgy8d9GLZn85Fo"></script>
+
+
+
+
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            var currentMarker = null;
+
+            function handlePointClick(event) {
+                if (currentMarker === null) {
+                    document.getElementById('lat').value = event.latLng.lat();
+                    document.getElementById('lng').value = event.latLng.lng();
+
+                    currentMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                    });
+
+                    PF('map').addOverlay(currentMarker);
+
+                    PF('dlg').show();
+                }
+            }
+
+            function markerAddComplete() {
+                var title = document.getElementById('title');
+                currentMarker.setTitle(title.value);
+                title.value = "";
+
+                currentMarker = null;
+                PF('dlg').hide();
+                
+            }
+
+            function cancel() {
+                PF('dlg').hide();
+                currentMarker.setMap(null);
+                currentMarker = null;
+
+                return false;
+                
+            }
+        </script>
+
+
+        <p:growl id="messages" showDetail="true" />
+
+        <h4>
+            <div class="container">
+                <h:form id="seleccion_temas">
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel for="tem" value="Tema:" />
+                        <p:selectOneMenu id="tem" value="#{administradorMarcador.temaSeleccionado}"  dynamic="true"  style="width:125px;">
+                            <f:selectItem itemLabel="Tema" itemValue="" />
+                            <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:commandButton value="Buscar" action="#{administradorMarcador.actualizaMapa()}" update="gmap"/>
+
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </h4>
+
+        <p:gmap id="gmap" center="19.432590, -99.131205" zoom="13" type="HYBRID" style="position:absolute;left: 10px; top:137px; bottom:0px;height:540px ;width:850px;"
+                model="#{administradorMarcador.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
+
+            <p:ajax event="overlaySelect" listener="#{administradorMarcador.onMarkerSelect}"/>
+
+            <p:gmapInfoWindow id="infoWindow">
+                <p:outputPanel style="text-align: center; display: block; margin: auto">
+
+                    <h:outputText value= "#{administradorMarcador.marker.title}" style="font-weight:bold"/>
+                    <br />
+                    
+                    <h:form>
+                        <p:growl id="messages" showDetail="true"/>
+                        
+                        <p:menuButton value="Comentarios">
+                            <p:menuitem id="id_agrega" value="Agregar" onclick="PF('agrega-com').show()" action="#{getId.showResult}">
+                                <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
+                            </p:menuitem>
+                            <p:menuitem value="Eliminar" onclick="PF('elimina-com').show()"/>
+                            <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
+                            <p:menuitem value="Calificar" onclick="PF('califica-com').show()"/>
+                        </p:menuButton>
+                    </h:form>
+
+                    <h:outputText value= "#{administradorMarcador.marker.getData().getDescripcion_mar()}" />
+                    <br />
+                    <!---<h:outputText value= "#{administradorMarcador.marker.getData().getId_mar()}" />
+                    <br />-->
+                    <h:outputText value= "#{administradorMarcador.getNombreTema(administradorMarcador.marker.getData().getId_tema())}" />
+                    <br />
+
+                    <h:form id="comentarios">
+                        <p:carousel value="#{administradorMarcador.getListaComentarios(administradorMarcador.marker.getData().getId_mar())}" headerText="Comentarios" var="com" style="width:415px; height: 210px" itemStyle="height:350px; height: 180px; text-align:center" numVisible="1"  easing="easeOutBounce" circular="true">
+                            <h:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value">
+                                
+                                <h:outputText value="Usuario" />
+                                <h:outputText value="#{com.correo_com}" />
+
+                                <h:outputText value="Descripcion:" />
+                                <h:outputText value="#{com.descripcion}"/>
+                                
+                                <h:outputText value="Calificación:" />
+                                <p:rating value="#{calificacion.example}" readonly="true"/>
+                                
+                            </h:panelGrid>
+                        </p:carousel>
+
+                    </h:form>
+
+                    <br />
+                    <p:commandButton value="Eliminar" icon="pi pi-search" action="#{administradorMarcador.eliminaMarcador}" update=":messages" oncomplete="window.location.reload()"/>
+
+                </p:outputPanel>
+            </p:gmapInfoWindow>
+        </p:gmap>
+        
+        
+        <p:dialog widgetVar="dlg" showEffect="fade" >
+            <h:form prependId="false">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="title" value="Nombre:" />
+                    <p:inputText id="title" value="#{administradorMarcador.nombre_mar}" required="true"/>
+                    <h:outputLabel for="descripcion" value="Descripcion:" />
+                    <p:inputTextarea id="descripcion" value="#{administradorMarcador.descripcion_mar}" required="true"/>
+
+                    <p:outputLabel for="tema" value="Tema:" />
+                    <p:selectOneMenu id="tema" value="#{administradorMarcador.nombreMarcador}"  dynamic="true" required="true"   style="width:125px">
+                        <f:selectItem itemLabel="Tema" itemValue="" />
+                        <f:selectItems value="#{administradorMarcador.optionsNombre}"/>
+                    </p:selectOneMenu>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Add" action="#{administradorMarcador.agregaMarcador}" update="gmap" oncomplete="markerAddComplete()"/>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+
+                <h:inputHidden id="lat" value="#{administradorMarcador.latitud}" />
+                <h:inputHidden id="lng" value="#{administradorMarcador.longitud}" />
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog id="agrega" widgetVar="agrega-com" showEffect="fade" closable="false" resizable="false" modal="true">
+            <h:form>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="title" value="Descripción:" />
+                    <p:inputTextarea id="title" value="#{agregaComentario.comment.descripcion}" required="true"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Agregar" action="#{agregaComentario.addComentario(administradorMarcador.nose(), administradorMarcador.noseTema())}" update="gmap" oncomplete="PF('agrega-com').hide()"/>
+                        <p:commandButton value="Salir" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="elimina-com" showEffect="fade" closable="false" resizable="true" modal="true">
+            <h:form id="eliminaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Eliminar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" update="eliminaForm"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Salir" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="edita-com" showEffect="fade" closable="false" resizable="false" modal="true">
+            <h:form id="editaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <!---<p:commandButton value="Editar" action="#{getId.showResult()}" onclick="PF('edita-com').hide()" oncomplete="PF('editar').show()"/>-->
+                        <p:commandButton value="Editar" action="#{editarComentario.saveIdComentario(comment.id_comentario)}" onclick="PF('edita-com').hide()" oncomplete="PF('editar').show()"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="editar" showEffect="fade" closable="false" resizable="false" modal="true">
+            <h:form id="editarF">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="title" value="Nueva Descripción:" />
+                    <p:inputTextarea id="title" value="#{editarComentario.nuevaDescripcion}" required="true"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Editar" action="#{editarComentario.editComentario()}" update="gmap" oncomplete="PF('editar').hide()"/>
+                        <p:commandButton value="Cancel" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+                
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="califica-com" showEffect="fade" closable="false" resizable="false" modal="true">
+            <h:form id="calificaForm">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                    <p:column>
+                        <f:facet name = "header">Tus Comentarios</f:facet> 
+                        <h:outputText value="#{comment.descripcion}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Calificar" action="#{editarComentario.saveIdComentario(comment.id_comentario)}" onclick="PF('califica-com').hide()" oncomplete="PF('califica').show()"/>
+                    </p:column>
+                </h:dataTable>
+                <div align="center">
+                    <p:commandButton value="Cancelar" onclick="return cancel()"/>
+                </div>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog widgetVar="califica" showEffect="fade" closable="false" resizable="false" modal="true">
+            <h:form id="calificaF">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+                
+                <h:panelGrid columns="2">
+                    <p:column>
+                        <f:facet name = "header">Nueva Calificación</f:facet>
+                        <p:rating value="#{calificaComentario.nuevaCalificacion}" required="true">
+                            <p:ajax event="rate" listener="#{calificaComentario.onrate}" update="messages" />
+                            <p:ajax event="cancel" listener="#{calificaComentario.oncancel}" update="messages" />
+                        </p:rating>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" action="#{calificaComentario.calificar()}" oncomplete="PF('califica').hide()"/>
+                        <p:commandButton value="Cancelar" onclick="return cancel()" />
+                    </f:facet>
+                </h:panelGrid>
+                
+            </h:form>
+        </p:dialog>
+        
+    </h:body>
+</html>

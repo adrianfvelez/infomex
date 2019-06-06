@@ -5,6 +5,8 @@
  */
 package unam.fciencias.infomex.controlador;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,16 +24,7 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
 @RequestScoped
 public class EliminaComentario {
     
-    private int id;
     private UtilidadComentario u = new UtilidadComentario();
-    
-    public int getComment() {
-        return id;
-    }
-
-    public void setComment(int id) {
-        this.id = id;
-    }
     
     public EliminaComentario() {
         FacesContext.getCurrentInstance()
@@ -39,12 +32,26 @@ public class EliminaComentario {
                 .setLocale(new Locale("es-Mx"));
     }
     
-    public String removeComentario() {
+    public String removeComentario(int id) {
+        System.out.println("\n--------------------ID: "+id+"----------------\n");
         u.deleteOnId(id);
-        FacesContext.getCurrentInstance()
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                "Comentario eliminado", ""));
         return null;
+    }
+    
+    public List<Comentario> obtenerComentario(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        unam.fciencias.infomex.modelo.Comentarista i = (unam.fciencias.infomex.modelo.Comentarista)context.getExternalContext().getSessionMap().get("usuario");
+        //context.getExternalContext().getSessionMap().put("arregloCom",marker);
+        
+        List<Comentario> a = new ArrayList<Comentario>();
+        List<Comentario> b =  u.getTodosComentarios();
+        /* Para pasar el idMar usar el metodo de administrador marcador nose()
+        for(Comentario c : b){
+            if(c.getCorreo_com().equals(i.getCorreo_com()) && c.getId_mar()==idMar){
+                a.add(c);
+            }
+        }*/
+        return b;
+        
     }
 }

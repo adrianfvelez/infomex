@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.map.Marker;
 
 import unam.fciencias.infomex.modelo.Comentario;
 import unam.fciencias.infomex.modelo.UtilidadComentario;
@@ -22,18 +23,9 @@ import unam.fciencias.infomex.modelo.UtilidadComentario;
 @RequestScoped
 public class EditarComentario {
     
-    private int id;
     private String nuevaDescripcion;
     private int nuevaCalificacion;
     private UtilidadComentario u = new UtilidadComentario();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNuevaDescripcion() {
         return nuevaDescripcion;
@@ -58,12 +50,23 @@ public class EditarComentario {
     }
     
     public String editComentario() {
+        int id = getIdComentario();
         u.setDescripcion(id, nuevaDescripcion);
-        u.setCalificacion(id, nuevaCalificacion);
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Comentario editado", ""));
-        return null;
+        return "mapaComentarista.xhmtl?faces-redirect=true";
+    }
+    
+    public void saveIdComentario(int idComment){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("id_comentario",idComment);
+    }
+    
+    public int getIdComentario(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        int i = (int) context.getExternalContext().getSessionMap().get("id_comentario");
+        return i;
     }
 }

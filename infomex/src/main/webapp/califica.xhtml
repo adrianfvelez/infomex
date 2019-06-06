@@ -8,30 +8,32 @@
         <title>Infomex</title>
     </h:head>
     <h:body>
-        <h1>Editar  Comentario</h1> 
+        <h1>Califica Comentario</h1> <br/>
         <h:form id="myForm">
-            <p:messages>
-                <p:autoUpdate />
-            </p:messages>
             <table>
+                <tr><td>
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+            </table>
+            <table> 
                 <tr>
-                    <td>id_Comentario:</td>
-                    <td><p:inputText value="#{editarComentario.id}"
+                    <td>Id_Comentario</td>
+                    <td><p:inputText value="#{calificaComentario.calificacion.id_comentario}"
                                      required="true"
-                                     id="id"
+                                     id="id_comentario"
                                      size="40"/></td>
                 </tr>
                 <tr>
-                    <td>Nuevo Comentario:</td>
-                    <td><p:inputText value="#{editarComentario.nuevaDescripcion}"
-                                     required="true"
-                                     id="nuevaDescripcion"
-                                     size="40"/></td>
+                    <h:outputText value="Calificacion:" />
+                    <p:rating value="#{calificaComentario.nuevaCalificacion}">
+                        <p:ajax event="rate" listener="#{calificaComentario.onrate}" update="messages" />
+                        <p:ajax event="cancel" listener="#{calificaComentario.oncancel}" update="messages" />
+                    </p:rating>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <p:commandButton action="#{editarComentario.editComentario}"
-                                         value="Editar"/>
+                        <p:commandButton action="#{calificaComentario.calificar(64)}"
+                                         value="Agregar"/>
                         <p:commandButton
                                         value="Cancelar"
                                         ajax="false"
