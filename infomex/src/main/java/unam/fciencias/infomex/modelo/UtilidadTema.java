@@ -20,7 +20,8 @@ public class UtilidadTema {
     static Session sessionObj;
     
     public void eliminaTema(Tema tema){
-        String nombre = tema.getNombre_tema();
+        String nombre = tema.getNombre_tema().toUpperCase();
+       // System.out.println(nombre);
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         
         try{
