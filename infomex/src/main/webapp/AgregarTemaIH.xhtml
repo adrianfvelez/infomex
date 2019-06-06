@@ -27,6 +27,10 @@
             </div>
         </div>
         <h1 class="h2 mb-3 font-weight-normal">Agregar Tema</h1> <br/>
+        <p:commandButton value="Pagina principal" 
+                                 immediate="true"
+                                 action="mapaInformador.xhtml?faces-redirect=true"
+                                 class="btn btn-dark"/>
         <h:form id="myForm">
             <table>
                 <tr><td>
@@ -66,7 +70,7 @@
  
                 currentMarker = null;
                 PF('dlg').hide();
-                window.location.href = 'mapa.xhtml';
+                window.location.href = 'mapaInformador.xhtml';
             }
  
             function cancel() {

@@ -47,6 +47,8 @@ public class AgregarTema {
     
     private int id_mar;
     
+    private ArrayList<String> listaColores = new ArrayList<String>();
+    
     private int id_tema;
 
     private String correo_inf;
@@ -166,6 +168,13 @@ public class AgregarTema {
     
     @PostConstruct
     public void init() {
+        for(int i = 0; i < 100; i++){
+            String code = ""+(int)(((i+20)*.01)*256);
+            code = code+code+code;
+            int  b = Integer.parseInt(code);
+            listaColores.add("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + Integer.toHexString( 0x1000000 | b).substring(1));
+        }
+       
         simpleModel = new DefaultMapModel();
         
         List<Marcador> listaCompleta = u.getTodosMarcadores();
@@ -173,7 +182,7 @@ public class AgregarTema {
         if(listaCompleta!=null){
             for(Marcador marca : listaCompleta){
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(),marca,listaColores.get(marca.getId_tema())));
             }
         }
         //Coordenadas del marcador inicial

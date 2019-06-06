@@ -33,6 +33,6 @@ public class CierraSesion {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Se ha cerrado la sesión", ""));
-        return "mapa.xhmtl?faces-redirect=true";
+        return "mapaVisitante.xhmtl?faces-redirect=true";
     }    
 }

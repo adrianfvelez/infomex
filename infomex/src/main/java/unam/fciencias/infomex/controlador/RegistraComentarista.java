@@ -80,7 +80,7 @@ public class RegistraComentarista {
         }catch(InterruptedException e){
             System.out.println("Error");
         }
-        return "inicioSesion.xhmtl?faces-redirect=true";
+        return "mapaVisitante.xhmtl?faces-redirect=true";
     }
     
     private String cifraPassword(String ps){

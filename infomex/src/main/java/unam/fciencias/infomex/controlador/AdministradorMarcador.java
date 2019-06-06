@@ -36,9 +36,9 @@ public class AdministradorMarcador implements Serializable {
     private String temaSeleccionado;
     private Comentario selectedCom;
     private UtilidadTema uu = new UtilidadTema();
-    
-    private boolean color=false;
-    
+
+    private boolean color = false;
+
     private int id_mar;
 
     private int id_tema;
@@ -134,7 +134,7 @@ public class AdministradorMarcador implements Serializable {
 
             return a;
         } else {
-        //    a.add(nohay);
+            //    a.add(nohay);
             return a;
         }
     }
@@ -142,19 +142,17 @@ public class AdministradorMarcador implements Serializable {
     private MapModel simpleModel;
 
     private Marker marker;
-    
-    
 
     @PostConstruct
     public void init() {
-      
-        for(int i = 0; i < 100; i++){
-            String code = ""+(int)(Math.random()*256);
-            code = code+code+code;
-            int  b = Integer.parseInt(code);
-            listaColores.add("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + Integer.toHexString( 0x1000000 | b).substring(1));
+
+        for (int i = 0; i < 100; i++) {
+            String code = "" + (int) (((i + 20) * .01) * 256);
+            code = code + code + code;
+            int b = Integer.parseInt(code);
+            listaColores.add("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + Integer.toHexString(0x1000000 | b).substring(1));
         }
-       
+
         simpleModel = new DefaultMapModel();
 
         List<Marcador> listaCompleta = u.getTodosMarcadores();
@@ -162,7 +160,7 @@ public class AdministradorMarcador implements Serializable {
         if (listaCompleta != null) {
             for (Marcador marca : listaCompleta) {
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca, listaColores.get(marca.getId_tema())));
             }
         }
         //Coordenadas del marcador inicial
@@ -170,9 +168,8 @@ public class AdministradorMarcador implements Serializable {
 
         //Ponemos el marcador en el mapa
         //simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico", null, "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|92afd5"));
+        simpleModel.addOverlay(new Marker(coord1, "Marcador de Referencia", null, listaColores.get(99)));
 
-        simpleModel.addOverlay(new Marker(coord1, "Ciudad de Mexico", null, listaColores.get(99)));
-        
         options = uu.getTodosTemas();
         if (options != null) {
             optionsNombre = new ArrayList<String>();
@@ -199,7 +196,7 @@ public class AdministradorMarcador implements Serializable {
             for (Marcador marca : listaCompleta) {
                 if (marca.getId_tema() == a || a == -1) {
                     LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                    simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
+                    simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca, listaColores.get(marca.getId_tema())));
                 }
             }
         }
@@ -222,18 +219,16 @@ public class AdministradorMarcador implements Serializable {
     public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
         FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getSessionMap().put("id_marcador",marker);
+        context.getExternalContext().getSessionMap().put("id_marcador", marker);
     }
-    
-    //Regresa el id del marcador
-    public int nose(){
+
+    public int nose() {
         FacesContext context = FacesContext.getCurrentInstance();
         Marker o = (Marker) context.getExternalContext().getSessionMap().get("id_marcador");
         return ((Marcador) o.getData()).getId_mar();
     }
-    
-    //regresa el id del tema del marcador
-    public int noseTema(){
+
+  public int noseTema() {
         FacesContext context = FacesContext.getCurrentInstance();
         Marker o = (Marker) context.getExternalContext().getSessionMap().get("id_marcador");
         return ((Marcador) o.getData()).getId_tema();
@@ -242,36 +237,38 @@ public class AdministradorMarcador implements Serializable {
     public Marker getMarker() {
         return marker;
     }
-    
+
     public void eliminaMarcador() {
         FacesContext context = FacesContext.getCurrentInstance();
-        unam.fciencias.infomex.modelo.Informador ii = (unam.fciencias.infomex.modelo.Informador)context.getExternalContext().getSessionMap().get("usuario");
-        if(ii.getCorreo_inf().equals( ((Marcador) marker.getData()).getCorreo_inf() )){
-        List<Marcador> listaCompleta = u.getTodosMarcadores();
-        ArrayList nuevo = new ArrayList();
-        Marcador aaa = ((Marcador) marker.getData());
-        for (Marcador i : listaCompleta) {
-            if (aaa.getId_tema() == i.getId_tema()) {
-                nuevo.add(i.getId_tema());
+        unam.fciencias.infomex.modelo.Informador ii = (unam.fciencias.infomex.modelo.Informador) context.getExternalContext().getSessionMap().get("usuario");
+        String tipo = (String) context.getExternalContext().getSessionMap().get("tipo_usuario");
+        if (ii.getCorreo_inf().equals(((Marcador) marker.getData()).getCorreo_inf()) || tipo.equals("administrador")) {
+            List<Marcador> listaCompleta = u.getTodosMarcadores();
+            ArrayList nuevo = new ArrayList();
+            Marcador aaa = ((Marcador) marker.getData());
+            for (Marcador i : listaCompleta) {
+                if (aaa.getId_tema() == i.getId_tema()) {
+                    nuevo.add(i.getId_tema());
+                }
             }
-        }
-        
-        
-        if (nuevo.size()== 1) {
-            Tema oo=null;
-            for (Tema i : options) {
-            if (nuevo.get(0).equals(i.getId_tema())) {
-              oo = i;
-            }
-            }
-            UtilidadTema d = new UtilidadTema();
-            d.eliminaTema((Tema) oo );
-        }
 
-        u.delete((Marcador) marker.getData());
+            if (nuevo.size() == 1) {
+                Tema oo = null;
+                for (Tema i : options) {
+                    if (nuevo.get(0).equals(i.getId_tema())) {
+                        oo = i;
+                    }
+                }
+                UtilidadTema d = new UtilidadTema();
+                d.eliminaTema((Tema) oo);
+            }
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Marcador eliminado"));
-        }else{FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El marcador seleccionado no es el tuyo"));}
+            u.delete((Marcador) marker.getData());
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Marcador eliminado"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("El marcador seleccionado no es el tuyo"));
+        }
     }
 
     public int getIdTema() {
@@ -306,7 +303,7 @@ public class AdministradorMarcador implements Serializable {
         if (listaCompleta != null) {
             for (Marcador marca : listaCompleta) {
                 LatLng coord = new LatLng(marca.getLatitud(), marca.getLongitud());
-                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca,listaColores.get(marca.getId_tema())));
+                simpleModel.addOverlay(new Marker(coord, marca.getNombre_mar(), marca, listaColores.get(marca.getId_tema())));
             }
         }
 

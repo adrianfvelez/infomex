@@ -130,7 +130,9 @@ public class IniciaSesion {
                 }catch(InterruptedException e){
                     System.out.println("Error");
                 }
-                return "mapa.xhmtl?faces-redirect=true";
+                if(tipo_usuario.equals("Administrador"))
+                    return "mapaAdministrador.xhmtl?faces-redirect=true";
+                return "mapaInformador.xhmtl?faces-redirect=true";
             }
             else{
                 FacesContext.getCurrentInstance()
