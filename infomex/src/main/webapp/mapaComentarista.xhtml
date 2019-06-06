@@ -185,7 +185,9 @@ function myFunction() {
                             <p:menuitem id="id_agrega" value="Agregar" onclick="PF('agrega-com').show()" action="#{getId.showResult}">
                                 <f:param name = "id" value = "#{administradorMarcador.marker.getData().getId_mar()}" /> 
                             </p:menuitem>
-                            <p:menuitem value="Eliminar" onclick="PF('elimina-com').show()"/>
+                            <p:menuitem value="Eliminar" onclick="PF('elimina-com').show()">
+                                <f:ajax render="tablaElimina" />
+                            </p:menuitem>    
                             <p:menuitem value="Editar" onclick="PF('edita-com').show()"/>
                             <p:menuitem value="Calificar" onclick="PF('califica-com').show()"/>
                         </p:menuButton>
@@ -208,8 +210,8 @@ function myFunction() {
                                 <h:outputText value="Descripcion:" />
                                 <h:outputText value="#{com.descripcion}"/>
                                 
-                                <h:outputText value="Calificación:" />
-                                <p:rating value="#{calificaComentario.nuevaCalificacion}" readonly="true"/>
+                                <h:outputText value="Calificación:"/>
+                                <p:rating id="calificacion" value="#{calificaComentario.niModo}" readonly="true"/>
                                 
                             </h:panelGrid>
                         </p:carousel>
@@ -269,15 +271,19 @@ function myFunction() {
                 <p:messages>
                     <p:autoUpdate />
                 </p:messages>
-                <h:dataTable var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
-                    <p:column>
-                        <f:facet name = "header">Tus Comentarios</f:facet> 
-                        <h:outputText value="#{comment.descripcion}" />
-                    </p:column>
-                    <p:column>
-                        <p:commandButton value="Eliminar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" update="eliminaForm"/>
-                    </p:column>
-                </h:dataTable>
+                
+                <div rendered="false">
+                    <h:dataTable id="tablaElimina" var="comment" value="#{eliminaComentario.obtenerComentario()}" border="5" cellspacing="2" cellpadding="2">
+                        <p:column>
+                            <f:facet name = "header">Tus Comentarios</f:facet> 
+                            <h:outputText value="#{comment.descripcion}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Eliminar" action="#{eliminaComentario.removeComentario(comment.id_comentario)}" update="eliminaForm"/>
+                        </p:column>
+                    </h:dataTable>
+                </div>
+                    
                 <div align="center">
                     <p:commandButton value="Salir" onclick="return cancel()"/>
                 </div>
